@@ -8,44 +8,40 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float _moveSpeed = 5;
     
+    private Camera _camera;
+    
     private PhotonView _pv;
     private Vector2 _moveVector;
     private Rigidbody2D _rb;
-    private Camera _camera;
     
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _pv = GetComponent<PhotonView>();
-        _camera = GetComponentInChildren<Camera>();
+        _camera = Camera.main;
+
+        if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>()._followTransform = transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!_pv.IsMine) return;
+        if(!_camera) return;
+        
         _rb.velocity = _moveVector * _moveSpeed;
         
-        // Get the mouse position in screen space
-        Vector3 mouseScreenPosition = Input.mousePosition;
+        Vector2 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        var direction = mouseWorldPosition - _rb.position;
 
-        // Convert the mouse position from screen space to world space using the Camera
-        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mouseScreenPosition);
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
 
-        // Since this is a 2D top-down perspective, set z position to 0
-        mouseWorldPosition.z = 0;
-
-        // Get the direction from the object to the mouse
-        Vector3 direction = mouseWorldPosition - transform.position;
-
-        // Calculate the angle in degrees between the object's up direction and the direction to the mouse
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Apply the rotation to the object, adjusting it to face the mouse
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90)); // Correct for the 
+        _rb.rotation = angle;
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if(!_pv.IsMine) return;
         if (!context.performed)
         {
             _moveVector = Vector2.zero;
