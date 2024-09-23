@@ -7,6 +7,8 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private float _moveSpeed = 5;
+
+    [SerializeField] private GameObject _playerGFX;
     
     private Camera _camera;
     
@@ -35,8 +37,7 @@ public class PlayerMovement : MonoBehaviour
         var direction = mouseWorldPosition - _rb.position;
 
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
-
-        _rb.rotation = angle;
+        _playerGFX.transform.rotation = Quaternion.Euler(0f, 0f, angle);;
     }
 
     public void OnMove(InputAction.CallbackContext context)
