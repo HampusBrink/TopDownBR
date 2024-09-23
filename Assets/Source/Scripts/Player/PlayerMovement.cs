@@ -42,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         if(!_pv.IsMine) return;
+        if(!GameManager.Instance.GameStarted) return;
         if (!context.performed)
         {
             _moveVector = Vector2.zero;

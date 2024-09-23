@@ -40,6 +40,10 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RPC_TakeDamage
+  - RemoveSpawnpoint
+  - MovePlayer
+  - PlayerJoined
+  - StartGame
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
