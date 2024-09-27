@@ -520,8 +520,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b442ef72386bca04b936d48823314fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 15
-  _playerGFX: {fileID: 3873363251755891362}
+  moveSpeed: 17
+  acceleration: 110
+  playerGFX: {fileID: 3873363251755891362}
 --- !u!114 &3251603620518387619
 MonoBehaviour:
   m_ObjectHideFlags: 0
