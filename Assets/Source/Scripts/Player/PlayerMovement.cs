@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IDamagable
 {
     [SerializeField]
     private float _moveSpeed = 5;
@@ -51,5 +51,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _moveVector = context.ReadValue<Vector2>();
+    }
+
+    public void TakeDamage(int damage)
+    {
+        throw new System.NotImplementedException();
     }
 }
