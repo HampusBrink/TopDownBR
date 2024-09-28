@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class BaseWeapon : MonoBehaviour
 {
+
+    public BoxCollider2D weaponCol;
+    
+    [Header("Stats")]
     public float baseDamage = 10f;
     public float baseAttackSpeed = 2f;
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void WeaponPerformAttack()
     {
-        
+        //ActivateAttack();
     }
+    
+    // private IEnumerator ActivateAttack()
+    // {
+    //     weaponCol.enabled = true;
+    //     //yield return new WaitForSeconds()
+    // }
 }

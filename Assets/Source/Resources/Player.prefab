@@ -827,15 +827,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e48eee064fa504cafa560e2acdf9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lArm: {fileID: 7932151675028124651}
+  equippedWeapon: {fileID: 3891516307864707783}
   rArm: {fileID: 1940999933628278926}
-  lArmOgPos: {fileID: 2705417162497385911}
   rArmOgPos: {fileID: 6899109286449791634}
-  armReturnTime: 0.23
-  sweepDuration: 0.15
   arcHeight: 0.5
   arcDistance: -1
   arcHandRotation: 120
+  attackSpeed: 2
 --- !u!114 &3251603620518387619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,6 +1062,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc629888421f5a340a9cb24765a662eb, type: 3}
+--- !u!114 &3891516307864707783 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4401649977140759993, guid: dc629888421f5a340a9cb24765a662eb, type: 3}
+  m_PrefabInstance: {fileID: 798469896470966142}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1574ad62dd52c6047ad98730ac11aea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8246050165381444300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8753703329053416882, guid: dc629888421f5a340a9cb24765a662eb, type: 3}
