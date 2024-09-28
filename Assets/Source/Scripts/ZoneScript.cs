@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class ZoneScript : MonoBehaviour
 {
     public float zoneDecreaseIntervalTime = 60f;
-    public int zoneDamagePerSecond = 5;
+    public float zoneDamagePerSecond = 5f;
     public float zoneMoveSpeed = 0.01f;
     public Vector2 mapSize = new Vector2(100,100);
     
@@ -58,7 +58,7 @@ public class ZoneScript : MonoBehaviour
             _zoneTimer = 0;
             if (_playerPv.TryGetComponent(out IDamagable damagable))
             {
-                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,zoneDamagePerSecond,_playerPv.ViewID);
+                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
             }
         }
     }
