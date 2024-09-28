@@ -1,10 +1,13 @@
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour, IDamagable
 {
     public float maxHealth = 100;
-
+    [SerializeField] private Image healthBarFill;
+    
+    
     [HideInInspector] public float bonusDamagePercent;
     private float _currentHealth;
 
@@ -18,7 +21,14 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     public void TakeDamage(float damage)
     {
         _currentHealth -= damage;
+        UpdateHealthBar();
         if (CurrentHealth <= 0) Die();
+    }
+
+    private void UpdateHealthBar()
+    {
+        float targetFillAmount = _currentHealth / maxHealth;
+        healthBarFill.fillAmount = targetFillAmount;
     }
 
     void Die()
