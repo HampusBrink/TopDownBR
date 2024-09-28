@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        print(_players.Count);
         if (_timerStarted)
         {
             _timer += Time.deltaTime;
@@ -99,7 +100,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void DisplayVictor(string victorName)
     {
+        print(victorName);
         _victoryRoyaleUI.text = victorName;
-        _victoryRoyaleUI.enabled = true;
+        _victoryRoyaleUI.gameObject.SetActive(true);
     }
 }
