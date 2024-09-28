@@ -43629,6 +43629,26 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -1247159955
       objectReference: {fileID: 0}
+    - target: {fileID: 6693018833732015961, guid: 505bd250dd337774a97561f5d7b11ebb,
+        type: 3}
+      propertyPath: mapSize.w
+      value: 33
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693018833732015961, guid: 505bd250dd337774a97561f5d7b11ebb,
+        type: 3}
+      propertyPath: mapSize.x
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693018833732015961, guid: 505bd250dd337774a97561f5d7b11ebb,
+        type: 3}
+      propertyPath: mapSize.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6693018833732015961, guid: 505bd250dd337774a97561f5d7b11ebb,
+        type: 3}
+      propertyPath: zoneMoveSpeed
+      value: 0.00002
+      objectReference: {fileID: 0}
     - target: {fileID: 6924060763958765120, guid: 505bd250dd337774a97561f5d7b11ebb,
         type: 3}
       propertyPath: sceneViewId
@@ -43658,6 +43678,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8634393313466670170, guid: 505bd250dd337774a97561f5d7b11ebb,
+        type: 3}
+      propertyPath: m_Radius
+      value: 49.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
