@@ -3,7 +3,7 @@ using Photon.Pun;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
-public class PlayerMovement : MonoBehaviour, IDamagable
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private float _moveSpeed = 5;
@@ -53,17 +53,5 @@ public class PlayerMovement : MonoBehaviour, IDamagable
         _moveVector = context.ReadValue<Vector2>();
     }
 
-    public void TakeDamage(int damage)
-    {
-        print(gameObject.name + "Took Damage");
-    }
-
     
-    [PunRPC]
-    public void RPC_TakeDamage(int viewID,int damage)
-    {
-        var player = PhotonView.Find(viewID);
-        if(!player.TryGetComponent(out IDamagable damagable)) return;
-        damagable.TakeDamage(damage);
-    }
 }

@@ -61,7 +61,6 @@ public class ZoneScript : MonoBehaviour
                 _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
             }
         }
-        
     }
 
     [PunRPC]
