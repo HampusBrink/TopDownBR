@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 public class GameManager : MonoBehaviourPunCallbacks
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private List<Transform> _spawnPositions;
     [SerializeField] private UIScript _UI;
+    [SerializeField] private TMP_Text _victoryRoyaleUI;
 
     [SerializeField] private int _countDownTime = 20;
 
@@ -90,7 +92,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (_players.Count == 1)
         {
-            
+            photonView.RPC(nameof(DisplayVictor),RpcTarget.All,_players[0].Controller.NickName);
         }
+    }
+
+    [PunRPC]
+    void DisplayVictor(string victorName)
+    {
+        _victoryRoyaleUI.text = victorName;
+        _victoryRoyaleUI.enabled = true;
     }
 }
