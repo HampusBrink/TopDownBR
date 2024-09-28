@@ -21,10 +21,9 @@ public class PlayerCombat : MonoBehaviour
     private const float ATTACK_DURATION_PERCENTAGE = 0.6f; // 60% of total duration
     private const float RETURN_DURATION_PERCENTAGE = 0.4f; // 40% of total duration
 
-    private float attackDuration;
-    private float attackReturnDuration;
+    private float _attackDuration;
+    private float _attackReturnDuration;
     private float _lastAttackTime;
-    private bool _isAttacking = false;
     private Coroutine _currentAttackCoroutine;
 
     public void OnAttack(InputAction.CallbackContext context)
@@ -40,8 +39,8 @@ public class PlayerCombat : MonoBehaviour
     private void UpdateAttackDurations()
     {
         float totalDuration = 1f / attackSpeed;
-        attackDuration = totalDuration * ATTACK_DURATION_PERCENTAGE;
-        attackReturnDuration = totalDuration * RETURN_DURATION_PERCENTAGE;
+        _attackDuration = totalDuration * ATTACK_DURATION_PERCENTAGE;
+        _attackReturnDuration = totalDuration * RETURN_DURATION_PERCENTAGE;
     }
 
     private void PerformSweepAttack()
@@ -66,17 +65,16 @@ public class PlayerCombat : MonoBehaviour
 
     private IEnumerator SweepAttackCoroutine()
     {
-        _isAttacking = true;
 
         Vector3 initialLocalPosition = rArm.localPosition;
         Quaternion initialLocalRotation = rArm.localRotation;
 
         float attackTimeElapsed = 0f;
 
-        while (attackTimeElapsed < attackDuration)
+        while (attackTimeElapsed < _attackDuration)
         {
             attackTimeElapsed += Time.deltaTime;
-            float t = attackTimeElapsed / attackDuration;
+            float t = attackTimeElapsed / _attackDuration;
 
             // Calculate the arc movement relative to the original local position
             Vector3 arcPosition = initialLocalPosition + Vector3.right * (arcDistance * t);
@@ -89,8 +87,6 @@ public class PlayerCombat : MonoBehaviour
             yield return null;
         }
 
-        _isAttacking = false;
-
         // Start arm return as a separate coroutine
         StartCoroutine(ReturnArmCoroutine(initialLocalPosition, initialLocalRotation));
     }
@@ -102,10 +98,10 @@ public class PlayerCombat : MonoBehaviour
         Vector3 startPosition = rArm.localPosition;
         Quaternion startRotation = rArm.localRotation;
 
-        while (returnTimeElapsed < attackReturnDuration)
+        while (returnTimeElapsed < _attackReturnDuration)
         {
             returnTimeElapsed += Time.deltaTime;
-            float t = returnTimeElapsed / attackReturnDuration;
+            float t = returnTimeElapsed / _attackReturnDuration;
 
             rArm.localPosition = Vector3.Lerp(startPosition, initialLocalPosition, t);
             rArm.localRotation = Quaternion.Slerp(startRotation, initialLocalRotation, t);
