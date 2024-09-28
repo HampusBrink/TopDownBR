@@ -17,8 +17,10 @@ public class ZoneScript : MonoBehaviour
     private Vector2 _randomPoint;
 
     private float _zoneDamageTimer;
+    private bool _isInSafeZone = true;
 
     private PhotonView _pv;
+    private PhotonView _playerPv;
     
     void Start()
     {
@@ -48,6 +50,18 @@ public class ZoneScript : MonoBehaviour
         }
         if(_decreaseZoneStart)
             _pv.RPC(nameof(RPC_DecreaseZone),RpcTarget.All,_randomPoint);
+        
+        if (!_isInSafeZone)
+        {
+            _zoneDamageTimer += Time.deltaTime;
+            if(_zoneDamageTimer < 1) return;
+            _zoneTimer = 0;
+            if (_playerPv.TryGetComponent(out IDamagable damagable))
+            {
+                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
+            }
+        }
+        
     }
 
     [PunRPC]
@@ -60,22 +74,27 @@ public class ZoneScript : MonoBehaviour
         transform.localScale -= oldScale * zoneMoveSpeed;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.TryGetComponent(out PhotonView pv))
         {
-            if(!pv.IsMine) return;
+            if(pv.IsMine)
+            {
+                _isInSafeZone = false;
+                _playerPv = pv;
+            }
         }
-        else
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent(out PhotonView pv))
         {
-            return;
-        }
-        
-        _zoneDamageTimer += Time.deltaTime;
-        if(_zoneDamageTimer < 1) return;
-        if (other.TryGetComponent(out IDamagable damagable))
-        {
-            damagable.TakeDamage(zoneDamagePerSecond);
+            if(pv.IsMine)
+            {
+                _isInSafeZone = true;
+                _playerPv = pv;
+            }
         }
     }
 }

@@ -55,6 +55,15 @@ public class PlayerMovement : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
-        throw new System.NotImplementedException();
+        print(gameObject.name + "Took Damage");
+    }
+
+    
+    [PunRPC]
+    public void RPC_TakeDamage(int viewID,int damage)
+    {
+        var player = PhotonView.Find(viewID);
+        if(!player.TryGetComponent(out IDamagable damagable)) return;
+        damagable.TakeDamage(damage);
     }
 }
