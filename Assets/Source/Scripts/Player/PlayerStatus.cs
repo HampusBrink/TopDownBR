@@ -20,11 +20,11 @@ public class PlayerStatus : MonoBehaviour, IDamagable
         _currentHealth = maxHealth;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, int viewID)
     {
         _currentHealth -= damage;
         UpdateHealthBar();
-        if (CurrentHealth <= 0) Die();
+        if (CurrentHealth <= 0) Die(viewID);
     }
 
     private void UpdateHealthBar()
@@ -33,13 +33,17 @@ public class PlayerStatus : MonoBehaviour, IDamagable
         healthBarFill.fillAmount = targetFillAmount;
     }
 
-    void Die()
+    void Die(int viewID)
     {
         IsDead = true;
+        if (PhotonView.Find(viewID).IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+        
         if(!PhotonNetwork.IsMasterClient) return;
         GameManager.Instance._players.Remove(gameObject.GetPhotonView());
         GameManager.Instance.CheckForWinner();
-        PhotonNetwork.Destroy(gameObject);
     }
     
     [PunRPC]
@@ -47,6 +51,6 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     {
         var player = PhotonView.Find(viewID);
         if(!player.TryGetComponent(out IDamagable damagable)) return;
-        damagable.TakeDamage(damage);
+        damagable.TakeDamage(damage,viewID);
     }
 }
