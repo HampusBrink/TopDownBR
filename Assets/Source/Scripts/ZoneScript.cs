@@ -58,7 +58,7 @@ public class ZoneScript : MonoBehaviour
             _zoneTimer = 0;
             if (_playerPv.TryGetComponent(out IDamagable damagable))
             {
-                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
+                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,zoneDamagePerSecond,_playerPv.ViewID);
             }
         }
     }
