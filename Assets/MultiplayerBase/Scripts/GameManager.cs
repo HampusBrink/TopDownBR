@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private int _countDownTime = 20;
 
     public static GameManager Instance { get; private set; }
-    public PhotonView _localPlayer;
+    [HideInInspector] public PhotonView _localPlayer;
     public List<PhotonView> _players;
 
     public bool GameStarted { get; private set; }
