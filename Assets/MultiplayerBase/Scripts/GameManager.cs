@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private int _countDownTime = 20;
 
     public static GameManager Instance { get; private set; }
+    public PhotonView _localPlayer;
+    public List<PhotonView> _players;
 
     public bool GameStarted { get; private set; }
 
@@ -35,7 +37,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        if(GameStarted) return;
         var player = PhotonNetwork.Instantiate(_playerPrefab.name, _spawnPositions[0].position, quaternion.identity);
+        _localPlayer = player.GetPhotonView();
         photonView.RPC(nameof(PlayerJoined),RpcTarget.MasterClient,player.GetPhotonView().ViewID);
     }
 
@@ -58,6 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void PlayerJoined(int playerID)
     {
         photonView.RPC(nameof(MovePlayer),RpcTarget.All,playerID,_spawnPositions[0].position);
+        _players.Add(PhotonView.Find(playerID));
         _spawnPositions.RemoveAt(0);
     }
 
@@ -79,5 +84,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         photonView.RPC(nameof(StartGame),RpcTarget.All);
         _UI.startGameObject.SetActive(false);
+    }
+
+    public void CheckForWinner()
+    {
+        if (_players.Count == 1)
+        {
+            
+        }
     }
 }
