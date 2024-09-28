@@ -20,4 +20,9 @@ public class UIScript : MonoBehaviour
         var roundedValue = (int)GameManager.Instance.Timer;
         timerDisplay.text = roundedValue.ToString();
     }
+
+    public void DisableSelf(GameObject self)
+    {
+        self.SetActive(false);
+    }
 }

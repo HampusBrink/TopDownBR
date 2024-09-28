@@ -124,7 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: d46a68842be087e42ae23cb19279da41, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: d46a68842be087e42ae23cb19279da41,
+    type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -161,6 +162,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: cfff1fc6-e3cb-4afb-b451-040d6400925a
     m_ActionName: Camera/Focus[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f8170310-52d5-407f-a6d0-ec870ada0824
+    m_ActionName: Combat/Attack[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Camera

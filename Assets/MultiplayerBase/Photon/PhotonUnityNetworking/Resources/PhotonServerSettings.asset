@@ -44,6 +44,7 @@ MonoBehaviour:
   - MovePlayer
   - PlayerJoined
   - StartGame
+  - RPC_DecreaseZone
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

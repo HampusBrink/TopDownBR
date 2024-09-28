@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
-public class PlayerMovement : MonoBehaviour, IDamagable
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 22f;
@@ -92,10 +92,5 @@ public class PlayerMovement : MonoBehaviour, IDamagable
 
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
         playerGFX.transform.rotation = Quaternion.Euler(0f, 0f, angle);;
-    }
-
-    public void TakeDamage(int damage)
-    {
-        throw new System.NotImplementedException();
     }
 }
