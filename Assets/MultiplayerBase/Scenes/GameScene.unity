@@ -63372,7 +63372,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1867189871}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1959469557}
+        m_TargetAssemblyTypeName: UIScript, Assembly-CSharp
+        m_MethodName: Disconnect
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1867189871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64267,6 +64279,18 @@ PrefabInstance:
       addedObject: {fileID: 1867189869}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d9cf84c0de22104fabc70fbb3b4788f, type: 3}
+--- !u!114 &1959469557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5617207474350732762, guid: 9d9cf84c0de22104fabc70fbb3b4788f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1959469556}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df13d2cacc3d2e6419d34ae2ebddb45f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1975938181
 PrefabInstance:
   m_ObjectHideFlags: 0

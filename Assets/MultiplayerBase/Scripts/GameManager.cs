@@ -106,7 +106,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             victorName = "Unknown Player";
         }
-        _victoryRoyaleUI.text = victorName + "Wins!";
+        _victoryRoyaleUI.text = victorName + " Wins!";
         _victoryRoyaleUI.gameObject.SetActive(true);
     }
 }

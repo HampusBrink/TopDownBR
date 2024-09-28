@@ -25,4 +25,9 @@ public class UIScript : MonoBehaviour
     {
         self.SetActive(false);
     }
+
+    public void Disconnect()
+    {
+        PhotonNetwork.Disconnect();
+    }
 }
