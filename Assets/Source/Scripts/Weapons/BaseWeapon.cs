@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
-public class BaseWeapon : MonoBehaviour
+public class BaseWeapon : MonoBehaviourPunCallbacks
 {
 
     public BoxCollider2D weaponCol;
@@ -28,11 +28,12 @@ public class BaseWeapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.TryGetComponent(out PhotonView photonView))
+        if (col.TryGetComponent(out PhotonView pv))
         {
-            if (photonView.TryGetComponent(out IDamagable damagable))
+            if (pv.TryGetComponent(out IDamagable damagable))
             {
-                photonView.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,photonView.ViewID,baseDamage);
+                if(!photonView.IsMine) return;
+                pv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,pv.ViewID,baseDamage);
                 weaponCol.enabled = false;
             }
         }

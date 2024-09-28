@@ -11,6 +11,8 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     [HideInInspector] public float bonusDamagePercent;
     private float _currentHealth;
 
+    public bool IsDead { get; private set; }
+
     public float CurrentHealth => _currentHealth > maxHealth ? maxHealth : _currentHealth;
 
     public void Start()
@@ -33,9 +35,9 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
     void Die()
     {
+        IsDead = true;
         if(!PhotonNetwork.IsMasterClient) return;
         GameManager.Instance._players.Remove(gameObject.GetPhotonView());
-        healthBarFill.transform.parent.gameObject.SetActive(false);
         GameManager.Instance.CheckForWinner();
         PhotonNetwork.Destroy(gameObject);
     }

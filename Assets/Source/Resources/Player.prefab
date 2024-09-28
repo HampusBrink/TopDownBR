@@ -951,7 +951,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &4116022475497400661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1012,7 @@ MonoBehaviour:
   arcHeight: 0.5
   arcDistance: -1
   arcHandRotation: 120
-  attackSpeed: 2
+  attackSpeed: 1
 --- !u!114 &2312113109336434810
 MonoBehaviour:
   m_ObjectHideFlags: 0
