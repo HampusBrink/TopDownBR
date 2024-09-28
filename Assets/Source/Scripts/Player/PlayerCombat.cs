@@ -43,6 +43,7 @@ public class PlayerCombat : MonoBehaviour
         if (context.performed)
         {
             PerformSweepAttack();
+            equippedWeapon.WeaponPerformAttack(_attackDuration);
         }
     }
     

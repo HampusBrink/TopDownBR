@@ -45,6 +45,7 @@ MonoBehaviour:
   - PlayerJoined
   - StartGame
   - RPC_DecreaseZone
+  - DisplayVictor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

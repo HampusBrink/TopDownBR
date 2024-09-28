@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
-public class BaseWeapon : MonoBehaviour
+public class BaseWeapon : MonoBehaviourPunCallbacks
 {
 
     public BoxCollider2D weaponCol;
@@ -11,14 +13,33 @@ public class BaseWeapon : MonoBehaviour
     public float baseDamage = 10f;
     public float baseAttackSpeed = 2f;
 
-    public void WeaponPerformAttack()
+    private bool _isAlreadyAttacking;
+    public void WeaponPerformAttack(float attackDuration)
     {
-        //ActivateAttack();
+        if(_isAlreadyAttacking) return;
+        StartCoroutine(ActivateAttack(attackDuration));
     }
     
-    // private IEnumerator ActivateAttack()
-    // {
-    //     weaponCol.enabled = true;
-    //     //yield return new WaitForSeconds()
-    // }
+    private IEnumerator ActivateAttack(float attackDuration)
+    {
+        _isAlreadyAttacking = true;
+        weaponCol.enabled = true;
+        yield return new WaitForSeconds(attackDuration);
+        // ReSharper disable once Unity.InefficientPropertyAccess
+        weaponCol.enabled = false;
+        _isAlreadyAttacking = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.TryGetComponent(out PhotonView pv))
+        {
+            if (pv.TryGetComponent(out IDamagable damagable))
+            {
+                if(!photonView.IsMine) return;
+                pv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,pv.ViewID,baseDamage);
+                weaponCol.enabled = false;
+            }
+        }
+    }
 }

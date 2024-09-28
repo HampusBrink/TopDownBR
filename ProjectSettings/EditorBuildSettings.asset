@@ -20,7 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/MultiplayerBase/Scenes/MainMenuScene.unity
     guid: c7e66210564d24f4e9ba602c6c25c538
-  - enabled: 1
-    path: Assets/Scenes/Map.unity
-    guid: d1370c89b68ef6a4c8ce37e348de6091
   m_configObjects: {}

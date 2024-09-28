@@ -1,19 +1,22 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
+using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using static System.String;
+
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private List<Transform> _spawnPositions;
     [SerializeField] private UIScript _UI;
+    [SerializeField] private TMP_Text _victoryRoyaleUI;
 
     [SerializeField] private int _countDownTime = 20;
 
     public static GameManager Instance { get; private set; }
-    public PhotonView _localPlayer;
+    [HideInInspector] public PhotonView _localPlayer;
     public List<PhotonView> _players;
 
     public bool GameStarted { get; private set; }
@@ -28,7 +31,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -90,7 +92,18 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (_players.Count == 1)
         {
-            
+            photonView.RPC(nameof(DisplayVictor),RpcTarget.All,_players[0].Controller.NickName);
         }
+    }
+
+    [PunRPC]
+    void DisplayVictor(string victorName)
+    {
+        if (victorName == Empty)
+        {
+            victorName = "Unknown Player";
+        }
+        _victoryRoyaleUI.text = victorName + " Wins!";
+        _victoryRoyaleUI.gameObject.SetActive(true);
     }
 }
