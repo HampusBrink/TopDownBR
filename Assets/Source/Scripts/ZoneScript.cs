@@ -38,6 +38,17 @@ public class ZoneScript : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
+        if (!_isInSafeZone)
+        {
+            _zoneDamageTimer += Time.deltaTime;
+            if(_zoneDamageTimer < 1) return;
+            _zoneDamageTimer = 0;
+            if (_playerPv.TryGetComponent(out IDamagable damagable))
+            {
+                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
+            }
+        }
+        
         if(!GameManager.Instance.GameStarted) return;
         if(!PhotonNetwork.IsMasterClient) return;
         _zoneTimer += Time.deltaTime;
@@ -50,17 +61,6 @@ public class ZoneScript : MonoBehaviour
         }
         if(_decreaseZoneStart)
             _pv.RPC(nameof(RPC_DecreaseZone),RpcTarget.All,_randomPoint);
-        
-        if (!_isInSafeZone)
-        {
-            _zoneDamageTimer += Time.deltaTime;
-            if(_zoneDamageTimer < 1) return;
-            _zoneTimer = 0;
-            if (_playerPv.TryGetComponent(out IDamagable damagable))
-            {
-                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
-            }
-        }
     }
 
     [PunRPC]

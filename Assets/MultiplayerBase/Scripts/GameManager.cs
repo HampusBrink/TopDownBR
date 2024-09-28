@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        print(_players.Count);
         if (_timerStarted)
         {
             _timer += Time.deltaTime;
@@ -94,7 +93,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (_players.Count == 1)
         {
             photonView.RPC(nameof(DisplayVictor),RpcTarget.All,_players[0].Controller.NickName);
-            print(_players[0].Controller.NickName);
         }
     }
 
