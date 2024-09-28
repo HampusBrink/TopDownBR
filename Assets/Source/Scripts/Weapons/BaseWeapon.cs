@@ -13,11 +13,24 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     public float baseDamage = 10f;
     public float baseAttackSpeed = 2f;
 
+    private float multipliedDamage;
+
     private bool _isAlreadyAttacking;
+
+    private void Start()
+    {
+        multipliedDamage = baseDamage;
+    }
+
     public void WeaponPerformAttack(float attackDuration)
     {
         if(_isAlreadyAttacking) return;
         StartCoroutine(ActivateAttack(attackDuration));
+    }
+
+    public void UpdateAttackDamage(float multiplier)
+    {
+        multipliedDamage = baseDamage * multiplier;
     }
     
     private IEnumerator ActivateAttack(float attackDuration)
@@ -37,7 +50,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
             if (pv.TryGetComponent(out IDamagable damagable))
             {
                 if(!photonView.IsMine) return;
-                pv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,pv.ViewID,baseDamage);
+                pv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,pv.ViewID,multipliedDamage);
                 weaponCol.enabled = false;
             }
         }
