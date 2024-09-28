@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour, IDamagable
     private void RotatePlayerToMouse()
     {
         Vector2 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        var direction = mouseWorldPosition - _rb.position;
+        var direction = (mouseWorldPosition - _rb.position) * -1;
 
         var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
         playerGFX.transform.rotation = Quaternion.Euler(0f, 0f, angle);;
