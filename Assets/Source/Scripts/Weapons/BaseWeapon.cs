@@ -13,20 +13,21 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     public float baseDamage = 10f;
     public float baseAttackSpeed = 2f;
 
-    private Coroutine _coroutine;
-
+    private bool _isAlreadyAttacking;
     public void WeaponPerformAttack(float attackDuration)
     {
-        if(_coroutine != null) return;
-        _coroutine = StartCoroutine(ActivateAttack(attackDuration));
+        if(_isAlreadyAttacking) return;
+        StartCoroutine(ActivateAttack(attackDuration));
     }
     
     private IEnumerator ActivateAttack(float attackDuration)
     {
+        _isAlreadyAttacking = true;
         weaponCol.enabled = true;
         yield return new WaitForSeconds(attackDuration);
         // ReSharper disable once Unity.InefficientPropertyAccess
         weaponCol.enabled = false;
+        _isAlreadyAttacking = false;
     }
 
     private void OnTriggerEnter2D(Collider2D col)
