@@ -1,10 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
+using static System.String;
+
 public class GameManager : MonoBehaviourPunCallbacks
 {
     [SerializeField] private GameObject _playerPrefab;
@@ -94,14 +95,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (_players.Count == 1)
         {
             photonView.RPC(nameof(DisplayVictor),RpcTarget.All,_players[0].Controller.NickName);
+            print(_players[0].Controller.NickName);
         }
     }
 
     [PunRPC]
     void DisplayVictor(string victorName)
     {
-        print(victorName);
-        _victoryRoyaleUI.text = victorName;
+        if (victorName == Empty)
+        {
+            victorName = "Unknown Player";
+        }
+        _victoryRoyaleUI.text = victorName + "Wins!";
         _victoryRoyaleUI.gameObject.SetActive(true);
     }
 }
