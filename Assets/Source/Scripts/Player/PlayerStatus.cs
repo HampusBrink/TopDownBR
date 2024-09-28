@@ -35,8 +35,9 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     {
         if(!PhotonNetwork.IsMasterClient) return;
         GameManager.Instance._players.Remove(gameObject.GetPhotonView());
-        PhotonNetwork.Destroy(gameObject);
+        healthBarFill.transform.parent.gameObject.SetActive(false);
         GameManager.Instance.CheckForWinner();
+        PhotonNetwork.Destroy(gameObject);
     }
     
     [PunRPC]
