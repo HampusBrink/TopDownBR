@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Photon.Pun;
 using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
@@ -26,8 +27,11 @@ public class PlayerCombat : MonoBehaviour
     private float _lastAttackTime;
     private Coroutine _currentAttackCoroutine;
 
+    private PhotonView _pv;
+
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if(!_pv.IsMine) return;
         UpdateAttackDurations();
         
         if (context.performed)
