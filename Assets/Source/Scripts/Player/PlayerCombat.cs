@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
@@ -28,6 +29,11 @@ public class PlayerCombat : MonoBehaviour
     private Coroutine _currentAttackCoroutine;
 
     private PhotonView _pv;
+
+    private void Start()
+    {
+        _pv = GetComponent<PhotonView>();
+    }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
