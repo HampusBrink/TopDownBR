@@ -13,9 +13,12 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     public float baseDamage = 10f;
     public float baseAttackSpeed = 2f;
 
+    private Coroutine _coroutine;
+
     public void WeaponPerformAttack(float attackDuration)
     {
-        StartCoroutine(ActivateAttack(attackDuration));
+        if(_coroutine != null) return;
+        _coroutine = StartCoroutine(ActivateAttack(attackDuration));
     }
     
     private IEnumerator ActivateAttack(float attackDuration)
