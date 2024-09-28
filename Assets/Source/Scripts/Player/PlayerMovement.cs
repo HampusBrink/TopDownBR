@@ -1,16 +1,21 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
 public class PlayerMovement : MonoBehaviour, IDamagable
 {
-    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float sprintSpeed = 22f;
     [SerializeField] private float acceleration = 5f;
 
     [SerializeField] private GameObject playerGFX;
 
     private Vector2 _velocity = Vector2.zero;
+    private float _desiredSpeed;
+    private bool _isSprinting = false;
+    
     private Camera _camera;
     
     private PhotonView _pv;
@@ -23,7 +28,9 @@ public class PlayerMovement : MonoBehaviour, IDamagable
         _pv = GetComponent<PhotonView>();
         _camera = Camera.main;
 
-        if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>()._followTransform = transform;
+        if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
+
+        _desiredSpeed = walkSpeed;
     }
 
     // Update is called once per frame
@@ -35,6 +42,20 @@ public class PlayerMovement : MonoBehaviour, IDamagable
         ApplyMovement();
         
         RotatePlayerToMouse();
+    }
+    
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            _isSprinting = true;
+        }
+        else if (context.canceled)
+        {
+            _isSprinting = false;
+        }
+
+        _desiredSpeed = _isSprinting ? sprintSpeed : walkSpeed;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -54,7 +75,7 @@ public class PlayerMovement : MonoBehaviour, IDamagable
     {
         if (_moveVector != Vector2.zero)
         {
-            _velocity = Vector2.MoveTowards(_velocity, _moveVector * moveSpeed, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _desiredSpeed, acceleration * Time.fixedDeltaTime);
         }
         else
         {
