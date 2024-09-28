@@ -10,7 +10,7 @@ public class ZoneScript : MonoBehaviour
     public float zoneDecreaseIntervalTime = 60f;
     public float zoneDamagePerSecond = 5f;
     public float zoneMoveSpeed = 0.01f;
-    public Vector2 mapSize = new Vector2(100,100);
+    public Vector4 mapSize = new Vector4(-50,10,-10,100);
     
     private float _zoneTimer;
     private bool _decreaseZoneStart;
@@ -38,16 +38,7 @@ public class ZoneScript : MonoBehaviour
     // Update is called once per frame 
     void Update()
     {
-        if (!_isInSafeZone)
-        {
-            _zoneDamageTimer += Time.deltaTime;
-            if(_zoneDamageTimer < 1) return;
-            _zoneDamageTimer = 0;
-            if (_playerPv.TryGetComponent(out IDamagable damagable))
-            {
-                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
-            }
-        }
+        UpdateZoneDamage();
         
         if(!GameManager.Instance.GameStarted) return;
         if(!PhotonNetwork.IsMasterClient) return;
@@ -56,7 +47,7 @@ public class ZoneScript : MonoBehaviour
         if (_zoneTimer > zoneDecreaseIntervalTime && !_decreaseZoneStart)
         {
             _decreaseZoneStart = true;
-            _randomPoint = new Vector2(Random.Range(0, mapSize.x), Random.Range(0, mapSize.y));
+            _randomPoint = new Vector2(Random.Range(mapSize.x, mapSize.y), Random.Range(mapSize.z, mapSize.w));
             _zoneTimer = 0;
         }
         if(_decreaseZoneStart)
@@ -93,6 +84,20 @@ public class ZoneScript : MonoBehaviour
             {
                 _isInSafeZone = true;
                 _playerPv = pv;
+            }
+        }
+    }
+
+    void UpdateZoneDamage()
+    {
+        if (!_isInSafeZone)
+        {
+            _zoneDamageTimer += Time.deltaTime;
+            if(_zoneDamageTimer < 1) return;
+            _zoneDamageTimer = 0;
+            if (_playerPv.TryGetComponent(out IDamagable damagable))
+            {
+                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
             }
         }
     }
