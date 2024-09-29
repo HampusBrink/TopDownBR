@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8753703329053416882}
-  - component: {fileID: 4401649977140759993}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -34,22 +33,6 @@ Transform:
   - {fileID: 6287974501863388670}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4401649977140759993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3379168577636873551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1574ad62dd52c6047ad98730ac11aea5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponCol: {fileID: 7730284333127598718}
-  baseDamage: 10
-  baseAttackSpeed: 2
-  baseWeaponLength: 1.4
 --- !u!1 &4284622179518973977
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,6 +44,7 @@ GameObject:
   - component: {fileID: 8397765143399094428}
   - component: {fileID: 2036088863680285273}
   - component: {fileID: 7730284333127598718}
+  - component: {fileID: 3120430716313480649}
   m_Layer: 0
   m_Name: SwordBlade
   m_TagString: Untagged
@@ -180,6 +164,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.11, y: 0.318}
   m_EdgeRadius: 0
+--- !u!114 &3120430716313480649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4284622179518973977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1574ad62dd52c6047ad98730ac11aea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponCol: {fileID: 7730284333127598718}
+  baseDamage: 10
+  baseAttackSpeed: 2
+  baseWeaponLength: 1.4
 --- !u!1 &7535747497357296692
 GameObject:
   m_ObjectHideFlags: 0
