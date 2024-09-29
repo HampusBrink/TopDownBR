@@ -916,7 +916,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.498517, y: 2.2327805, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8706875359966456856}
@@ -991,9 +991,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b442ef72386bca04b936d48823314fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 17
-  sprintSpeed: 22
-  acceleration: 140
+  walkSpeed: 10
+  sprintSpeed: 15
+  acceleration: 100
   playerGFX: {fileID: 3873363251755891362}
 --- !u!114 &-8871992485847606398
 MonoBehaviour:
