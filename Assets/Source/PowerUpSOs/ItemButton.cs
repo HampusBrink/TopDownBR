@@ -25,7 +25,6 @@ public class ItemButton : MonoBehaviour
 
     public void OnItemPicked()
     {
-        GameManager.Instance._localPlayer.GetComponent<PlayerMovement>().disableMovement = false;
         var playerStatus = GameManager.Instance._localPlayer.GetComponent<PlayerStatus>();
         if(!playerStatus) return;
         AddNewBuffs(playerStatus,powerUp);

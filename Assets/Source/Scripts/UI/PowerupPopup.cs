@@ -13,7 +13,6 @@ public class PowerupPopup : MonoBehaviour
     
     private void OnEnable()
     {
-        print("dad");
         _closeMenu = false;
 
         var items = GetComponentsInChildren<ItemButton>();

@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     private float _desiredSpeed;
     private float _multipliedSpeed;
     private bool _isSprinting = false;
-    public bool disableMovement;
     
     private Camera _camera;
 
@@ -43,11 +42,11 @@ public class PlayerMovement : MonoBehaviour
         if(!_pv.IsMine) return;
         if(!_camera) return;
 
-        if (!disableMovement)
+        if (!GameManager.Instance.PowerupPopup.gameObject.activeInHierarchy)
         {
             ApplyMovement();
         }
-        
+
         RotatePlayerToMouse();
     }
 
