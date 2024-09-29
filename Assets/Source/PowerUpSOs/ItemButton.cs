@@ -1,16 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemButton : MonoBehaviour
 {
     public PowerupSO powerUp;
-    private Image _display;
+    [SerializeField] private Image _display;
     private void Start()
     {
-        _display = GetComponent<Image>();
+        _display.sprite = powerUp.display;
+    }
+
+    public void UpdateItem()
+    {
         _display.sprite = powerUp.display;
     }
 
@@ -24,6 +29,13 @@ public class ItemButton : MonoBehaviour
     void AddNewBuffs(PlayerStatus playerStatus, PowerupSO powerUp)
     {
         playerStatus.maxHealth += powerUp.bonusMaxHealthFlat;
-        playerStatus.bonusDamagePercent = powerUp.bonusDamagePercent;
+        playerStatus.attackDamageMultiplier += powerUp.bonusDamagePercent;
+        playerStatus.movementSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
+        playerStatus.attackSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
+        playerStatus.weaponLengthMultiplier += powerUp.bonusWeaponLengthPercent;
+        if (powerUp.instantHealth > 0)
+        {
+            playerStatus.pv.RPC(nameof(playerStatus.Heal),RpcTarget.All,powerUp.instantHealth);
+        }
     }
 }

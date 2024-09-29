@@ -4,20 +4,27 @@ using UnityEngine.UI;
 
 public class PlayerStatus : MonoBehaviour, IDamagable
 {
-    public float maxHealth = 100;
     [SerializeField] private Image healthBarFill;
-    
-    
-    [HideInInspector] public float bonusDamagePercent;
+
+    [Header("Stats")]
+    public float maxHealth = 100;
+    public float attackDamageMultiplier = 1.0f;
+    public float attackSpeedMultiplier = 1.0f;
+    public float weaponLengthMultiplier = 1.0f;
+    public float movementSpeedMultiplier = 1.0f;
+
     private float _currentHealth;
 
     public bool IsDead { get; private set; }
 
     public float CurrentHealth => _currentHealth > maxHealth ? maxHealth : _currentHealth;
 
+    public PhotonView pv;
+
     public void Start()
     {
         _currentHealth = maxHealth;
+        pv = GetComponent<PhotonView>();
     }
 
     public void TakeDamage(float damage, int viewID)
@@ -25,6 +32,13 @@ public class PlayerStatus : MonoBehaviour, IDamagable
         _currentHealth -= damage;
         UpdateHealthBar();
         if (CurrentHealth <= 0) Die(viewID);
+    }
+
+    [PunRPC]
+    public void Heal(float healAmount)
+    {
+        _currentHealth += healAmount;
+        UpdateHealthBar();
     }
 
     private void UpdateHealthBar()
@@ -35,9 +49,10 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
     void Die(int viewID)
     {
-        IsDead = true;
         if (PhotonView.Find(viewID).IsMine)
         {
+            GameManager.Instance.isDead = true;
+            GameManager.Instance.PlayerDied();
             PhotonNetwork.Destroy(gameObject);
         }
         

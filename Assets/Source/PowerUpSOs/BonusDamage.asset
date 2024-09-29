@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2996bc38f05003d46af17c707d14949b, type: 3}
+  m_Name: BonusDamage
+  m_EditorClassIdentifier: 
+  display: {fileID: 2117979870107422497, guid: 0833fbbd75ad3a94ba09a927fe4362cb, type: 3}
+  bonusDamagePercent: 0.1
+  bonusMaxHealthFlat: 0
+  bonusAttackSpeedPercent: 0
+  instantHealth: 0
+  bonusWeaponLengthPercent: 0
+  bonusMovementSpeedPercent: 0

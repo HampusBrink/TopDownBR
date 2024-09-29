@@ -10,8 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2996bc38f05003d46af17c707d14949b, type: 3}
-  m_Name: 10%BonusDamage
+  m_Name: InstantHealth
   m_EditorClassIdentifier: 
-  display: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
-  bonusDamagePercent: 0.1
+  display: {fileID: -6579893631911422966, guid: b97c62d14901426468b2228cc2d420b5,
+    type: 3}
+  bonusDamagePercent: 0
   bonusMaxHealthFlat: 0
+  bonusAttackSpeedPercent: 0
+  instantHealth: 50
+  bonusWeaponLengthPercent: 0
+  bonusMovementSpeedPercent: 0

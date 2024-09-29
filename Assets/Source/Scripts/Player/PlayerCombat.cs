@@ -23,6 +23,9 @@ public class PlayerCombat : MonoBehaviour
     private const float ATTACK_DURATION_PERCENTAGE = 0.6f; // 60% of total duration
     private const float RETURN_DURATION_PERCENTAGE = 0.4f; // 40% of total duration
 
+    [Header("Other")]
+    
+    private PlayerStatus _playerStatus;
     private float _attackDuration;
     private float _attackReturnDuration;
     private float _lastAttackTime;
@@ -33,10 +36,40 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         _pv = GetComponent<PhotonView>();
+        _playerStatus = GetComponent<PlayerStatus>();
+        if (!_pv.IsMine)
+            return;
+        UpdateAttackSpeed();
+        equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
+        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
+    }
+
+    private void Update()
+    {
+        if (!_pv.IsMine)
+            return;
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            
+            _playerStatus.weaponLengthMultiplier += 0.1f;
+            _playerStatus.attackSpeedMultiplier += 0.1f;
+            equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
+            UpdateAttackSpeed();
+        }
+    }
+
+    private void UpdateAttackSpeed()
+    {
+        attackSpeed = _playerStatus.attackSpeedMultiplier * equippedWeapon.baseAttackSpeed;
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (!_pv.IsMine)
+            return;
+        UpdateAttackSpeed();
+        equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
+        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
         if(!_pv.IsMine) return;
         UpdateAttackDurations();
         

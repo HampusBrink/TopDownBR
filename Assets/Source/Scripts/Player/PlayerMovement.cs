@@ -1,7 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
 public class PlayerMovement : MonoBehaviour
@@ -14,10 +13,12 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _velocity = Vector2.zero;
     private float _desiredSpeed;
+    private float _multipliedSpeed;
     private bool _isSprinting = false;
     
     private Camera _camera;
-    
+
+    private PlayerStatus _playerStatus;
     private PhotonView _pv;
     private Vector2 _moveVector;
     private Rigidbody2D _rb;
@@ -26,11 +27,13 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _pv = GetComponent<PhotonView>();
+        _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
 
         if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
 
-        _desiredSpeed = walkSpeed;
+        _desiredSpeed = _multipliedSpeed = walkSpeed;
+        
     }
 
     // Update is called once per frame
@@ -43,9 +46,16 @@ public class PlayerMovement : MonoBehaviour
         
         RotatePlayerToMouse();
     }
+
+    private void UpdateMovementSpeed()
+    {
+        _multipliedSpeed = _playerStatus.movementSpeedMultiplier * _desiredSpeed;
+    }
     
     public void OnSprint(InputAction.CallbackContext context)
     {
+        UpdateMovementSpeed();
+        
         if (context.performed)
         {
             _isSprinting = true;
@@ -73,9 +83,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void ApplyMovement()
     {
+        UpdateMovementSpeed();
         if (_moveVector != Vector2.zero)
         {
-            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _desiredSpeed, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
         }
         else
         {

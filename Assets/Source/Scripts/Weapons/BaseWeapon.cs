@@ -12,12 +12,34 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     [Header("Stats")]
     public float baseDamage = 10f;
     public float baseAttackSpeed = 2f;
+    public float baseWeaponLength = 1.4f;
+
+    private float _multipliedDamage;
+    private float _multipliedWeaponLength;
 
     private bool _isAlreadyAttacking;
+
+    private void Start()
+    {
+        _multipliedDamage = baseDamage;
+        _multipliedWeaponLength = baseWeaponLength;
+    }
+
     public void WeaponPerformAttack(float attackDuration)
     {
         if(_isAlreadyAttacking) return;
         StartCoroutine(ActivateAttack(attackDuration));
+    }
+
+    public void UpdateAttackDamage(float multiplier)
+    {
+        _multipliedDamage = baseDamage * multiplier;
+    }
+
+    public void UpdateWeaponLength(float multiplier)
+    {
+        _multipliedWeaponLength = baseWeaponLength * multiplier;
+        weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedWeaponLength, weaponCol.transform.localScale.z);
     }
     
     private IEnumerator ActivateAttack(float attackDuration)
@@ -37,7 +59,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
             if (pv.TryGetComponent(out IDamagable damagable))
             {
                 if(!photonView.IsMine) return;
-                pv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,pv.ViewID,baseDamage);
+                pv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,pv.ViewID,_multipliedDamage);
                 weaponCol.enabled = false;
             }
         }
