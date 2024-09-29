@@ -19,9 +19,12 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
     public float CurrentHealth => _currentHealth > maxHealth ? maxHealth : _currentHealth;
 
+    public PhotonView pv;
+
     public void Start()
     {
         _currentHealth = maxHealth;
+        pv = GetComponent<PhotonView>();
     }
 
     public void TakeDamage(float damage, int viewID)
@@ -29,6 +32,13 @@ public class PlayerStatus : MonoBehaviour, IDamagable
         _currentHealth -= damage;
         UpdateHealthBar();
         if (CurrentHealth <= 0) Die(viewID);
+    }
+
+    [PunRPC]
+    public void Heal(float healAmount)
+    {
+        _currentHealth += healAmount;
+        UpdateHealthBar();
     }
 
     private void UpdateHealthBar()

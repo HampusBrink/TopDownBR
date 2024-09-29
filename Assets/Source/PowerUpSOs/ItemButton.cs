@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,5 +33,9 @@ public class ItemButton : MonoBehaviour
         playerStatus.movementSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
         playerStatus.attackSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
         playerStatus.weaponLengthMultiplier += powerUp.bonusWeaponLengthPercent;
+        if (powerUp.instantHealth > 0)
+        {
+            playerStatus.pv.RPC(nameof(playerStatus.Heal),RpcTarget.All,powerUp.instantHealth);
+        }
     }
 }
