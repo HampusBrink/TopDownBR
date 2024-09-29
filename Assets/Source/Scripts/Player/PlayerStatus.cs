@@ -29,6 +29,10 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     {
         _currentHealth = maxHealth;
         pv = GetComponent<PhotonView>();
+        if (pv.IsMine)
+        {
+            healthBarFill.color = Color.green;
+        }
     }
 
     public void TakeDamage(float damage, int viewID)
