@@ -5879,6 +5879,11 @@ PrefabInstance:
       propertyPath: _inputField
       value: 
       objectReference: {fileID: 215816586}
+    - target: {fileID: 4193611692354653890, guid: abc64004e55b97c42858f5df804e9719,
+        type: 3}
+      propertyPath: _maxPlayers
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4193611692354653891, guid: abc64004e55b97c42858f5df804e9719,
         type: 3}
       propertyPath: m_Name

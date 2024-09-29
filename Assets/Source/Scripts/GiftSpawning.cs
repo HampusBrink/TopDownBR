@@ -23,7 +23,7 @@ public class GiftSpawning : MonoBehaviour
     {
         while (true)
         {
-            if (!GameManager.Instance.GameStarted) yield return null;
+            if (!GameManager.Instance.GameStarted) continue;
             yield return new WaitForSeconds(spawnInterval);
             SpawnGift();
         }
