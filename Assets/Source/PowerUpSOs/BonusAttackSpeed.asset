@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   display: {fileID: -1548724024234672463, guid: 26498c8b9018e7b459e63f9da0e0935b,
     type: 3}
+  description: 10% Attack Speed
   bonusDamagePercent: 0
   bonusMaxHealthFlat: 0
   bonusAttackSpeedPercent: 0.1

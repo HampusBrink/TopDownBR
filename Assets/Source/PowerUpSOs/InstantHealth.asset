@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   display: {fileID: -6579893631911422966, guid: b97c62d14901426468b2228cc2d420b5,
     type: 3}
+  description: 50 instant health!
   bonusDamagePercent: 0
   bonusMaxHealthFlat: 0
   bonusAttackSpeedPercent: 0
