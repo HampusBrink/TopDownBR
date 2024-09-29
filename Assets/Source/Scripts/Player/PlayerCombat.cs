@@ -41,21 +41,11 @@ public class PlayerCombat : MonoBehaviour
             return;
         UpdateAttackSpeed();
         equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
-        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
     }
 
     private void Update()
     {
-        if (!_pv.IsMine)
-            return;
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            
-            _playerStatus.weaponLengthMultiplier += 0.1f;
-            _playerStatus.attackSpeedMultiplier += 0.1f;
-            equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
-            UpdateAttackSpeed();
-        }
+        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
     }
 
     private void UpdateAttackSpeed()
