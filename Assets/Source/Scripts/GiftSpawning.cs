@@ -23,7 +23,6 @@ public class GiftSpawning : MonoBehaviour
     {
         while (true)
         {
-            if (!GameManager.Instance.GameStarted) continue;
             yield return new WaitForSeconds(spawnInterval);
             SpawnGift();
         }
@@ -31,6 +30,7 @@ public class GiftSpawning : MonoBehaviour
 
     private void SpawnGift()
     {
+        if (!GameManager.Instance.GameStarted) return;
         if (availableSpawnPositions.Count > 0)
         {
             int randomIndex = Random.Range(0, availableSpawnPositions.Count);
