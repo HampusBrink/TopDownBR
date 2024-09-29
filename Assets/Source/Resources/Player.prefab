@@ -445,8 +445,8 @@ Transform:
   m_GameObject: {fileID: 3873363251755891362}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.204, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7238108, y: 0.7238108, z: 0.7238108}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7177685037640710819}
@@ -495,7 +495,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_Sprite: {fileID: 5537072652750648230, guid: 8436811c12d8e29419322756efe0c240,
     type: 3}
-  m_Color: {r: 1, g: 0.8543704, b: 0.5613208, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -623,7 +623,7 @@ Transform:
   m_GameObject: {fileID: 6352469876409858834}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.35, y: 1.131, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0.4, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -672,7 +672,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_Sprite: {fileID: -6701925890294609305, guid: dd25cb70ac8dee5488564aa369c0fd99,
     type: 3}
-  m_Color: {r: 1, g: 0.85490197, b: 0.5647059, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1027,6 +1027,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   healthBarFill: {fileID: 7377175790934219997}
+  attackDamageMultiplier: 1
+  attackSpeedMultiplier: 1
+  weaponLengthMultiplier: 1
+  movementSpeedMultiplier: 1
   bonusDamagePercent: 0
 --- !u!114 &3489096302756513090
 MonoBehaviour:
@@ -1106,7 +1110,7 @@ Transform:
   m_GameObject: {fileID: 8866070096928399566}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.35, y: 1.095, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.4, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1156,7 +1160,7 @@ SpriteRenderer:
   m_SortingOrder: 5
   m_Sprite: {fileID: -7352545887967933576, guid: 26291c669f94d8f4781900a532ef6034,
     type: 3}
-  m_Color: {r: 1, g: 0.85490197, b: 0.5647059, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

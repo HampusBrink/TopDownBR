@@ -37,8 +37,25 @@ public class PlayerCombat : MonoBehaviour
     {
         _pv = GetComponent<PhotonView>();
         _playerStatus = GetComponent<PlayerStatus>();
-        
+        if (!_pv.IsMine)
+            return;
         UpdateAttackSpeed();
+        equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
+        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
+    }
+
+    private void Update()
+    {
+        if (!_pv.IsMine)
+            return;
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            
+            _playerStatus.weaponLengthMultiplier += 0.1f;
+            _playerStatus.attackSpeedMultiplier += 0.1f;
+            equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
+            UpdateAttackSpeed();
+        }
     }
 
     private void UpdateAttackSpeed()
@@ -48,8 +65,11 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (!_pv.IsMine)
+            return;
         UpdateAttackSpeed();
         equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
+        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
         if(!_pv.IsMine) return;
         UpdateAttackDurations();
         
