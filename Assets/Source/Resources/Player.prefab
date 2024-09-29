@@ -1025,9 +1025,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d044d8b815dbaab41a4262f7dac41d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   healthBarFill: {fileID: 7377175790934219997}
-  bonusDamagePercent: 0
+  maxHealth: 100
+  attackDamageMultiplier: 1
+  attackSpeedMultiplier: 1
+  weaponLengthMultiplier: 1
+  movementSpeedMultiplier: 1
 --- !u!114 &3489096302756513090
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2996bc38f05003d46af17c707d14949b, type: 3}
   m_Name: BonusDamage
   m_EditorClassIdentifier: 
-  display: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
+  display: {fileID: 2117979870107422497, guid: 0833fbbd75ad3a94ba09a927fe4362cb, type: 3}
   bonusDamagePercent: 0.1
   bonusMaxHealthFlat: 0
+  bonusAttackSpeedPercent: 0
+  instantHealth: 0
+  bonusWeaponLengthPercent: 0
+  bonusMovementSpeedPercent: 0

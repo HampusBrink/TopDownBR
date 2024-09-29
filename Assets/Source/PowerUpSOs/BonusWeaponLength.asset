@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2996bc38f05003d46af17c707d14949b, type: 3}
   m_Name: BonusWeaponLength
   m_EditorClassIdentifier: 
-  display: {fileID: 0}
+  display: {fileID: -6098905459138629358, guid: 561ec8927b526eb43913159972b6f0f1,
+    type: 3}
   bonusDamagePercent: 0
   bonusMaxHealthFlat: 0
   bonusAttackSpeedPercent: 0
   instantHealth: 0
-  weaponLengthPercent: 0.1
-  movementSpeed: 0
+  bonusWeaponLengthPercent: 0.1
+  bonusMovementSpeedPercent: 0

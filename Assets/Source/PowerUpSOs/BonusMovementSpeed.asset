@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2996bc38f05003d46af17c707d14949b, type: 3}
   m_Name: BonusMovementSpeed
   m_EditorClassIdentifier: 
-  display: {fileID: 0}
+  display: {fileID: 6872046646713062042, guid: 44632398ffb9a3b40bbad87fa840f576, type: 3}
   bonusDamagePercent: 0
   bonusMaxHealthFlat: 0
   bonusAttackSpeedPercent: 0
   instantHealth: 0
   bonusWeaponLengthPercent: 0
-  bonusMovementSpeedPercent: 0
+  bonusMovementSpeedPercent: 0.1

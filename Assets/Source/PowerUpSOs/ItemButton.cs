@@ -7,10 +7,14 @@ using UnityEngine.UI;
 public class ItemButton : MonoBehaviour
 {
     public PowerupSO powerUp;
-    private Image _display;
+    [SerializeField] private Image _display;
     private void Start()
     {
-        _display = GetComponent<Image>();
+        _display.sprite = powerUp.display;
+    }
+
+    public void UpdateItem()
+    {
         _display.sprite = powerUp.display;
     }
 
