@@ -18,7 +18,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public static GameManager Instance { get; private set; }
     [HideInInspector] public PhotonView _localPlayer;
+    public bool isDead;
     public List<PhotonView> _players;
+    public List<PlayerMovement> _alivePlayers;
 
     public bool GameStarted { get; private set; }
 
@@ -106,5 +108,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         _victoryRoyaleUI.text = victorName + " Wins!";
         _victoryRoyaleUI.gameObject.SetActive(true);
+    }
+
+    public void PlayerDied()
+    {
+        _alivePlayers = FindObjectsOfType<PlayerMovement>().ToList();
     }
 }

@@ -1032,6 +1032,7 @@ MonoBehaviour:
   attackSpeedMultiplier: 1
   weaponLengthMultiplier: 1
   movementSpeedMultiplier: 1
+  pv: {fileID: 0}
 --- !u!114 &3489096302756513090
 MonoBehaviour:
   m_ObjectHideFlags: 0

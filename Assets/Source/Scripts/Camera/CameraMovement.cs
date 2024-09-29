@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -23,6 +24,9 @@ public class CameraMovement : MonoBehaviour
     private Camera _mainCamera;
     private Vector3 _desiredCamPos = Vector2.zero;
     private bool _isZooming = false;
+    private GameObject spectatedPlayer;
+    private int spectatePlayerIndex;
+
     void Start()
     {
         _mainCamera = Camera.main;
@@ -52,6 +56,11 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCamera()
     {
+        if(GameManager.Instance.isDead)
+        {
+            SpectateCamera();
+            return;
+        }
         Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = _mainCamera.transform.position.z;
     
@@ -75,5 +84,44 @@ public class CameraMovement : MonoBehaviour
         mouseLerp.z = cameraZoom;
 
         _mainCamera.transform.position = mouseLerp;
+    }
+
+    private void SpectateCamera()
+    {
+        if(!GameManager.Instance.isDead) return;
+        if (!spectatedPlayer) spectatedPlayer = GameManager.Instance._alivePlayers.First().gameObject;
+        
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            repeat:
+            spectatePlayerIndex--;
+            if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance._alivePlayers.Count - 1;
+            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
+            
+            if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
+                GameManager.Instance._alivePlayers.Count > 0)
+            {
+                GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
+                goto repeat;
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            repeat:
+            spectatePlayerIndex++;
+            if (spectatePlayerIndex >= GameManager.Instance._alivePlayers.Count - 1) spectatePlayerIndex = 0;
+            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
+            
+            if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
+                GameManager.Instance._alivePlayers.Count > 0)
+            {
+                GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
+                goto repeat;
+            }
+        }
+        
+        if(!spectatedPlayer) return;
+        _mainCamera.transform.position = spectatedPlayer.transform.position;
     }
 }

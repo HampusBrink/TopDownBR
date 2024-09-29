@@ -94100,6 +94100,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 106633476716016222, guid: cdd30e7e7a4ff93409be30d5bcee4be9,
+        type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106633476716016222, guid: cdd30e7e7a4ff93409be30d5bcee4be9,
+        type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 106633476716016222, guid: cdd30e7e7a4ff93409be30d5bcee4be9,
+        type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3268315817713906109, guid: cdd30e7e7a4ff93409be30d5bcee4be9,
         type: 3}
       propertyPath: m_Name
@@ -94108,12 +94123,12 @@ PrefabInstance:
     - target: {fileID: 4252915348368045996, guid: cdd30e7e7a4ff93409be30d5bcee4be9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -20.7
       objectReference: {fileID: 0}
     - target: {fileID: 4252915348368045996, guid: cdd30e7e7a4ff93409be30d5bcee4be9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 12.4
       objectReference: {fileID: 0}
     - target: {fileID: 4252915348368045996, guid: cdd30e7e7a4ff93409be30d5bcee4be9,
         type: 3}
@@ -102714,11 +102729,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6517519226835574252, guid: 20cdb55a6a1565f44be52e5760e1ad99,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8825621775030287276, guid: 20cdb55a6a1565f44be52e5760e1ad99,
         type: 3}

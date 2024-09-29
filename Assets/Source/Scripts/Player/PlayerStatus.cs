@@ -49,9 +49,10 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
     void Die(int viewID)
     {
-        IsDead = true;
         if (PhotonView.Find(viewID).IsMine)
         {
+            GameManager.Instance.isDead = true;
+            GameManager.Instance.PlayerDied();
             PhotonNetwork.Destroy(gameObject);
         }
         
