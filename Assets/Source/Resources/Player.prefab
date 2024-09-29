@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e48eee064fa504cafa560e2acdf9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equippedWeapon: {fileID: 3891516307864707783}
+  equippedWeapon: {fileID: 2330968051541574327}
   rArm: {fileID: 1940999933628278926}
   rArmOgPos: {fileID: 6899109286449791634}
   arcHeight: 0.5
@@ -1286,9 +1286,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc629888421f5a340a9cb24765a662eb, type: 3}
---- !u!114 &3891516307864707783 stripped
+--- !u!114 &2330968051541574327 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4401649977140759993, guid: dc629888421f5a340a9cb24765a662eb,
+  m_CorrespondingSourceObject: {fileID: 3120430716313480649, guid: dc629888421f5a340a9cb24765a662eb,
     type: 3}
   m_PrefabInstance: {fileID: 798469896470966142}
   m_PrefabAsset: {fileID: 0}
