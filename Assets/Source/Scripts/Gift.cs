@@ -32,7 +32,8 @@ public class Gift : MonoBehaviour
                 Collect();
             }
             if(!photonView.IsMine) return;
-            
+
+            photonView.GetComponent<PlayerMovement>().disableMovement = true;
             GameManager.Instance.PowerupPopup.gameObject.SetActive(true);
         }
     }

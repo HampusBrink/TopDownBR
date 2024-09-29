@@ -995,6 +995,7 @@ MonoBehaviour:
   sprintSpeed: 22
   acceleration: 140
   playerGFX: {fileID: 3873363251755891362}
+  disableMovement: 0
 --- !u!114 &-8871992485847606398
 MonoBehaviour:
   m_ObjectHideFlags: 0
