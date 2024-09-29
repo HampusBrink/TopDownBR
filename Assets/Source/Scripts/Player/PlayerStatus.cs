@@ -6,7 +6,8 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 {
     [SerializeField] private Image healthBarFill;
 
-    [Header("Stats")] public float maxHealth = 100;
+    [Header("Stats")] 
+    public float maxHealth = 100f;
     public float attackDamageMultiplier = 1.0f;
     public float attackSpeedMultiplier = 1.0f;
     public float weaponLengthMultiplier = 1.0f;
