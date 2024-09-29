@@ -1,13 +1,10 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
 public class PlayerMovement : MonoBehaviour
 {
-    
-    
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 22f;
     [SerializeField] private float acceleration = 5f;
@@ -16,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 _velocity = Vector2.zero;
     private float _desiredSpeed;
+    private float _multipliedSpeed;
     private bool _isSprinting = false;
     
     private Camera _camera;
@@ -34,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
 
-        _desiredSpeed = walkSpeed;
+        _desiredSpeed = _multipliedSpeed = walkSpeed;
+        
     }
 
     // Update is called once per frame
@@ -50,7 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMovementSpeed()
     {
-        _desiredSpeed *= _playerStatus.movementSpeedMultiplier;
+        _multipliedSpeed = _playerStatus.movementSpeedMultiplier * _desiredSpeed;
     }
     
     public void OnSprint(InputAction.CallbackContext context)
@@ -87,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         UpdateMovementSpeed();
         if (_moveVector != Vector2.zero)
         {
-            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _desiredSpeed, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
         }
         else
         {

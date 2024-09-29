@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] private List<Transform> _spawnPositions;
     [SerializeField] private UIScript _UI;
     [SerializeField] private TMP_Text _victoryRoyaleUI;
+    public PowerupPopup PowerupPopup;
 
     [SerializeField] private int _countDownTime = 20;
 
