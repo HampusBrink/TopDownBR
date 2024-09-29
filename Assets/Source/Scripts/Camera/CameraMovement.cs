@@ -96,14 +96,13 @@ public class CameraMovement : MonoBehaviour
             repeat:
             spectatePlayerIndex--;
             if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance._alivePlayers.Count - 1;
-            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
-            
             if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
                 GameManager.Instance._alivePlayers.Count > 0)
             {
                 GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
                 goto repeat;
             }
+            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -111,14 +110,13 @@ public class CameraMovement : MonoBehaviour
             repeat:
             spectatePlayerIndex++;
             if (spectatePlayerIndex >= GameManager.Instance._alivePlayers.Count - 1) spectatePlayerIndex = 0;
-            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
-            
             if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
                 GameManager.Instance._alivePlayers.Count > 0)
             {
                 GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
                 goto repeat;
             }
+            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
         }
         
         if(!spectatedPlayer) return;
