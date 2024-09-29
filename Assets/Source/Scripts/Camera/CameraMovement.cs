@@ -88,13 +88,11 @@ public class CameraMovement : MonoBehaviour
 
     private void SpectateCamera()
     {
-        print("spectating");
         if(!GameManager.Instance.isDead) return;
         if (!spectatedPlayer) spectatedPlayer = GameManager.Instance._alivePlayers.First().gameObject;
         
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            print("new player");
             repeat:
             spectatePlayerIndex--;
             if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance._alivePlayers.Count - 1;
@@ -124,7 +122,6 @@ public class CameraMovement : MonoBehaviour
         }
         
         if(!spectatedPlayer) return;
-        print("spectate should work");
-        _mainCamera.transform.position = spectatedPlayer.transform.position;
+        _mainCamera.transform.position = new Vector3(spectatedPlayer.transform.position.x,spectatedPlayer.transform.position.y,_mainCamera.transform.position.z);
     }
 }
