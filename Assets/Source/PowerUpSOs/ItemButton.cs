@@ -24,6 +24,9 @@ public class ItemButton : MonoBehaviour
     void AddNewBuffs(PlayerStatus playerStatus, PowerupSO powerUp)
     {
         playerStatus.maxHealth += powerUp.bonusMaxHealthFlat;
-        playerStatus.bonusDamagePercent = powerUp.bonusDamagePercent;
+        playerStatus.attackDamageMultiplier += powerUp.bonusDamagePercent;
+        playerStatus.movementSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
+        playerStatus.attackSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
+        playerStatus.weaponLengthMultiplier += powerUp.bonusWeaponLengthPercent;
     }
 }

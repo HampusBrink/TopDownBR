@@ -8,4 +8,8 @@ public class PowerupSO : ScriptableObject
     public Sprite display;
     public float bonusDamagePercent;
     public float bonusMaxHealthFlat;
+    public float bonusAttackSpeedPercent;
+    public float instantHealth;
+    public float bonusWeaponLengthPercent;
+    public float bonusMovementSpeedPercent;
 }
