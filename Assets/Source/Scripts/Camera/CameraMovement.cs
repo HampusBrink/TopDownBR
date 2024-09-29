@@ -34,6 +34,11 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
+        if(GameManager.Instance.isDead)
+        {
+            SpectateCamera();
+            return;
+        }
         if(!FollowTarget) return;
 
         //transform.position = new Vector3(FollowTarget.position.x,FollowTarget.position.y,transform.position.z);
@@ -56,11 +61,6 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCamera()
     {
-        if(GameManager.Instance.isDead)
-        {
-            SpectateCamera();
-            return;
-        }
         Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = _mainCamera.transform.position.z;
     
@@ -88,11 +88,13 @@ public class CameraMovement : MonoBehaviour
 
     private void SpectateCamera()
     {
+        print("spectating");
         if(!GameManager.Instance.isDead) return;
         if (!spectatedPlayer) spectatedPlayer = GameManager.Instance._alivePlayers.First().gameObject;
         
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            print("new player");
             repeat:
             spectatePlayerIndex--;
             if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance._alivePlayers.Count - 1;
@@ -122,6 +124,7 @@ public class CameraMovement : MonoBehaviour
         }
         
         if(!spectatedPlayer) return;
+        print("spectate should work");
         _mainCamera.transform.position = spectatedPlayer.transform.position;
     }
 }
