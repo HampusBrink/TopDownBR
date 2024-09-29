@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 561ec8927b526eb43913159972b6f0f1
+guid: 26498c8b9018e7b459e63f9da0e0935b
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -121,18 +121,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: WeaponLengthBuffIcon
+  - name: AttackSpeedBuffIcon
     originalName: 
-    pivot: {x: 0.5072464, y: -0.03896104}
+    pivot: {x: 0.42500004, y: -0.33333334}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 69
-      height: 77
-    spriteID: 79e67c0044805cc4b929e2b3dfa4d260
+      width: 40
+      height: 45
+    spriteID: 66b170d3eb3984245862c3bd18de480c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,20 +144,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1299222802
-    name: WeaponLengthBuffIcon
+    guid: -747573057
+    name: AttackSpeedBuffIcon
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: WeaponLengthBuffIcon
+    - name: AttackSpeedBuffIcon
       frameIndex: 0
       cellRect:
-        x: 2
-        y: 3
-        width: 69
-        height: 77
-      spriteId: 79e67c0044805cc4b929e2b3dfa4d260
+        x: 20
+        y: 15
+        width: 40
+        height: 45
+      spriteId: 66b170d3eb3984245862c3bd18de480c
     linkedCells: []
     parentIndex: -1
   platformSettings: []
