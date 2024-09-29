@@ -123,7 +123,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: DamageBuffIcon
     originalName: 
-    pivot: {x: 0.45945948, y: -0.33333334}
+    pivot: {x: 0.45945948, y: -0.3125}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -131,7 +131,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 37
-      height: 45
+      height: 48
     spriteID: fa66e878b16e9f14ab9e5e2317051538
     spriteBone: []
     spriteOutline: []
@@ -156,7 +156,7 @@ ScriptedImporter:
         x: 20
         y: 15
         width: 37
-        height: 45
+        height: 48
       spriteId: fa66e878b16e9f14ab9e5e2317051538
     linkedCells: []
     parentIndex: -1
