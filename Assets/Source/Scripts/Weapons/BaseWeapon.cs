@@ -54,6 +54,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        if(!GameManager.Instance.GameStarted) return;
         if (col.TryGetComponent(out PhotonView pv))
         {
             if (pv.TryGetComponent(out IDamagable damagable))

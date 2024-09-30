@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BonusMovementSpeed
   m_EditorClassIdentifier: 
   display: {fileID: 6872046646713062042, guid: 44632398ffb9a3b40bbad87fa840f576, type: 3}
+  description: 10% Movement Speed
   bonusDamagePercent: 0
   bonusMaxHealthFlat: 0
   bonusAttackSpeedPercent: 0

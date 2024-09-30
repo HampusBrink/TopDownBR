@@ -90,15 +90,15 @@ public class ZoneScript : MonoBehaviour
 
     void UpdateZoneDamage()
     {
-        if (!_isInSafeZone)
+        if (!_playerPv) return;
+        if (_isInSafeZone) return;
+        
+        _zoneDamageTimer += Time.deltaTime;
+        if(_zoneDamageTimer < 1) return;
+        _zoneDamageTimer = 0;
+        if (_playerPv.TryGetComponent(out IDamagable damagable))
         {
-            _zoneDamageTimer += Time.deltaTime;
-            if(_zoneDamageTimer < 1) return;
-            _zoneDamageTimer = 0;
-            if (_playerPv.TryGetComponent(out IDamagable damagable))
-            {
-                _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
-            }
+            _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
         }
     }
 }

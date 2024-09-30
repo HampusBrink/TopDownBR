@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BonusDamage
   m_EditorClassIdentifier: 
   display: {fileID: 2117979870107422497, guid: 0833fbbd75ad3a94ba09a927fe4362cb, type: 3}
+  description: 10% Attack Damage
   bonusDamagePercent: 0.1
   bonusMaxHealthFlat: 0
   bonusAttackSpeedPercent: 0

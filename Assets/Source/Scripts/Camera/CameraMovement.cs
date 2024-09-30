@@ -34,6 +34,11 @@ public class CameraMovement : MonoBehaviour
 
     void LateUpdate()
     {
+        if(GameManager.Instance.isDead)
+        {
+            SpectateCamera();
+            return;
+        }
         if(!FollowTarget) return;
 
         //transform.position = new Vector3(FollowTarget.position.x,FollowTarget.position.y,transform.position.z);
@@ -56,11 +61,6 @@ public class CameraMovement : MonoBehaviour
 
     private void MoveCamera()
     {
-        if(GameManager.Instance.isDead)
-        {
-            SpectateCamera();
-            return;
-        }
         Vector3 mousePos = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = _mainCamera.transform.position.z;
     
@@ -96,14 +96,13 @@ public class CameraMovement : MonoBehaviour
             repeat:
             spectatePlayerIndex--;
             if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance._alivePlayers.Count - 1;
-            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
-            
             if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
                 GameManager.Instance._alivePlayers.Count > 0)
             {
                 GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
                 goto repeat;
             }
+            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
@@ -111,17 +110,16 @@ public class CameraMovement : MonoBehaviour
             repeat:
             spectatePlayerIndex++;
             if (spectatePlayerIndex >= GameManager.Instance._alivePlayers.Count - 1) spectatePlayerIndex = 0;
-            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
-            
             if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
                 GameManager.Instance._alivePlayers.Count > 0)
             {
                 GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
                 goto repeat;
             }
+            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
         }
         
         if(!spectatedPlayer) return;
-        _mainCamera.transform.position = spectatedPlayer.transform.position;
+        _mainCamera.transform.position = new Vector3(spectatedPlayer.transform.position.x,spectatedPlayer.transform.position.y,_mainCamera.transform.position.z);
     }
 }

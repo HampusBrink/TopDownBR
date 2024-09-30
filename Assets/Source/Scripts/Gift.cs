@@ -32,7 +32,7 @@ public class Gift : MonoBehaviour
                 Collect();
             }
             if(!photonView.IsMine) return;
-            
+
             GameManager.Instance.PowerupPopup.gameObject.SetActive(true);
         }
     }

@@ -6,8 +6,8 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 {
     [SerializeField] private Image healthBarFill;
 
-    [Header("Stats")]
-    public float maxHealth = 100;
+    [Header("Stats")] 
+    public float maxHealth = 100f;
     public float attackDamageMultiplier = 1.0f;
     public float attackSpeedMultiplier = 1.0f;
     public float weaponLengthMultiplier = 1.0f;
@@ -17,7 +17,11 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
     public bool IsDead { get; private set; }
 
-    public float CurrentHealth => _currentHealth > maxHealth ? maxHealth : _currentHealth;
+    public float CurrentHealth
+    {
+        get => _currentHealth > maxHealth ? maxHealth : _currentHealth;
+        set => _currentHealth = value > maxHealth ? maxHealth : value;
+    }
 
     public PhotonView pv;
 
@@ -25,6 +29,10 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     {
         _currentHealth = maxHealth;
         pv = GetComponent<PhotonView>();
+        if (pv.IsMine)
+        {
+            healthBarFill.color = Color.green;
+        }
     }
 
     public void TakeDamage(float damage, int viewID)
@@ -55,17 +63,17 @@ public class PlayerStatus : MonoBehaviour, IDamagable
             GameManager.Instance.PlayerDied();
             PhotonNetwork.Destroy(gameObject);
         }
-        
-        if(!PhotonNetwork.IsMasterClient) return;
+
+        if (!PhotonNetwork.IsMasterClient) return;
         GameManager.Instance._players.Remove(gameObject.GetPhotonView());
         GameManager.Instance.CheckForWinner();
     }
-    
+
     [PunRPC]
-    public void RPC_TakeDamage(int viewID,float damage)
+    public void RPC_TakeDamage(int viewID, float damage)
     {
         var player = PhotonView.Find(viewID);
-        if(!player.TryGetComponent(out IDamagable damagable)) return;
-        damagable.TakeDamage(damage,viewID);
+        if (!player.TryGetComponent(out IDamagable damagable)) return;
+        damagable.TakeDamage(damage, viewID);
     }
 }

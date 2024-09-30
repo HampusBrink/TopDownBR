@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: MaxHealth
   m_EditorClassIdentifier: 
   display: {fileID: 1957348198713477424, guid: f61296a6d5b6d60428225112b4702b77, type: 3}
+  description: +20 Max Health
   bonusDamagePercent: 0
   bonusMaxHealthFlat: 20
   bonusAttackSpeedPercent: 0
