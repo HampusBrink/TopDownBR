@@ -123,6 +123,91 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &19262086
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3503628701346571853, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: _maxPlayers
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3540277538595261591, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_Name
+      value: Main Menu Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.17913173
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.762873
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.056344606
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4263680151696324967, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d, type: 3}
+--- !u!114 &19262087 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3503628701346571853, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+    type: 3}
+  m_PrefabInstance: {fileID: 19262086}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f045c71806f9fd341ac6aa1ad0f5f0b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &32402387
 GameObject:
   m_ObjectHideFlags: 0
@@ -546,10 +631,9 @@ GameObject:
   - component: {fileID: 82462472}
   - component: {fileID: 82462471}
   - component: {fileID: 82462470}
-  - component: {fileID: 82462473}
   - component: {fileID: 82462474}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -619,8 +703,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 82462473}
-        m_TargetAssemblyTypeName: RealMainMenuButtons, Assembly-CSharp
+      - m_Target: {fileID: 19262087}
+        m_TargetAssemblyTypeName: MultiplayerBase.Scripts.MainMenuManagerScript,
+          Assembly-CSharp
         m_MethodName: OnQuitClicked
         m_Mode: 1
         m_Arguments:
@@ -681,18 +766,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82462468}
   m_CullTransparentMesh: 1
---- !u!114 &82462473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 82462468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ceeee1aaf5d2e4aa71446a39d9bdd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &82462474
 Animator:
   serializedVersion: 5
@@ -3974,10 +4047,9 @@ GameObject:
   - component: {fileID: 851266426}
   - component: {fileID: 851266425}
   - component: {fileID: 851266424}
-  - component: {fileID: 851266427}
   - component: {fileID: 851266428}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4047,8 +4119,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 851266427}
-        m_TargetAssemblyTypeName: RealMainMenuButtons, Assembly-CSharp
+      - m_Target: {fileID: 19262087}
+        m_TargetAssemblyTypeName: MultiplayerBase.Scripts.MainMenuManagerScript,
+          Assembly-CSharp
         m_MethodName: OnPlayClicked
         m_Mode: 1
         m_Arguments:
@@ -4109,18 +4182,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 851266422}
   m_CullTransparentMesh: 1
---- !u!114 &851266427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 851266422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69ceeee1aaf5d2e4aa71446a39d9bdd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &851266428
 Animator:
   serializedVersion: 5
@@ -7697,6 +7758,7 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 19262086}
   - {fileID: 238239165}
   - {fileID: 1688041628}
   - {fileID: 166727816}

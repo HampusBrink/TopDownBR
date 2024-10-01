@@ -9,7 +9,13 @@ public class FindSessions : MonoBehaviourPunCallbacks
     
     private void Start()
     {
-        PhotonNetwork.JoinLobby();
+        
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        PhotonNetwork.LoadLevel("GameScene");
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
