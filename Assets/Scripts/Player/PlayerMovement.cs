@@ -1,7 +1,8 @@
-using System;
+ using System;
 using UnityEngine;
 using Photon.Pun;
 using Unity.Mathematics;
+using UnityEditor.Timeline;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -23,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     private float _multipliedSpeed;
     private bool _isSprinting = false;
     private float _stamina;
+
+    [SerializeField] private Animator anim;
+    private bool facingLeft = true;
     
     private Camera _camera;
 
@@ -33,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     
     void Start()
     {
+        
         _rb = GetComponent<Rigidbody2D>();
         _pv = GetComponent<PhotonView>();
         _playerStatus = GetComponent<PlayerStatus>();
@@ -44,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
         if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
 
         _desiredSpeed = _multipliedSpeed = walkSpeed;
+        
         
     }
 
@@ -58,7 +64,17 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log(GetTurnDirection());
         }
+
+        Animate();
+        
+        
+        if (input.x < 0 && !facingLeft || input.x > 0 && facingLeft)
+        {
+            Flip();
+        }
+        Foo();
     }
+    
 
     // Update is called once per frame
     void FixedUpdate()
@@ -71,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             ApplyMovement();
         }
 
-        RotatePlayerToMouse();
+        //RotatePlayerToMouse();
     }
 
     private void UpdateMovementSpeed()
@@ -116,19 +132,58 @@ public class PlayerMovement : MonoBehaviour
         staminaBarFill.fillAmount = targetFillAmount;
     }
 
+    private Vector2 input;
+    private Vector2 lastMovedirection;
+    private bool isMoving = false;
+
+    private void Foo()
+    {
+        if (!isMoving)
+        {
+            if (input != Vector2.zero)
+            {
+                lastMovedirection = input;
+                input = Vector2.zero;
+            }
+        }
+        else
+        {
+            input = _moveVector;
+            input.Normalize();
+        }
+    }
+    
     public void OnMove(InputAction.CallbackContext context)
     {
-        if(!_pv.IsMine) return;
-        if(!GameManager.Instance.GameStarted) return;
-        if (!context.performed)
-        {
-            _moveVector = Vector2.zero;
-            return;
-        }
-        
-        
+        isMoving = true;
+        if (!_pv.IsMine) return;
+        if (!GameManager.Instance.GameStarted) return;
 
         _moveVector = context.ReadValue<Vector2>();
+
+        if (context.canceled)
+        {
+            isMoving = false;
+        }
+        
+    }
+
+    void Animate()
+    {
+        anim.SetFloat("MoveX", input.x);
+        anim.SetFloat("MoveY", input.y);
+        anim.SetFloat("MoveMagnitude", input.magnitude);
+        anim.SetFloat("LastMoveX", lastMovedirection.x);
+        anim.SetFloat("LastMoveY", lastMovedirection.y);
+    }
+
+    void Flip()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+
+        facingLeft = !facingLeft;
     }
 
     private void ApplyMovement()
