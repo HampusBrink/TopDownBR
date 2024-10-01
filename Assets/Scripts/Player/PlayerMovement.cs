@@ -49,6 +49,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if(!_pv.IsMine) return;
+        if(!_camera) return;
+        
         UpdateStamina();
 
         if (Input.GetMouseButtonDown(1))
@@ -146,29 +149,29 @@ public class PlayerMovement : MonoBehaviour
 
     enum TurnDirection
     {
-        Up = 0,
-        UpLeft = 1,
-        Left = 2,
-        DownLeft = 3,
-        Down = 4,
-        DownRight = 5,
-        Right = 6,
-        UpRight = 7
+        Down = 0,
+        DownRight = 1,
+        Right = 2,
+        UpRight = 3,
+        Up = 4,
+        UpLeft = 5,
+        Left = 6,
+        DownLeft = 7
     }
 
     private TurnDirection GetTurnDirection()
     {
-        Vector2 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        var direction = (mouseWorldPosition - _rb.position) * -1;
-        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
-
-        // Normalize angle to be within 0-360
+        Vector2 mouseScreenPosition = Input.mousePosition;
+        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Vector2 normalizedDirection = new Vector2(
+            (mouseScreenPosition.x - screenCenter.x) / Screen.width,
+            (mouseScreenPosition.y - screenCenter.y) / Screen.height
+        );
+    
+        var angle = Mathf.Atan2(normalizedDirection.y, normalizedDirection.x) * Mathf.Rad2Deg + 90;
         angle = (angle + 360) % 360;
 
-        // Calculate the index of the direction
         int directionIndex = Mathf.RoundToInt(angle / 45f) % 8;
-
-        // Cast the index to TurnDirection enum
         return (TurnDirection)directionIndex;
     }
     
