@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using MultiplayerBase.Scripts;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -23,6 +25,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public List<PlayerMovement> _alivePlayers;
 
     public bool GameStarted { get; private set; }
+    
+    //remove later
+    public bool IsTestScene;
 
     private bool _timerStarted;
     private float _timer;
@@ -31,6 +36,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     void Awake()
     {
+        if (IsTestScene) GameStarted = true;
         if (Instance == null)
         {
             Instance = this;
@@ -113,5 +119,34 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void PlayerDied()
     {
         _alivePlayers = FindObjectsOfType<PlayerMovement>().ToList();
+    }
+    
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            CheckQueue();
+        }
+    }
+
+    private void CheckQueue()
+    {
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(MainMenuManagerScript.QUEUE_PROP_KEY, out object queueObj))
+        {
+            string[] queue = queueObj as string[];
+            if (queue != null && queue.Length > 0)
+            {
+                string nextPlayerId = queue[0];
+                // Remove the player from the queue
+                queue = queue.Skip(1).ToArray();
+                ExitGames.Client.Photon.Hashtable queueProperty = new ExitGames.Client.Photon.Hashtable();
+                queueProperty[MainMenuManagerScript.QUEUE_PROP_KEY] = queue;
+                PhotonNetwork.CurrentRoom.SetCustomProperties(queueProperty);
+
+                // Invite the next player
+                PhotonNetwork.CurrentRoom.SetPropertiesListedInLobby(new string[] { "OpenForNext" });
+                PhotonNetwork.CurrentRoom.IsOpen = true;
+            }
+        }
     }
 }

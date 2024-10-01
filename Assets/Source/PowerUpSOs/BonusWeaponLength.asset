@@ -19,5 +19,5 @@ MonoBehaviour:
   bonusMaxHealthFlat: 0
   bonusAttackSpeedPercent: 0
   instantHealth: 0
-  bonusWeaponLengthPercent: 0.1
+  bonusWeaponLengthPercent: 0.5
   bonusMovementSpeedPercent: 0

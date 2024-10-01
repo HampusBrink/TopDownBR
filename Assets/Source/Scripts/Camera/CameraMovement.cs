@@ -88,34 +88,25 @@ public class CameraMovement : MonoBehaviour
 
     private void SpectateCamera()
     {
-        if(!GameManager.Instance.isDead) return;
         if (!spectatedPlayer) spectatedPlayer = GameManager.Instance._alivePlayers.First().gameObject;
         
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            repeat:
+            GameManager.Instance._alivePlayers.RemoveAll(item => item == null);
+
             spectatePlayerIndex--;
             if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance._alivePlayers.Count - 1;
-            if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
-                GameManager.Instance._alivePlayers.Count > 0)
-            {
-                GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
-                goto repeat;
-            }
+
             spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            repeat:
+            GameManager.Instance._alivePlayers.RemoveAll(item => item == null);
+            
             spectatePlayerIndex++;
-            if (spectatePlayerIndex >= GameManager.Instance._alivePlayers.Count - 1) spectatePlayerIndex = 0;
-            if (GameManager.Instance._alivePlayers[spectatePlayerIndex] == null &&
-                GameManager.Instance._alivePlayers.Count > 0)
-            {
-                GameManager.Instance._alivePlayers.RemoveAt(spectatePlayerIndex);
-                goto repeat;
-            }
+            if (spectatePlayerIndex > GameManager.Instance._alivePlayers.Count - 1) spectatePlayerIndex = 0;
+
             spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
         }
         

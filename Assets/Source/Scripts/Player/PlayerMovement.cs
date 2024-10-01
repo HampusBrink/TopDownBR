@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         _camera = Camera.main;
         _stamina = maxStamina;
 
-        if (!_pv.IsMine) staminaBarFill.enabled = false;
+        if (!_pv.IsMine) staminaBarFill.transform.parent.gameObject.SetActive(false);
 
         if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
 
