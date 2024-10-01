@@ -11,6 +11,7 @@ public class PlayerDisplay : MonoBehaviour
     private void Awake()
     {
         _playerPv = GetComponentInParent<PhotonView>();
+        if(_playerPv.Controller == null) return;
         var displayName = _playerPv.Controller.NickName;
         
         if (displayName == string.Empty) return;
