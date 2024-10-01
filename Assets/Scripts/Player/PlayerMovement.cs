@@ -50,6 +50,11 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         UpdateStamina();
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log(GetTurnDirection());
+        }
     }
 
     // Update is called once per frame
@@ -138,6 +143,35 @@ public class PlayerMovement : MonoBehaviour
         _rb.velocity = _velocity;
     }
 
+
+    enum TurnDirection
+    {
+        Up = 0,
+        UpLeft = 1,
+        Left = 2,
+        DownLeft = 3,
+        Down = 4,
+        DownRight = 5,
+        Right = 6,
+        UpRight = 7
+    }
+
+    private TurnDirection GetTurnDirection()
+    {
+        Vector2 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        var direction = (mouseWorldPosition - _rb.position) * -1;
+        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
+
+        // Normalize angle to be within 0-360
+        angle = (angle + 360) % 360;
+
+        // Calculate the index of the direction
+        int directionIndex = Mathf.RoundToInt(angle / 45f) % 8;
+
+        // Cast the index to TurnDirection enum
+        return (TurnDirection)directionIndex;
+    }
+    
     private void RotatePlayerToMouse()
     {
         Vector2 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
