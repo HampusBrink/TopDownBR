@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public List<PlayerMovement> _alivePlayers;
 
     public bool GameStarted { get; private set; }
+    
+    //remove later
+    public bool IsTestScene;
 
     private bool _timerStarted;
     private float _timer;
@@ -33,6 +36,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     
     void Awake()
     {
+        if (IsTestScene) GameStarted = true;
         if (Instance == null)
         {
             Instance = this;
