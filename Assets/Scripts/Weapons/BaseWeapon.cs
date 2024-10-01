@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BaseWeapon : MonoBehaviourPunCallbacks
 {
 
     public BoxCollider2D weaponCol;
+    public SpriteRenderer weaponGFX;
     
     [Header("Stats")]
     public float baseDamage = 10f;
@@ -17,7 +19,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     private float _multipliedDamage;
     private float _multipliedWeaponLength;
 
-    private bool _isAlreadyAttacking;
+    [HideInInspector] public bool isAlreadyAttacking;
 
     private void Start()
     {
@@ -27,7 +29,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
 
     public void WeaponPerformAttack(float attackDuration)
     {
-        if(_isAlreadyAttacking) return;
+        if(isAlreadyAttacking) return;
         StartCoroutine(ActivateAttack(attackDuration));
     }
 
@@ -44,12 +46,12 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     
     private IEnumerator ActivateAttack(float attackDuration)
     {
-        _isAlreadyAttacking = true;
+        isAlreadyAttacking = true;
         weaponCol.enabled = true;
         yield return new WaitForSeconds(attackDuration);
         // ReSharper disable once Unity.InefficientPropertyAccess
         weaponCol.enabled = false;
-        _isAlreadyAttacking = false;
+        isAlreadyAttacking = false;
     }
 
     private void OnTriggerEnter2D(Collider2D col)

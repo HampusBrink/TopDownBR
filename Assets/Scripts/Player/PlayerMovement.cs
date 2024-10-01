@@ -4,6 +4,7 @@ using Photon.Pun;
 using Unity.Mathematics;
 using UnityEditor.Timeline;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
@@ -27,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private Animator anim;
     private bool facingLeft = true;
+    private Vector3 _initialScale;
     
     private Camera _camera;
 
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
+        _initialScale = transform.localScale;
 
         if (!_pv.IsMine) staminaBarFill.transform.parent.gameObject.SetActive(false);
 
@@ -60,18 +63,14 @@ public class PlayerMovement : MonoBehaviour
         
         UpdateStamina();
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log(GetTurnDirection());
-        }
-
         Animate();
         
         
-        if (input.x < 0 && !facingLeft || input.x > 0 && facingLeft)
-        {
-            Flip();
-        }
+        if (_input.x < 0)
+            Flip(false);
+        else if (_input.x > 0) 
+            Flip(true);
+        
         Foo();
     }
     
@@ -132,30 +131,30 @@ public class PlayerMovement : MonoBehaviour
         staminaBarFill.fillAmount = targetFillAmount;
     }
 
-    private Vector2 input;
-    private Vector2 lastMovedirection;
-    private bool isMoving = false;
+    private Vector2 _input;
+    [HideInInspector] public Vector2 lastMovedirection;
+    private bool _isMoving = false;
 
     private void Foo()
     {
-        if (!isMoving)
+        if (!_isMoving)
         {
-            if (input != Vector2.zero)
+            if (_input != Vector2.zero)
             {
-                lastMovedirection = input;
-                input = Vector2.zero;
+                lastMovedirection = _input;
+                _input = Vector2.zero;
             }
         }
         else
         {
-            input = _moveVector;
-            input.Normalize();
+            _input = _moveVector;
+            _input.Normalize();
         }
     }
     
     public void OnMove(InputAction.CallbackContext context)
     {
-        isMoving = true;
+        _isMoving = true;
         if (!_pv.IsMine) return;
         if (!GameManager.Instance.GameStarted) return;
 
@@ -163,24 +162,28 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.canceled)
         {
-            isMoving = false;
+            _isMoving = false;
         }
         
     }
 
     void Animate()
     {
-        anim.SetFloat("MoveX", input.x);
-        anim.SetFloat("MoveY", input.y);
-        anim.SetFloat("MoveMagnitude", input.magnitude);
+        anim.SetFloat("MoveX", _input.x);
+        anim.SetFloat("MoveY", _input.y);
+        anim.SetFloat("MoveMagnitude", _input.magnitude);
         anim.SetFloat("LastMoveX", lastMovedirection.x);
         anim.SetFloat("LastMoveY", lastMovedirection.y);
     }
 
-    void Flip()
+    public void Flip(bool flipToRight)
     {
         Vector3 scale = transform.localScale;
-        scale.x *= -1;
+        if (flipToRight) 
+            scale.x = _initialScale.x * 1f;
+        else
+            scale.x = _initialScale.x * -1f;
+        
         transform.localScale = scale;
 
         facingLeft = !facingLeft;
@@ -202,33 +205,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    enum TurnDirection
-    {
-        Down = 0,
-        DownRight = 1,
-        Right = 2,
-        UpRight = 3,
-        Up = 4,
-        UpLeft = 5,
-        Left = 6,
-        DownLeft = 7
-    }
-
-    private TurnDirection GetTurnDirection()
-    {
-        Vector2 mouseScreenPosition = Input.mousePosition;
-        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Vector2 normalizedDirection = new Vector2(
-            (mouseScreenPosition.x - screenCenter.x) / Screen.width,
-            (mouseScreenPosition.y - screenCenter.y) / Screen.height
-        );
     
-        var angle = Mathf.Atan2(normalizedDirection.y, normalizedDirection.x) * Mathf.Rad2Deg + 90;
-        angle = (angle + 360) % 360;
-
-        int directionIndex = Mathf.RoundToInt(angle / 45f) % 8;
-        return (TurnDirection)directionIndex;
-    }
     
     private void RotatePlayerToMouse()
     {

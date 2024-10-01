@@ -123,7 +123,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: swordbase
     originalName: 
-    pivot: {x: 0.1764706, y: -0.55}
+    pivot: {x: 0.85147667, y: 0.8762102}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
