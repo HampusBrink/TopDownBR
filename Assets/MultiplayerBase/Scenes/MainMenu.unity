@@ -131,6 +131,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2163540518040346244, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
+        type: 3}
+      propertyPath: <SceneId>k__BackingField
+      value: 4093369189
+      objectReference: {fileID: 0}
     - target: {fileID: 3503628701346571853, guid: 2d25b7ad8b8dacf4e9bb0485fc1a6f4d,
         type: 3}
       propertyPath: _maxPlayers

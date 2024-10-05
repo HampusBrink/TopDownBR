@@ -1,15 +1,22 @@
-using Photon.Pun;
-using Photon.Realtime;
+using System;
+using System.Linq;
+using FishNet.Connection;
+using FishNet.Managing.Scened;
+using FishNet.Object;
 using Source.Scripts.NetworkRelated.Steam;
 using UnityEngine;
 
 namespace MultiplayerBase.Scripts
 {
-    public class MainMenuManagerScript : MonoBehaviourPunCallbacks
+    public class MainMenuManagerScript : NetworkBehaviour
     {
-        public const string QUEUE_PROP_KEY = "Queue";
-        
-        [SerializeField] private int _maxPlayers = 21;
+        public static MainMenuManagerScript Instance;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         public void OnPlayClicked()
         {
             SteamManager.JoinRandomOrCreateLobby();
@@ -19,18 +26,10 @@ namespace MultiplayerBase.Scripts
             Application.Quit();
         }
 
-        public override void OnJoinRandomFailed(short returnCode, string message)
+        public static void LoadScene(string sceneName)
         {
-            // Room is full, add player to queue
-            string playerId = PhotonNetwork.LocalPlayer.UserId;
-            ExitGames.Client.Photon.Hashtable queueProperty = new ExitGames.Client.Photon.Hashtable();
-            queueProperty[QUEUE_PROP_KEY] = playerId;
-            PhotonNetwork.CurrentRoom.SetCustomProperties(queueProperty);
-        }
-
-        public override void OnJoinedRoom()
-        {
-            PhotonNetwork.LoadLevel("GameScene");
+            var sld = new SceneLoadData(sceneName) { ReplaceScenes = ReplaceOption.All };
+            Instance.SceneManager.LoadGlobalScenes(sld);
         }
     }
 }
