@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Photon.Realtime;
+using Source.Scripts.NetworkRelated.Steam;
 using UnityEngine;
 
 namespace MultiplayerBase.Scripts
@@ -11,18 +12,7 @@ namespace MultiplayerBase.Scripts
         [SerializeField] private int _maxPlayers = 21;
         public void OnPlayClicked()
         {
-            if(PhotonNetwork.CountOfRooms<= 0)
-            {
-                var options = new RoomOptions
-                {
-                    MaxPlayers = _maxPlayers
-                };
-                PhotonNetwork.JoinRandomOrCreateRoom(roomOptions:options);
-                return;
-            }
-            
-            PhotonNetwork.JoinRandomRoom();
-            //PhotonNetwork.JoinRandomOrCreateRoom(roomOptions:options);
+            SteamManager.JoinRandomOrCreateLobby();
         }
         public void OnQuitClicked()
         {
