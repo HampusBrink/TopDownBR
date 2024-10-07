@@ -1340,6 +1340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df13d2cacc3d2e6419d34ae2ebddb45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   timerDisplay: {fileID: 537411958155931328}
   startGameObject: {fileID: 7900679356751000910}
 --- !u!1 &7900679356751000910

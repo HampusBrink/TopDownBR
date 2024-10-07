@@ -1,34 +1,37 @@
-using Photon.Pun;
+using FishNet.Object;
+using MultiplayerBase.Scripts;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class UIScript : MonoBehaviour
+namespace Source.Scripts.UI
 {
-    public TMP_Text timerDisplay;
-    public GameObject startGameObject;
-
-    void Start()
+    public class UIScript : NetworkBehaviour
     {
-        timerDisplay.gameObject.SetActive(false);
-        if(GameManager.Instance.photonView.IsMine) return;
-        startGameObject.SetActive(false);
-    }
+        public TMP_Text timerDisplay;
+        public GameObject startGameObject;
+    
+    
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+        
+            startGameObject.SetActive(true);
+        }
 
-    void Update()
-    {
-        var roundedValue = (int)GameManager.Instance.Timer;
-        timerDisplay.text = roundedValue.ToString();
-    }
+        void Update()
+        {
+            var roundedValue = (int)GameManager.Instance.Timer;
+            timerDisplay.text = roundedValue.ToString();
+        }
 
-    public void DisableSelf(GameObject self)
-    {
-        self.SetActive(false);
-    }
+        public void DisableSelf(GameObject self)
+        {
+            self.SetActive(false);
+        }
 
-    public void Disconnect()
-    {
-        PhotonNetwork.Disconnect();
-        PhotonNetwork.LoadLevel("StartScene");
+        public void Disconnect()
+        {
+        
+        }
     }
 }

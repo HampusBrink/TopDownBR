@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using Photon.Pun;
+using FishNet.Object;
+using Source.Scripts.Player;
 using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
@@ -31,13 +32,13 @@ public class PlayerCombat : MonoBehaviour
     private float _lastAttackTime;
     private Coroutine _currentAttackCoroutine;
 
-    private PhotonView _pv;
+    private NetworkObject _no;
 
     private void Start()
     {
-        _pv = GetComponent<PhotonView>();
+        _no = GetComponent<NetworkObject>();
         _playerStatus = GetComponent<PlayerStatus>();
-        if (!_pv.IsMine)
+        if (!_no.IsOwner)
             return;
         UpdateAttackSpeed();
         equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
@@ -55,12 +56,12 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        if (!_pv.IsMine)
+        if (!_no.IsOwner)
             return;
         UpdateAttackSpeed();
         equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
         equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
-        if(!_pv.IsMine) return;
+        if(!_no.IsOwner) return;
         UpdateAttackDurations();
         
         if (context.performed)

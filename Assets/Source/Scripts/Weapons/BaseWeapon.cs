@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
+using FishNet.Object;
+using MultiplayerBase.Scripts;
 using UnityEngine;
 
-public class BaseWeapon : MonoBehaviourPunCallbacks
+public class BaseWeapon : NetworkBehaviour
 {
 
     public BoxCollider2D weaponCol;
@@ -55,12 +56,12 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     private void OnTriggerEnter2D(Collider2D col)
     {
         if(!GameManager.Instance.GameStarted) return;
-        if (col.TryGetComponent(out PhotonView pv))
+        if (col.TryGetComponent(out NetworkObject no))
         {
-            if (pv.TryGetComponent(out IDamagable damagable))
+            if (no.TryGetComponent(out IDamagable damagable))
             {
-                if(!photonView.IsMine) return;
-                pv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,pv.ViewID,_multipliedDamage);
+                if(!no.IsOwner) return;
+                damagable.TakeDamage(_multipliedDamage);
                 weaponCol.enabled = false;
             }
         }

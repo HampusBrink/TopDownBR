@@ -1,9 +1,10 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Photon.Pun;
+using FishNet.Object;
+using MultiplayerBase.Scripts;
 
-public class GiftSpawning : MonoBehaviour
+public class GiftSpawning : NetworkBehaviour
 {
     [SerializeField] private Transform[] allSpawnPositions;
     [SerializeField] private GameObject giftPrefab;
@@ -13,7 +14,7 @@ public class GiftSpawning : MonoBehaviour
     
     void Start()
     {
-        if(!PhotonNetwork.IsMasterClient) return;
+        if(!IsServerInitialized) return;
 
         availableSpawnPositions = new List<Transform>(allSpawnPositions);
         StartCoroutine(SpawnGiftRoutine());
@@ -36,8 +37,8 @@ public class GiftSpawning : MonoBehaviour
             int randomIndex = Random.Range(0, availableSpawnPositions.Count);
             Transform spawnPosition = availableSpawnPositions[randomIndex];
             
-            GameObject gift = PhotonNetwork.Instantiate(giftPrefab.name, spawnPosition.position, Quaternion.identity);
-            gift.GetComponent<Gift>().SetSpawnPosition(spawnPosition);
+            // GameObject gift = PhotonNetwork.Instantiate(giftPrefab.name, spawnPosition.position, Quaternion.identity);
+            // gift.GetComponent<Gift>().SetSpawnPosition(spawnPosition);
             
             availableSpawnPositions.RemoveAt(randomIndex);
         }

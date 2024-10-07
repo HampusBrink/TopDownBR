@@ -1,123 +1,130 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using MultiplayerBase.Scripts;
-using Photon.Pun;
-using Photon.Realtime;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using Source.Scripts.UI;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
 using static System.String;
 
-public class GameManager : MonoBehaviourPunCallbacks
+namespace MultiplayerBase.Scripts
 {
-    [SerializeField] private GameObject _playerPrefab;
-    [SerializeField] private List<Transform> _spawnPositions;
-    [SerializeField] private UIScript _UI;
-    [SerializeField] private TMP_Text _victoryRoyaleUI;
-    public PowerupPopup PowerupPopup;
-
-    [SerializeField] private int _countDownTime = 20;
-
-    public static GameManager Instance { get; private set; }
-    [HideInInspector] public PhotonView _localPlayer;
-    public bool isDead;
-    public List<PhotonView> _players;
-    public List<PlayerMovement> _alivePlayers;
-
-    public bool GameStarted { get; private set; }
-    
-    //remove later
-    public bool IsTestScene;
-
-    private bool _timerStarted;
-    private float _timer;
-
-    public float Timer => Mathf.Abs(_timer - _countDownTime);
-    
-    void Awake()
+    public class GameManager : NetworkBehaviour
     {
-        if (IsTestScene) GameStarted = true;
-        if (Instance == null)
+        [SerializeField] private GameObject _playerPrefab;
+        [SerializeField] private List<Transform> _spawnPositions;
+        [SerializeField] private UIScript _UI;
+        [SerializeField] private TMP_Text _victoryRoyaleUI;
+        public PowerupPopup powerupPopup;
+
+        [SerializeField] private int _countDownTime = 20;
+
+        public static GameManager Instance { get; private set; }
+        
+        [HideInInspector] public bool isDead;
+        [HideInInspector] public List<PlayerMovement> alivePlayers;
+
+        public bool GameStarted { get; private set; }
+
+        //remove later
+        public bool isTestScene;
+
+        private bool _timerStarted;
+        private float _timer;
+
+        public float Timer => Mathf.Abs(_timer - _countDownTime);
+        
+        void Awake()
         {
-            Instance = this;
+            if (isTestScene) GameStarted = true;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
+
+        private void OnEnable()
         {
-            Destroy(gameObject);
+            RogueRoyaleNetworkManager.Instance.NetworkManager.TimeManager.OnTick += ServerTick;
         }
-    }
-    void Start()
-    {
-        if(GameStarted) return;
-        var player = PhotonNetwork.Instantiate(_playerPrefab.name, _spawnPositions[0].position, quaternion.identity);
-        _localPlayer = player.GetPhotonView();
-        photonView.RPC(nameof(PlayerJoined),RpcTarget.MasterClient,player.GetPhotonView().ViewID);
-    }
 
-    void Update()
-    {
-        if (_timerStarted)
+        private void ServerTick()
         {
-            _timer += Time.deltaTime;
+            if (_timerStarted)
+            {
+                _timer += (float)TimeManager.TickDelta;
 
-            if (_timer <= _countDownTime) return;
-            _timer = 0;
-            _timerStarted = false;
-            GameStarted = true; 
-            
-            _UI.timerDisplay.gameObject.SetActive(false);
+                if (_timer <= _countDownTime) return;
+                _timer = 0;
+                _timerStarted = false;
+                GameStarted = true;
+
+                _UI.timerDisplay.gameObject.SetActive(false);
+            }
         }
-    }
 
-    [PunRPC]
-    void PlayerJoined(int playerID)
-    {
-        photonView.RPC(nameof(MovePlayer),RpcTarget.All,playerID,_spawnPositions[0].position);
-        _players.Add(PhotonView.Find(playerID));
-        _spawnPositions.RemoveAt(0);
-    }
-
-    [PunRPC]
-    void MovePlayer(int playerID,Vector3 newPos)
-    {
-        var player = PhotonView.Find(playerID);
-        player.transform.position = newPos;
-    }
-
-    [PunRPC]
-    public void StartGame()
-    {
-        _timerStarted = true;
-        _UI.timerDisplay.gameObject.SetActive(true);
-    }
-    
-    public void OnStartGameClicked()
-    {
-        photonView.RPC(nameof(StartGame),RpcTarget.All);
-        _UI.startGameObject.SetActive(false);
-    }
-
-    public void CheckForWinner()
-    {
-        if (_players.Count == 1)
+        public void OnStartGameClicked()
         {
-            photonView.RPC(nameof(DisplayVictor),RpcTarget.All,_players[0].Controller.NickName);
+            RPC_StartGame();
+            _UI.startGameObject.SetActive(false);
         }
-    }
 
-    [PunRPC]
-    void DisplayVictor(string victorName)
-    {
-        if (victorName == Empty)
+        public void CheckForWinner()
         {
-            victorName = "Unknown Player";
+            if (alivePlayers.Count == 1)
+            {
+                
+            }
         }
-        _victoryRoyaleUI.text = victorName + " Wins!";
-        _victoryRoyaleUI.gameObject.SetActive(true);
-    }
 
-    public void PlayerDied()
-    {
-        _alivePlayers = FindObjectsOfType<PlayerMovement>().ToList();
+        public void PlayerDied()
+        {
+            alivePlayers = FindObjectsOfType<PlayerMovement>().ToList();
+        }
+        
+        [ServerRpc]
+        void RPC_DisplayVictor(string victorName)
+        {
+            DisplayVictor(victorName);
+        }
+
+        // [ServerRpc]
+        // void RPC_PlayerJoined()
+        // {
+        //     NetworkObject player = SpawnPointHandler.PlayerSpawn();
+        //     _spawnPositions.RemoveAt(0);
+        // }
+        
+
+        [ServerRpc(RequireOwnership = false)]
+        public void RPC_StartGame()
+        {
+            StartGame();
+        }
+
+        [ObserversRpc]
+        void DisplayVictor(string victorName)
+        {
+            if (victorName == Empty)
+            {
+                victorName = "Unknown Player";
+            }
+
+            _victoryRoyaleUI.text = victorName + " Wins!";
+            _victoryRoyaleUI.gameObject.SetActive(true);
+        }
+
+        [ObserversRpc]
+        public void StartGame()
+        {
+            _timerStarted = true;
+            _UI.timerDisplay.gameObject.SetActive(true);
+        }
     }
 }

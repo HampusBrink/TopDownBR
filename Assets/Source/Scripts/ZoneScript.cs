@@ -1,11 +1,11 @@
 using System;
 using System.Collections;
-using Photon.Pun;
+using FishNet.Object;
+using MultiplayerBase.Scripts;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[RequireComponent(typeof(PhotonView))]
-public class ZoneScript : MonoBehaviour
+public class ZoneScript : NetworkBehaviour
 {
     public float zoneDecreaseIntervalTime = 60f;
     public float zoneDamagePerSecond = 5f;
@@ -18,14 +18,12 @@ public class ZoneScript : MonoBehaviour
 
     private float _zoneDamageTimer;
     private bool _isInSafeZone = true;
-
-    private PhotonView _pv;
-    private PhotonView _playerPv;
     
+    private NetworkObject _playerNo;
+
     void Start()
     {
         StartCoroutine(CO_SetActive());
-        _pv = GetComponent<PhotonView>();
     }
 
     IEnumerator CO_SetActive()
@@ -41,7 +39,7 @@ public class ZoneScript : MonoBehaviour
         UpdateZoneDamage();
         
         if(!GameManager.Instance.GameStarted) return;
-        if(!PhotonNetwork.IsMasterClient) return;
+        if(!IsServerInitialized) return;
         _zoneTimer += Time.deltaTime;
 
         if (_zoneTimer > zoneDecreaseIntervalTime && !_decreaseZoneStart)
@@ -50,11 +48,11 @@ public class ZoneScript : MonoBehaviour
             _randomPoint = new Vector2(Random.Range(mapSize.x, mapSize.y), Random.Range(mapSize.z, mapSize.w));
             _zoneTimer = 0;
         }
-        if(_decreaseZoneStart)
-            _pv.RPC(nameof(RPC_DecreaseZone),RpcTarget.All,_randomPoint);
+        if(_decreaseZoneStart) RPC_DecreaseZone(_randomPoint);
+            
     }
 
-    [PunRPC]
+    [ServerRpc(RequireOwnership = false)]
     void RPC_DecreaseZone(Vector2 randomPoint)
     {
         var oldPosition = transform.position;
@@ -66,39 +64,39 @@ public class ZoneScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.TryGetComponent(out PhotonView pv))
+        if (other.TryGetComponent(out NetworkObject no))
         {
-            if(pv.IsMine)
+            if(no.IsOwner)
             {
                 _isInSafeZone = false;
-                _playerPv = pv;
+                _playerNo = no;
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.TryGetComponent(out PhotonView pv))
+        if (other.TryGetComponent(out NetworkObject no))
         {
-            if(pv.IsMine)
+            if(no.IsOwner)
             {
                 _isInSafeZone = true;
-                _playerPv = pv;
+                _playerNo = no;
             }
         }
     }
 
     void UpdateZoneDamage()
     {
-        if (!_playerPv) return;
+        if (!_playerNo) return;
         if (_isInSafeZone) return;
         
         _zoneDamageTimer += Time.deltaTime;
         if(_zoneDamageTimer < 1) return;
         _zoneDamageTimer = 0;
-        if (_playerPv.TryGetComponent(out IDamagable damagable))
+        if (_playerNo.TryGetComponent(out IDamagable damagable))
         {
-            _playerPv.RPC(nameof(damagable.RPC_TakeDamage),RpcTarget.All,_playerPv.ViewID,zoneDamagePerSecond);
+            damagable.TakeDamage(zoneDamagePerSecond);
         }
     }
 }

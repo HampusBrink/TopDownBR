@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Photon.Pun;
+using Source.Scripts.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,21 +22,21 @@ public class ItemButton : MonoBehaviour
 
     public void OnItemPicked()
     {
-        var playerStatus = GameManager.Instance._localPlayer.GetComponent<PlayerStatus>();
-        if(!playerStatus) return;
-        AddNewBuffs(playerStatus,powerUp);
+        // var playerStatus = GameManager.Instance._localPlayer.GetComponent<PlayerStatus>();
+        // if(!playerStatus) return;
+        // AddNewBuffs(playerStatus,powerUp);
     }
 
-    void AddNewBuffs(PlayerStatus playerStatus, PowerupSO powerUp)
+    void AddNewBuffs(PlayerStatus playerStatus, PowerupSO powerUpSO)
     {
-        playerStatus.maxHealth += powerUp.bonusMaxHealthFlat;
-        playerStatus.attackDamageMultiplier += powerUp.bonusDamagePercent;
-        playerStatus.movementSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
-        playerStatus.attackSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
-        playerStatus.weaponLengthMultiplier += powerUp.bonusWeaponLengthPercent;
-        if (powerUp.instantHealth > 0)
+        playerStatus.maxHealth += powerUpSO.bonusMaxHealthFlat;
+        playerStatus.attackDamageMultiplier += powerUpSO.bonusDamagePercent;
+        playerStatus.movementSpeedMultiplier += powerUpSO.bonusAttackSpeedPercent;
+        playerStatus.attackSpeedMultiplier += powerUpSO.bonusAttackSpeedPercent;
+        playerStatus.weaponLengthMultiplier += powerUpSO.bonusWeaponLengthPercent;
+        if (powerUpSO.instantHealth > 0)
         {
-            playerStatus.pv.RPC(nameof(playerStatus.Heal),RpcTarget.All,powerUp.instantHealth);
+            playerStatus.Heal(powerUpSO.instantHealth);
         }
     }
 }

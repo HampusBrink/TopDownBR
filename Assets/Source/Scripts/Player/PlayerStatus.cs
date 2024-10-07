@@ -1,79 +1,89 @@
-using Photon.Pun;
+using FishNet.CodeGenerating;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using MultiplayerBase.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatus : MonoBehaviour, IDamagable
+namespace Source.Scripts.Player
 {
-    [SerializeField] private Image healthBarFill;
-
-    [Header("Stats")] 
-    public float maxHealth = 100f;
-    public float attackDamageMultiplier = 1.0f;
-    public float attackSpeedMultiplier = 1.0f;
-    public float weaponLengthMultiplier = 1.0f;
-    public float movementSpeedMultiplier = 1.0f;
-
-    private float _currentHealth;
-
-    public bool IsDead { get; private set; }
-
-    public float CurrentHealth
+    public class PlayerStatus : NetworkBehaviour, IDamagable
     {
-        get => _currentHealth > maxHealth ? maxHealth : _currentHealth;
-        set => _currentHealth = value > maxHealth ? maxHealth : value;
-    }
+        [SerializeField] private Image healthBarFill;
 
-    public PhotonView pv;
+        [Header("Stats")] public float maxHealth = 100f;
+        public float attackDamageMultiplier = 1.0f;
+        public float attackSpeedMultiplier = 1.0f;
+        public float weaponLengthMultiplier = 1.0f;
+        public float movementSpeedMultiplier = 1.0f;
 
-    public void Start()
-    {
-        _currentHealth = maxHealth;
-        pv = GetComponent<PhotonView>();
-        if (pv.IsMine)
+        [AllowMutableSyncType]
+        private SyncVar<float> _currentHealth;
+
+        public bool IsDead { get; private set; }
+
+        private NetworkObject _no;
+
+        public float CurrentHealth
         {
-            healthBarFill.color = Color.green;
-        }
-    }
-
-    public void TakeDamage(float damage, int viewID)
-    {
-        _currentHealth -= damage;
-        UpdateHealthBar();
-        if (CurrentHealth <= 0) Die(viewID);
-    }
-
-    [PunRPC]
-    public void Heal(float healAmount)
-    {
-        _currentHealth += healAmount;
-        UpdateHealthBar();
-    }
-
-    private void UpdateHealthBar()
-    {
-        float targetFillAmount = _currentHealth / maxHealth;
-        healthBarFill.fillAmount = targetFillAmount;
-    }
-
-    void Die(int viewID)
-    {
-        if (PhotonView.Find(viewID).IsMine)
-        {
-            GameManager.Instance.isDead = true;
-            GameManager.Instance.PlayerDied();
-            PhotonNetwork.Destroy(gameObject);
+            get => _currentHealth.Value > maxHealth ? maxHealth : _currentHealth.Value;
+            set => _currentHealth.Value = value > maxHealth ? maxHealth : value;
         }
 
-        if (!PhotonNetwork.IsMasterClient) return;
-        GameManager.Instance._players.Remove(gameObject.GetPhotonView());
-        GameManager.Instance.CheckForWinner();
-    }
+        private void Awake()
+        {
+            _currentHealth.OnChange += OnHealthChange;
+        }
 
-    [PunRPC]
-    public void RPC_TakeDamage(int viewID, float damage)
-    {
-        var player = PhotonView.Find(viewID);
-        if (!player.TryGetComponent(out IDamagable damagable)) return;
-        damagable.TakeDamage(damage, viewID);
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+        
+            CurrentHealth = maxHealth;
+            _no = GetComponent<NetworkObject>();
+            if (IsOwner)
+            {
+                healthBarFill.color = Color.green;
+            }
+        }
+
+
+        private void OnHealthChange(float prev, float next, bool asserver)
+        {
+            CurrentHealth = next;
+        }
+
+        public void TakeDamage(float damage)
+        {
+            CurrentHealth -= damage;
+            UpdateHealthBar();
+            if (CurrentHealth <= 0) Die();
+        }
+
+        public void Heal(float healAmount)
+        {
+            CurrentHealth += healAmount;
+            UpdateHealthBar();
+        }
+
+        private void UpdateHealthBar()
+        {
+            float targetFillAmount = CurrentHealth / maxHealth;
+            healthBarFill.fillAmount = targetFillAmount;
+        }
+
+        void Die()
+        {
+            if (_no.IsOwner)
+            {
+                GameManager.Instance.isDead = true;
+                GameManager.Instance.PlayerDied();
+                _no.Despawn();
+            }
+
+            if (!_no.IsServerInitialized) return;
+            // GameManager.Instance.players.Remove(gameObject.GetPhotonView());
+            GameManager.Instance.CheckForWinner();
+        }
     }
 }

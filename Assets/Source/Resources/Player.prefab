@@ -429,7 +429,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8948635404500007450}
   - component: {fileID: 7853299797345418799}
-  - component: {fileID: 1473522938793555802}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -506,22 +505,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1473522938793555802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3873363251755891362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1 &3920090155662147115
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,11 +1062,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5619369209906095554}
   - component: {fileID: 1282701248269279347}
-  - component: {fileID: 4116022475497400661}
   - component: {fileID: 4192950349405535469}
   - component: {fileID: -8871992485847606398}
   - component: {fileID: 2312113109336434810}
-  - component: {fileID: 3489096302756513090}
   - component: {fileID: 4668276361541456426}
   - component: {fileID: 7588194630976565295}
   - component: {fileID: -5299059287307247686}
@@ -1140,33 +1121,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4116022475497400661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8532466269766752341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 3489096302756513090}
-  - {fileID: 1473522938793555802}
-  - {fileID: 4617698414736020623}
-  - {fileID: 43554391821963860}
-  - {fileID: 0}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &4192950349405535469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,29 +1171,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d044d8b815dbaab41a4262f7dac41d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 7588194630976565295}
+  _networkObjectCache: {fileID: 7588194630976565295}
   healthBarFill: {fileID: 7377175790934219997}
   maxHealth: 100
   attackDamageMultiplier: 1
   attackSpeedMultiplier: 1
   weaponLengthMultiplier: 1
   movementSpeedMultiplier: 1
-  pv: {fileID: 0}
---- !u!114 &3489096302756513090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8532466269766752341}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  _currentHealth:
+    NetworkManager: {fileID: 0}
+    NetworkBehaviour: {fileID: 0}
+    _value: 0
 --- !u!58 &4668276361541456426
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1292,9 +1236,12 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
+  - {fileID: 2312113109336434810}
   - {fileID: -5299059287307247686}
+  - {fileID: -779690592724564229}
   <InitializedParentNetworkBehaviour>k__BackingField: {fileID: 0}
-  <InitializedNestedNetworkObjects>k__BackingField: []
+  <InitializedNestedNetworkObjects>k__BackingField:
+  - {fileID: 3609049773725395375}
   _isNetworked: 1
   _isSpawnable: 1
   _isGlobal: 0
@@ -1314,7 +1261,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 1
+  <PrefabId>k__BackingField: 4
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 5593866507571572411
   <SceneId>k__BackingField: 0
@@ -1334,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 1
   _addedNetworkObject: {fileID: 7588194630976565295}
   _networkObjectCache: {fileID: 7588194630976565295}
 --- !u!1 &8866070096928399566
@@ -1347,7 +1294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1940999933628278926}
   - component: {fileID: 5729427502249950683}
-  - component: {fileID: 4617698414736020623}
+  - component: {fileID: -779690592724564229}
   m_Layer: 0
   m_Name: Right Hand
   m_TagString: Untagged
@@ -1424,7 +1371,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4617698414736020623
+--- !u!114 &-779690592724564229
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1433,13 +1380,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8866070096928399566}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 7588194630976565295}
+  _networkObjectCache: {fileID: 7588194630976565295}
 --- !u!1 &9159129466305476201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1481,6 +1427,61 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1940999933628278926}
     m_Modifications:
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: <IsNested>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: <ComponentIndex>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 0.98
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.w
+      value: 0.916544
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.z
+      value: -0.39993384
+      objectReference: {fileID: 0}
+    - target: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: <InitializedParentNetworkBehaviour>k__BackingField
+      value: 
+      objectReference: {fileID: -779690592724564229}
+    - target: {fileID: 3120430716313480649, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: _addedNetworkObject
+      value: 
+      objectReference: {fileID: 7588194630976565295}
+    - target: {fileID: 3120430716313480649, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: _networkObjectCache
+      value: 
+      objectReference: {fileID: 3609049773725395375}
     - target: {fileID: 3379168577636873551, guid: dc629888421f5a340a9cb24765a662eb,
         type: 3}
       propertyPath: m_Name
@@ -1539,11 +1540,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4284622179518973977, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 43554391821963860}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc629888421f5a340a9cb24765a662eb, type: 3}
 --- !u!114 &2330968051541574327 stripped
 MonoBehaviour:
@@ -1551,34 +1548,24 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 798469896470966142}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3486548108308096871}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1574ad62dd52c6047ad98730ac11aea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &3486548108308096871 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4284622179518973977, guid: dc629888421f5a340a9cb24765a662eb,
+--- !u!114 &3609049773725395375 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -5115711468051527983, guid: dc629888421f5a340a9cb24765a662eb,
     type: 3}
   m_PrefabInstance: {fileID: 798469896470966142}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &43554391821963860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3486548108308096871}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 1
-  m_UseLocal: 1
 --- !u!4 &8246050165381444300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8753703329053416882, guid: dc629888421f5a340a9cb24765a662eb,

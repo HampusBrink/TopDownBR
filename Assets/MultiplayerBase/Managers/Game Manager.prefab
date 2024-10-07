@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858837e49c164e840ab87852eea40a1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 0}
+  _networkObjectCache: {fileID: 0}
   _playerPrefab: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
     type: 3}
   _spawnPositions:
@@ -60,7 +63,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   _UI: {fileID: 0}
+  _victoryRoyaleUI: {fileID: 0}
+  powerupPopup: {fileID: 0}
   _countDownTime: 20
+  isDead: 0
+  alivePlayers: []
+  isTestScene: 0
 --- !u!114 &3900339727907368584
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,14 +1,17 @@
 using System;
-using Photon.Pun;
+using FishNet.Object;
+using MultiplayerBase.Scripts;
 using UnityEngine;
 
-public class Gift : MonoBehaviour
+public class Gift : NetworkBehaviour
 {
     private Transform spawnPosition;
     private GiftSpawning spawner;
 
-    void Start()
+    public override void OnStartClient()
     {
+        base.OnStartClient();
+        
         spawner = FindObjectOfType<GiftSpawning>();
     }
 
@@ -20,20 +23,20 @@ public class Gift : MonoBehaviour
     public void Collect()
     {
         spawner.ReturnSpawnPosition(spawnPosition);
-        PhotonNetwork.Destroy(gameObject);
+        RogueRoyaleNetworkManager.Instance.NetworkManager.ServerManager.Despawn(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.TryGetComponent(out PhotonView photonView))
+        if (col.TryGetComponent(out NetworkObject networkObject))
         {
-            if (PhotonNetwork.IsMasterClient)
+            if (networkObject.IsServerInitialized)
             {
                 Collect();
             }
-            if(!photonView.IsMine) return;
+            if(!networkObject.IsOwner) return;
 
-            GameManager.Instance.PowerupPopup.gameObject.SetActive(true);
+            GameManager.Instance.powerupPopup.gameObject.SetActive(true);
         }
     }
 }

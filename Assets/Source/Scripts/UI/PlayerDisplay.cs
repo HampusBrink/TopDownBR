@@ -1,18 +1,18 @@
 using System;
-using Photon.Pun;
+using FishNet.Object;
 using TMPro;
 using UnityEngine;
 public class PlayerDisplay : MonoBehaviour
 {
     [SerializeField] private TMP_Text _displayText;
 
-    private PhotonView _playerPv;
+    private NetworkObject _playerNo;
 
     private void Awake()
     {
-        _playerPv = GetComponentInParent<PhotonView>();
-        if(_playerPv.Controller == null) return;
-        var displayName = _playerPv.Controller.NickName;
+        _playerNo = GetComponentInParent<NetworkObject>();
+        if(_playerNo.ClientManager == null) return;
+        var displayName = _playerNo.ClientManager.name;
         
         if (displayName == string.Empty) return;
         _displayText.text = displayName;

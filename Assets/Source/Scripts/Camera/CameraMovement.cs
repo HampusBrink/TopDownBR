@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using MultiplayerBase.Scripts;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -88,26 +89,26 @@ public class CameraMovement : MonoBehaviour
 
     private void SpectateCamera()
     {
-        if (!spectatedPlayer) spectatedPlayer = GameManager.Instance._alivePlayers.First().gameObject;
+        if (!spectatedPlayer) spectatedPlayer = GameManager.Instance.alivePlayers.First().gameObject;
         
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            GameManager.Instance._alivePlayers.RemoveAll(item => item == null);
+            GameManager.Instance.alivePlayers.RemoveAll(item => item == null);
 
             spectatePlayerIndex--;
-            if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance._alivePlayers.Count - 1;
+            if (spectatePlayerIndex < 0) spectatePlayerIndex = GameManager.Instance.alivePlayers.Count - 1;
 
-            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
+            spectatedPlayer = GameManager.Instance.alivePlayers[spectatePlayerIndex].gameObject;
         }
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            GameManager.Instance._alivePlayers.RemoveAll(item => item == null);
+            GameManager.Instance.alivePlayers.RemoveAll(item => item == null);
             
             spectatePlayerIndex++;
-            if (spectatePlayerIndex > GameManager.Instance._alivePlayers.Count - 1) spectatePlayerIndex = 0;
+            if (spectatePlayerIndex > GameManager.Instance.alivePlayers.Count - 1) spectatePlayerIndex = 0;
 
-            spectatedPlayer = GameManager.Instance._alivePlayers[spectatePlayerIndex].gameObject;
+            spectatedPlayer = GameManager.Instance.alivePlayers[spectatePlayerIndex].gameObject;
         }
         
         if(!spectatedPlayer) return;

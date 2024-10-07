@@ -1,12 +1,14 @@
 using System;
+using FishNet.Object;
+using MultiplayerBase.Scripts;
+using Source.Scripts.Player;
 using UnityEngine;
-using Photon.Pun;
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody2D),typeof(PhotonView))]
-public class PlayerMovement : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D),typeof(NetworkObject))]
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 22f;
@@ -27,24 +29,27 @@ public class PlayerMovement : MonoBehaviour
     private Camera _camera;
 
     private PlayerStatus _playerStatus;
-    private PhotonView _pv;
+    private NetworkObject _no;
     private Vector2 _moveVector;
     private Rigidbody2D _rb;
     
-    void Start()
+    
+
+    public override void OnStartClient()
     {
+        base.OnStartClient();
+        
         _rb = GetComponent<Rigidbody2D>();
-        _pv = GetComponent<PhotonView>();
+        _no = GetComponent<NetworkObject>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
 
-        if (!_pv.IsMine) staminaBarFill.transform.parent.gameObject.SetActive(false);
+        if (!_no.IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
 
-        if (_pv.IsMine && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
+        if (_no.IsOwner && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
 
         _desiredSpeed = _multipliedSpeed = walkSpeed;
-        
     }
 
     private void Update()
@@ -55,10 +60,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!_pv.IsMine) return;
+        if(!_no.IsOwner) return;
         if(!_camera) return;
 
-        if (!GameManager.Instance.PowerupPopup.gameObject.activeInHierarchy)
+        if (!GameManager.Instance.powerupPopup.gameObject.activeInHierarchy)
         {
             ApplyMovement();
         }
@@ -74,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
     
     public void OnSprint(InputAction.CallbackContext context)
     {
-        if(!_pv.IsMine) return;
+        if(!_no.IsOwner) return;
 
         UpdateMovementSpeed();
         
@@ -90,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateStamina()
     {
-        if(!_pv.IsMine) return;
+        if(!_no.IsOwner) return;
         if (_isSprinting)
         {
             _stamina = Mathf.Clamp(_stamina - staminaDrain * Time.deltaTime, 0, maxStamina);
@@ -110,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if(!_pv.IsMine) return;
+        if(!_no.IsOwner) return;
         if(!GameManager.Instance.GameStarted) return;
         if (!context.performed)
         {

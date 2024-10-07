@@ -1,4 +1,3 @@
-using Photon.Pun;
 using TMPro;
 using UnityEngine;
 public class ChangeName : MonoBehaviour
@@ -7,6 +6,6 @@ public class ChangeName : MonoBehaviour
     
     public void ChangePlayerName()
     {
-        PhotonNetwork.NickName = _nameInputField.text;
+        //PhotonNetwork.NickName = _nameInputField.text;
     }
 }
