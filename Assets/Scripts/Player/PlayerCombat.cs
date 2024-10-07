@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using System.Collections;
 using Photon.Pun;
-using Unity.Mathematics;
 using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
@@ -12,10 +11,7 @@ public class PlayerCombat : MonoBehaviour
     
     [Header("Arms")]
     [SerializeField] private Transform rArm;
-    [SerializeField] private Transform lArm;
     [SerializeField] private Transform rArmOgPos;
-    [SerializeField] private Transform hands;
-    
     
     [Header("Sweep Attack")]
     [SerializeField] private float arcHeight = 0.5f;
@@ -30,25 +26,33 @@ public class PlayerCombat : MonoBehaviour
     [Header("Other")]
     
     private PlayerStatus _playerStatus;
-    private PlayerMovement _playerMovement;
-    private Vector3 handsInitialScale;
-    private SpriteRenderer lArmSprite;
-    private SpriteRenderer rArmSprite;
     private float _attackDuration;
     private float _attackReturnDuration;
     private float _lastAttackTime;
     private Coroutine _currentAttackCoroutine;
 
     private PhotonView _pv;
+    
+    private Animator _swordAnimator;
+    public GameObject swordObject; // Assign this in the Inspector
 
     private void Start()
     {
+        // Get the Animator component from the sword object
+        _swordAnimator = swordObject.GetComponent<Animator>();
+        
+        // If you haven't assigned the sword in the Inspector, you can try to find it:
+        // if (swordObject == null)
+        //     swordObject = transform.Find("SwordObjectName").gameObject;
+        
+        // Make sure we have a reference to the sword's Animator
+        if (_swordAnimator == null)
+        {
+            Debug.LogError("Sword Animator not found!");
+        }
+        
         _pv = GetComponent<PhotonView>();
         _playerStatus = GetComponent<PlayerStatus>();
-        _playerMovement = GetComponent<PlayerMovement>();
-        handsInitialScale = hands.localScale;
-        lArmSprite = lArm.GetComponent<SpriteRenderer>();
-        rArmSprite = rArm.GetComponent<SpriteRenderer>();
         if (!_pv.IsMine)
             return;
         UpdateAttackSpeed();
@@ -57,7 +61,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        //equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
+        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
     }
 
     private void UpdateAttackSpeed()
@@ -65,130 +69,32 @@ public class PlayerCombat : MonoBehaviour
         attackSpeed = _playerStatus.attackSpeedMultiplier * equippedWeapon.baseAttackSpeed;
     }
 
-    
-    enum TurnDirection
-    {
-        Down = 0,
-        DownRight = 1,
-        Right = 2,
-        UpRight = 3,
-        Up = 4,
-        UpLeft = 5,
-        Left = 6,
-        DownLeft = 7
-    }
-
-    private TurnDirection GetTurnDirection()
-    {
-        Vector2 mouseScreenPosition = Input.mousePosition;
-        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Vector2 normalizedDirection = new Vector2(
-            (mouseScreenPosition.x - screenCenter.x) / Screen.width,
-            (mouseScreenPosition.y - screenCenter.y) / Screen.height
-        );
-    
-        var angle = Mathf.Atan2(normalizedDirection.y, normalizedDirection.x) * Mathf.Rad2Deg + 90;
-        angle = (angle + 360) % 360;
-
-        int directionIndex = Mathf.RoundToInt(angle / 45f) % 8;
-        return (TurnDirection)directionIndex;
-    }
-
-    private void SetArmsBehindPlayer(bool leftBehind, bool rightBehind)
-    {
-        lArmSprite.sortingOrder = leftBehind ? -4 : 6;
-        rArmSprite.sortingOrder = rightBehind ? -4 : 6;
-    }
-    
-    private void SetLastTurnDirection()
-    {
-        switch (GetTurnDirection())
-        {
-            case TurnDirection.Down:
-                _playerMovement.lastMovedirection = new Vector2(0f,-1f);
-                _playerMovement.Flip(true);
-                hands.localScale = new Vector3(handsInitialScale.x * 1, handsInitialScale.y * -1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 0);
-                SetArmsBehindPlayer(false, false);
-                equippedWeapon.weaponGFX.sortingOrder = 6;
-                break;
-            case TurnDirection.DownRight:
-                _playerMovement.lastMovedirection = new Vector2(1f,-1f);
-                _playerMovement.Flip(true);
-                hands.localScale = new Vector3(handsInitialScale.x, handsInitialScale.y * -1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 45);
-                SetArmsBehindPlayer(false, false);
-                equippedWeapon.weaponGFX.sortingOrder = 6;
-                break;
-            case TurnDirection.Right:
-                _playerMovement.lastMovedirection = new Vector2(1f,0f);
-                _playerMovement.Flip(true);
-                hands.localScale = new Vector3(handsInitialScale.x, handsInitialScale.y * -1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 90);
-                SetArmsBehindPlayer(true, false);
-                equippedWeapon.weaponGFX.sortingOrder = 6;
-                break;
-            case TurnDirection.UpRight:
-                _playerMovement.lastMovedirection = new Vector2(1f,1f);
-                _playerMovement.Flip(true);
-                hands.localScale = new Vector3(handsInitialScale.x, handsInitialScale.y * -1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 135);
-                SetArmsBehindPlayer(true, true);
-                equippedWeapon.weaponGFX.sortingOrder = 4;
-                break;
-            case TurnDirection.Up:
-                _playerMovement.lastMovedirection = new Vector2(0f,1f);
-                _playerMovement.Flip(true);
-                hands.localScale = new Vector3(handsInitialScale.x * -1, handsInitialScale.y * 1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 0);
-                SetArmsBehindPlayer(true, true);
-                equippedWeapon.weaponGFX.sortingOrder = 4;
-                break;
-            case TurnDirection.UpLeft:
-                _playerMovement.lastMovedirection = new Vector2(-1f,1f);
-                _playerMovement.Flip(false);
-                hands.localScale = new Vector3(handsInitialScale.x, handsInitialScale.y * 1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 45);
-                SetArmsBehindPlayer(true, true);
-                equippedWeapon.weaponGFX.sortingOrder = 4;
-                break;
-            case TurnDirection.Left:
-                _playerMovement.lastMovedirection = new Vector2(-1f,0f);
-                _playerMovement.Flip(false);
-                hands.localScale = new Vector3(handsInitialScale.x, handsInitialScale.y * 1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 90);
-                SetArmsBehindPlayer(false, true);
-                equippedWeapon.weaponGFX.sortingOrder = 4;
-                break;
-            case TurnDirection.DownLeft:
-                _playerMovement.lastMovedirection = new Vector2(-1f,-1f);
-                _playerMovement.Flip(false);
-                hands.localScale = new Vector3(handsInitialScale.x, handsInitialScale.y * 1, handsInitialScale.z);
-                hands.eulerAngles = new Vector3(0, 0, 135);
-                SetArmsBehindPlayer(false, false);
-                equippedWeapon.weaponGFX.sortingOrder = 5;
-                break;
-        }
-    }
-
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (context.performed)
+        {
+            // Trigger the attack animation on the sword
+            if (_swordAnimator != null)
+            {
+                _swordAnimator.SetTrigger("Attack");
+            }
+            else
+            {
+                Debug.LogWarning("Sword Animator is null. Cannot trigger attack animation.");
+            }
+        
+            //PerformSweepAttack();
+            //equippedWeapon.WeaponPerformAttack(_attackDuration);
+        }
+        
         if (!_pv.IsMine)
             return;
         UpdateAttackSpeed();
         equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
-        //equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
+        equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
         if(!_pv.IsMine) return;
         UpdateAttackDurations();
         
-        if (context.performed)
-        {
-            if (!equippedWeapon.isAlreadyAttacking)
-                SetLastTurnDirection();
-            
-            PerformSweepAttack();
-            equippedWeapon.WeaponPerformAttack(_attackDuration);
-        }
     }
     
     private void UpdateAttackDurations()
