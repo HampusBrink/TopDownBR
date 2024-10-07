@@ -31,8 +31,12 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     {
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
     }
+    
+    
+    
+    
 
-    public virtual void WeaponPerformAttack(float attackDuration)
+    public virtual void WeaponPerformAttack(float attackDuration, PlayerCombat.TurnDirection turnDirection)
     {
         if(isAlreadyAttacking) return;
         Debug.Log("Tries to trigger attack");

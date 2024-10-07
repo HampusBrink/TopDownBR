@@ -37,9 +37,9 @@ public class Sword : BaseWeapon
         weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedWeaponLength, weaponCol.transform.localScale.z);
     }
 
-    public override void WeaponPerformAttack(float attackDuration)
+    public override void WeaponPerformAttack(float attackDuration, PlayerCombat.TurnDirection turnDirection)
     {
-        base.WeaponPerformAttack(attackDuration);
+        base.WeaponPerformAttack(attackDuration, turnDirection);
         animator.SetTrigger("Attack");
         StartCoroutine(ActivateAttack(attackDuration));
     }

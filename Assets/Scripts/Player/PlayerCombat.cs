@@ -24,6 +24,7 @@ public class PlayerCombat : MonoBehaviour
     private PlayerStatus _playerStatus;
     private PhotonView _pv;
     private Animator _swordAnimator;
+    private PlayerMovement _playerMovement;
         
     private float _attackDuration;
     private float _attackReturnDuration;
@@ -55,6 +56,7 @@ public class PlayerCombat : MonoBehaviour
     {
         _pv = GetComponent<PhotonView>();
         _playerStatus = GetComponent<PlayerStatus>();
+        _playerMovement = GetComponent<PlayerMovement>();
     }
     
     private void UpdateStats()
@@ -72,13 +74,59 @@ public class PlayerCombat : MonoBehaviour
     {
         //attackSpeed = _playerStatus.attackSpeedMultiplier * equippedWeapon.baseAttackSpeed;
     }
+    
+    public enum TurnDirection
+    {
+        Down = 0,
+        DownRight = 1,
+        Right = 2,
+        UpRight = 3,
+        Up = 4,
+        UpLeft = 5,
+        Left = 6,
+        DownLeft = 7
+    }
+    
+    private TurnDirection GetTurnDirection()
+    {
+        Vector2 mouseScreenPosition = Input.mousePosition;
+        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Vector2 normalizedDirection = new Vector2(
+            (mouseScreenPosition.x - screenCenter.x) / Screen.width,
+            (mouseScreenPosition.y - screenCenter.y) / Screen.height
+        );
+    
+        var angle = Mathf.Atan2(normalizedDirection.y, normalizedDirection.x) * Mathf.Rad2Deg + 90;
+        angle = (angle + 360) % 360;
+
+        int directionIndex = Mathf.RoundToInt(angle / 45f) % 8;
+        return (TurnDirection)directionIndex;
+    }
+    
+    private void SetLastTurnDirection()
+    {
+        TurnDirection direction = GetTurnDirection();
+        Vector2[] directions = {
+            new(0f, -1f),  // Down
+            new(1f, -1f),  // DownRight
+            new(1f, 0f),   // Right
+            new(1f, 1f),   // UpRight
+            new(0f, 1f),   // Up
+            new(-1f, 1f),  // UpLeft
+            new(-1f, 0f),  // Left
+            new(-1f, -1f)  // DownLeft
+        };
+
+        _playerMovement.lastMovedirection = directions[(int)direction];
+    }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             Debug.Log("Pressed attack");
-            equippedWeapon.WeaponPerformAttack(0.5f);   
+            TurnDirection direction = GetTurnDirection();
+            equippedWeapon.WeaponPerformAttack(0.5f, direction);
         }
         
         if (!_pv.IsMine)
