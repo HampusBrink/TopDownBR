@@ -32,9 +32,25 @@ public class PlayerCombat : MonoBehaviour
     private Coroutine _currentAttackCoroutine;
 
     private PhotonView _pv;
+    
+    private Animator _swordAnimator;
+    public GameObject swordObject; // Assign this in the Inspector
 
     private void Start()
     {
+        // Get the Animator component from the sword object
+        _swordAnimator = swordObject.GetComponent<Animator>();
+        
+        // If you haven't assigned the sword in the Inspector, you can try to find it:
+        // if (swordObject == null)
+        //     swordObject = transform.Find("SwordObjectName").gameObject;
+        
+        // Make sure we have a reference to the sword's Animator
+        if (_swordAnimator == null)
+        {
+            Debug.LogError("Sword Animator not found!");
+        }
+        
         _pv = GetComponent<PhotonView>();
         _playerStatus = GetComponent<PlayerStatus>();
         if (!_pv.IsMine)
@@ -55,6 +71,22 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnAttack(InputAction.CallbackContext context)
     {
+        if (context.performed)
+        {
+            // Trigger the attack animation on the sword
+            if (_swordAnimator != null)
+            {
+                _swordAnimator.SetTrigger("Attack");
+            }
+            else
+            {
+                Debug.LogWarning("Sword Animator is null. Cannot trigger attack animation.");
+            }
+        
+            //PerformSweepAttack();
+            //equippedWeapon.WeaponPerformAttack(_attackDuration);
+        }
+        
         if (!_pv.IsMine)
             return;
         UpdateAttackSpeed();
@@ -63,11 +95,6 @@ public class PlayerCombat : MonoBehaviour
         if(!_pv.IsMine) return;
         UpdateAttackDurations();
         
-        if (context.performed)
-        {
-            PerformSweepAttack();
-            equippedWeapon.WeaponPerformAttack(_attackDuration);
-        }
     }
     
     private void UpdateAttackDurations()
