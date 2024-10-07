@@ -8,8 +8,10 @@ using UnityEngine.Serialization;
 public class BaseWeapon : MonoBehaviourPunCallbacks
 {
 
+    // Components
     public BoxCollider2D weaponCol;
-    public SpriteRenderer weaponGFX;
+    public Animator animator;
+    //public SpriteRenderer weaponGFX;
     
     [Header("Stats")]
     public float baseDamage = 10f;
@@ -23,13 +25,21 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+        GetComponents();
         _multipliedDamage = baseDamage;
         _multipliedWeaponLength = baseWeaponLength;
+    }
+
+    private void GetComponents()
+    {
+        animator = gameObject.GetComponent<Animator>();
     }
 
     public void WeaponPerformAttack(float attackDuration)
     {
         if(isAlreadyAttacking) return;
+        Debug.Log("Tries to trigger attack");
+        animator.SetTrigger("Attack");
         StartCoroutine(ActivateAttack(attackDuration));
     }
 

@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerCombat : MonoBehaviour
 {
     [Header("Weapon")] 
+    public BaseWeapon equippedWeapon;
     
     [Header("Arms")]
     
@@ -76,15 +77,8 @@ public class PlayerCombat : MonoBehaviour
     {
         if (context.performed)
         {
-            // Trigger the attack animation on the sword
-            if (_swordAnimator != null)
-            {
-                _swordAnimator.SetTrigger("Attack");
-            }
-            else
-            {
-                Debug.LogWarning("Sword Animator is null. Cannot trigger attack animation.");
-            }
+            Debug.Log("Pressed attack");
+            equippedWeapon.WeaponPerformAttack(0.5f);   
         }
         
         if (!_pv.IsMine)
