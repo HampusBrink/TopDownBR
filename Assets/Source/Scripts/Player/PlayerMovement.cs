@@ -7,7 +7,7 @@ using Unity.Mathematics;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody2D),typeof(NetworkObject))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private float walkSpeed = 5f;
@@ -29,7 +29,6 @@ public class PlayerMovement : NetworkBehaviour
     private Camera _camera;
 
     private PlayerStatus _playerStatus;
-    private NetworkObject _no;
     private Vector2 _moveVector;
     private Rigidbody2D _rb;
     
@@ -39,28 +38,30 @@ public class PlayerMovement : NetworkBehaviour
     {
         base.OnStartClient();
         
+        if(!IsOwner) return;
+        
         _rb = GetComponent<Rigidbody2D>();
-        _no = GetComponent<NetworkObject>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
 
-        if (!_no.IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
+        if (!IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
 
-        if (_no.IsOwner && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
+        if (IsOwner && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
 
         _desiredSpeed = _multipliedSpeed = walkSpeed;
     }
 
     private void Update()
     {
+        if(!IsOwner) return;
         UpdateStamina();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(!_no.IsOwner) return;
+        if(!IsOwner) return;
         if(!_camera) return;
 
         if (!GameManager.Instance.powerupPopup.gameObject.activeInHierarchy)
@@ -79,7 +80,7 @@ public class PlayerMovement : NetworkBehaviour
     
     public void OnSprint(InputAction.CallbackContext context)
     {
-        if(!_no.IsOwner) return;
+        if(!IsOwner) return;
 
         UpdateMovementSpeed();
         
@@ -95,7 +96,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private void UpdateStamina()
     {
-        if(!_no.IsOwner) return;
         if (_isSprinting)
         {
             _stamina = Mathf.Clamp(_stamina - staminaDrain * Time.deltaTime, 0, maxStamina);
@@ -115,7 +115,7 @@ public class PlayerMovement : NetworkBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if(!_no.IsOwner) return;
+        if(!IsOwner) return;
         if(!GameManager.Instance.GameStarted) return;
         if (!context.performed)
         {

@@ -8,15 +8,8 @@ using UnityEngine;
 
 namespace MultiplayerBase.Scripts
 {
-    public class MainMenuManagerScript : NetworkBehaviour
+    public class MainMenuManagerScript : MonoBehaviour
     {
-        public static MainMenuManagerScript Instance;
-
-        private void Awake()
-        {
-            Instance = this;
-        }
-
         public void OnPlayClicked()
         {
             SteamManager.JoinRandomOrCreateLobby();
@@ -29,7 +22,7 @@ namespace MultiplayerBase.Scripts
         public static void LoadScene(string sceneName)
         {
             var sld = new SceneLoadData(sceneName) { ReplaceScenes = ReplaceOption.All };
-            Instance.SceneManager.LoadGlobalScenes(sld);
+            RogueRoyaleNetworkManager.Instance.NetworkManager.SceneManager.LoadGlobalScenes(sld);
         }
     }
 }
