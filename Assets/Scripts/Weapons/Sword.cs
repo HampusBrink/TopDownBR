@@ -40,8 +40,40 @@ public class Sword : BaseWeapon
     public override void WeaponPerformAttack(float attackDuration, PlayerCombat.TurnDirection turnDirection)
     {
         base.WeaponPerformAttack(attackDuration, turnDirection);
+        RotateSwordToTurnDirection(turnDirection);
         animator.SetTrigger("Attack");
         StartCoroutine(ActivateAttack(attackDuration));
+    }
+
+    private void RotateSwordToTurnDirection(PlayerCombat.TurnDirection turnDirection)
+    {
+        switch (turnDirection)
+        {
+            case PlayerCombat.TurnDirection.Down:
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                break;
+            case PlayerCombat.TurnDirection.DownRight:
+                transform.rotation = Quaternion.Euler(0f, 0f, 45f);
+                break;
+            case PlayerCombat.TurnDirection.Right:
+                transform.rotation = Quaternion.Euler(0f, 0f, 90f);
+                break;
+            case PlayerCombat.TurnDirection.UpRight:
+                transform.rotation = Quaternion.Euler(0f, 0f, 135f);
+                break;
+            case PlayerCombat.TurnDirection.Up:
+                transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+                break;
+            case PlayerCombat.TurnDirection.UpLeft:
+                transform.rotation = Quaternion.Euler(0f, 0f, 225f);
+                break;
+            case PlayerCombat.TurnDirection.Left:
+                transform.rotation = Quaternion.Euler(0f, 0f, 270f);
+                break;
+            case PlayerCombat.TurnDirection.DownLeft:
+                transform.rotation = Quaternion.Euler(0f, 0f, 315f);
+                break;
+        }
     }
     
     private IEnumerator ActivateAttack(float attackDuration)

@@ -66,10 +66,7 @@ public class PlayerMovement : MonoBehaviour
         Animate();
         
         
-        if (_input.x < 0)
-            Flip(false);
-        else if (_input.x > 0) 
-            Flip(true);
+        
         
         Foo();
     }
@@ -174,19 +171,6 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("MoveMagnitude", _input.magnitude);
         anim.SetFloat("LastMoveX", lastMovedirection.x);
         anim.SetFloat("LastMoveY", lastMovedirection.y);
-    }
-
-    public void Flip(bool flipToRight)
-    {
-        Vector3 scale = transform.localScale;
-        if (flipToRight) 
-            scale.x = _initialScale.x * 1f;
-        else
-            scale.x = _initialScale.x * -1f;
-        
-        transform.localScale = scale;
-
-        facingLeft = !facingLeft;
     }
 
     private void ApplyMovement()

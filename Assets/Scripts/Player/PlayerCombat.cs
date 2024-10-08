@@ -126,6 +126,7 @@ public class PlayerCombat : MonoBehaviour
         {
             Debug.Log("Pressed attack");
             TurnDirection direction = GetTurnDirection();
+            SetLastTurnDirection();
             equippedWeapon.WeaponPerformAttack(0.5f, direction);
         }
         
