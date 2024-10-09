@@ -11,10 +11,13 @@ public class GiftSpawning : NetworkBehaviour
     [SerializeField] private float spawnInterval = 1f;
 
     private List<Transform> availableSpawnPositions;
-    
-    void Start()
+
+
+    public override void OnStartClient()
     {
-        if(!IsServerInitialized) return;
+        base.OnStartClient();
+        
+        if(!IsOwner) return;
 
         availableSpawnPositions = new List<Transform>(allSpawnPositions);
         StartCoroutine(SpawnGiftRoutine());

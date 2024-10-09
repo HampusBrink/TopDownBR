@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
-using FishNet.Connection;
 using FishNet.Managing.Scened;
-using FishNet.Object;
+using FishNet.Transporting;
 using Source.Scripts.NetworkRelated.Steam;
 using UnityEngine;
 
@@ -10,10 +8,43 @@ namespace MultiplayerBase.Scripts
 {
     public class MainMenuManagerScript : MonoBehaviour
     {
+        private ClientConnectionStateArgs _clientConnectionStateArgs;
+        private void OnEnable()
+        {
+            RogueRoyaleNetworkManager.Instance.NetworkManager.ClientManager.OnClientConnectionState += ClientManager_OnClientConnectionState;
+        }
+
+        private void OnDisable()
+        {
+            RogueRoyaleNetworkManager.Instance.NetworkManager.ClientManager.OnClientConnectionState -= ClientManager_OnClientConnectionState;
+        }
+
+        private void ClientManager_OnClientConnectionState(ClientConnectionStateArgs obj)
+        {
+            _clientConnectionStateArgs = obj;
+            if(obj.ConnectionState != LocalConnectionState.Started) return;
+            
+            LoadScene("GameScene");
+        }
+
         public void OnPlayClicked()
         {
-            SteamManager.JoinRandomOrCreateLobby();
+            if (RogueRoyaleNetworkManager.Instance.GetComponent<FishySteamworks.FishySteamworks>())
+            {
+                SteamManager.JoinRandomOrCreateLobby();
+            }
+            else
+            {
+                
+                if (!RogueRoyaleNetworkManager.Instance.NetworkManager.IsServerStarted)
+                {
+                    RogueRoyaleNetworkManager.Instance.NetworkManager.ServerManager.StartConnection();
+                }
+
+                RogueRoyaleNetworkManager.Instance.NetworkManager.ClientManager.StartConnection();
+            }
         }
+
         public void OnQuitClicked()
         {
             Application.Quit();

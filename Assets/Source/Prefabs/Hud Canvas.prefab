@@ -555,7 +555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3407689291844106450
 RectTransform:
   m_ObjectHideFlags: 0
@@ -603,10 +603,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20
+  m_text: '20
+
+'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ce97974908b2b9043ac1269840b1371d, type: 2}
+  m_sharedMaterial: {fileID: 1842752383670432884, guid: ce97974908b2b9043ac1269840b1371d,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1340,9 +1343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df13d2cacc3d2e6419d34ae2ebddb45f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
   timerDisplay: {fileID: 537411958155931328}
   startGameObject: {fileID: 7900679356751000910}
 --- !u!1 &7900679356751000910
@@ -1360,7 +1360,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &26973088451317973
 RectTransform:
   m_ObjectHideFlags: 0

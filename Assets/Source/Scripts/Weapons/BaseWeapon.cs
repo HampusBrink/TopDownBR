@@ -5,7 +5,7 @@ using FishNet.Object;
 using MultiplayerBase.Scripts;
 using UnityEngine;
 
-public class BaseWeapon : NetworkBehaviour
+public class BaseWeapon : MonoBehaviour
 {
 
     public BoxCollider2D weaponCol;
