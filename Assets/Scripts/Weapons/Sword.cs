@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-
+using TurnDirection = PlayerMovement.TurnDirection;
 
 public class Sword : BaseWeapon
 {
@@ -37,7 +37,7 @@ public class Sword : BaseWeapon
         weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedWeaponLength, weaponCol.transform.localScale.z);
     }
 
-    public override void WeaponPerformAttack(float attackDuration, PlayerCombat.TurnDirection turnDirection)
+    public override void WeaponPerformAttack(float attackDuration, TurnDirection turnDirection)
     {
         base.WeaponPerformAttack(attackDuration, turnDirection);
         RotateSwordToTurnDirection(turnDirection);
@@ -45,41 +45,47 @@ public class Sword : BaseWeapon
         StartCoroutine(ActivateAttack(attackDuration));
     }
 
-    private void RotateSwordToTurnDirection(PlayerCombat.TurnDirection turnDirection)
+    private void RotateSwordToTurnDirection(TurnDirection turnDirection)
     {
         switch (turnDirection)
         {
-            case PlayerCombat.TurnDirection.Down:
+            case TurnDirection.Down:
                 transform.rotation = Quaternion.Euler(0f, 0f, 0f);
                 break;
-            case PlayerCombat.TurnDirection.DownRight:
+            case TurnDirection.DownRight:
                 transform.rotation = Quaternion.Euler(0f, 0f, 45f);
                 break;
-            case PlayerCombat.TurnDirection.Right:
+            case TurnDirection.Right:
                 transform.rotation = Quaternion.Euler(0f, 0f, 90f);
                 break;
-            case PlayerCombat.TurnDirection.UpRight:
+            case TurnDirection.UpRight:
                 transform.rotation = Quaternion.Euler(0f, 0f, 135f);
                 break;
-            case PlayerCombat.TurnDirection.Up:
+            case TurnDirection.Up:
                 transform.rotation = Quaternion.Euler(0f, 0f, 180f);
                 break;
-            case PlayerCombat.TurnDirection.UpLeft:
+            case TurnDirection.UpLeft:
                 transform.rotation = Quaternion.Euler(0f, 0f, 225f);
                 break;
-            case PlayerCombat.TurnDirection.Left:
+            case TurnDirection.Left:
                 transform.rotation = Quaternion.Euler(0f, 0f, 270f);
                 break;
-            case PlayerCombat.TurnDirection.DownLeft:
+            case TurnDirection.DownLeft:
                 transform.rotation = Quaternion.Euler(0f, 0f, 315f);
                 break;
         }
     }
+
+    public override void UpdateWeaponTurnDir(TurnDirection turnDir)
+    {
+        RotateSwordToTurnDirection(turnDir);
+    }
     
+
     private IEnumerator ActivateAttack(float attackDuration)
     {
         // ReSharper disable once Unity.InefficientPropertyAccess
-        isAlreadyAttacking = true;
+        isAttacking = true;
         weaponCol.enabled = true;
         
         float attackTimeElapsed = 0f;
@@ -92,7 +98,7 @@ public class Sword : BaseWeapon
         }
         
         weaponCol.enabled = false;
-        isAlreadyAttacking = false;
+        isAttacking = false;
     }
     
     // private void OnTriggerEnter2D(Collider2D col)

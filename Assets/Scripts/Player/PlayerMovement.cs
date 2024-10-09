@@ -37,6 +37,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 _moveVector;
     private Rigidbody2D _rb;
     
+    public enum TurnDirection
+    {
+        Down = 0,
+        DownRight = 1,
+        Right = 2,
+        UpRight = 3,
+        Up = 4,
+        UpLeft = 5,
+        Left = 6,
+        DownLeft = 7
+    }
+    
     void Start()
     {
         
@@ -68,11 +80,10 @@ public class PlayerMovement : MonoBehaviour
         
         
         
-        Foo();
+        UpdateMoveDirection();
     }
     
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if(!_pv.IsMine) return;
@@ -82,8 +93,6 @@ public class PlayerMovement : MonoBehaviour
         {
             ApplyMovement();
         }
-
-        //RotatePlayerToMouse();
     }
 
     private void UpdateMovementSpeed()
@@ -129,16 +138,60 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private Vector2 _input;
-    [HideInInspector] public Vector2 lastMovedirection;
-    private bool _isMoving = false;
+    [HideInInspector] public TurnDirection lastMovedirection;
+    [HideInInspector] public bool isMoving = false;
+    [HideInInspector] public TurnDirection currentTurnDirection = TurnDirection.Down;
+    [HideInInspector] public TurnDirection currentMoveDirection = TurnDirection.Down;
 
-    private void Foo()
+    private readonly Vector2[] _vector2TurnDirections =
     {
-        if (!_isMoving)
+        new(0f, -1f), // Down
+        new(1f, -1f), // DownRight
+        new(1f, 0f), // Right
+        new(1f, 1f), // UpRight
+        new(0f, 1f), // Up
+        new(-1f, 1f), // UpLeft
+        new(-1f, 0f), // Left
+        new(-1f, -1f) // DownLeft
+    };
+    public Vector2 TurnDirectionToVector2(TurnDirection turnDirection)
+    {
+        return _vector2TurnDirections[(int)turnDirection];
+    }
+    
+    public TurnDirection Vector2ToTurnDirection(Vector2 vector)
+    {
+        vector = vector.normalized; // Normalize the input vector
+
+        for (int i = 0; i < _vector2TurnDirections.Length; i++)
+        {
+            // Normalize the stored direction vector to ensure diagonal movement is detected
+            Vector2 direction = _vector2TurnDirections[i].normalized;
+
+            if (Vector2.Distance(vector, direction) < 0.1f) // Adjust tolerance as needed
+            {
+                return (TurnDirection)i;
+            }
+        }
+
+        throw new ArgumentException("Vector2 does not match any TurnDirection.");
+    }
+
+   
+
+    public void SetTurnDirection(TurnDirection turnDirection)
+    {
+        currentTurnDirection = turnDirection;
+        lastMovedirection = turnDirection;
+    }
+    
+    private void UpdateMoveDirection()
+    {
+        if (!isMoving)
         {
             if (_input != Vector2.zero)
             {
-                lastMovedirection = _input;
+                lastMovedirection = Vector2ToTurnDirection(_input);
                 _input = Vector2.zero;
             }
         }
@@ -147,11 +200,13 @@ public class PlayerMovement : MonoBehaviour
             _input = _moveVector;
             _input.Normalize();
         }
+
+        currentMoveDirection = Vector2ToTurnDirection(_input);
     }
     
     public void OnMove(InputAction.CallbackContext context)
     {
-        _isMoving = true;
+        isMoving = true;
         if (!_pv.IsMine) return;
         if (!GameManager.Instance.GameStarted) return;
 
@@ -159,7 +214,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.canceled)
         {
-            _isMoving = false;
+            isMoving = false;
         }
         
     }
@@ -169,8 +224,8 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat("MoveX", _input.x);
         anim.SetFloat("MoveY", _input.y);
         anim.SetFloat("MoveMagnitude", _input.magnitude);
-        anim.SetFloat("LastMoveX", lastMovedirection.x);
-        anim.SetFloat("LastMoveY", lastMovedirection.y);
+        anim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
+        anim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
     }
 
     private void ApplyMovement()
@@ -188,15 +243,5 @@ public class PlayerMovement : MonoBehaviour
         _rb.velocity = _velocity;
     }
 
-
     
-    
-    private void RotatePlayerToMouse()
-    {
-        Vector2 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        var direction = (mouseWorldPosition - _rb.position) * -1;
-
-        var angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + 90;
-        playerGFX.transform.rotation = Quaternion.Euler(0f, 0f, angle);;
-    }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.Serialization;
+using TurnDirection = PlayerMovement.TurnDirection;
 
 public class BaseWeapon : MonoBehaviourPunCallbacks
 {
@@ -19,7 +20,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
 
     protected float _multipliedDamage;
 
-    [HideInInspector] public bool isAlreadyAttacking;
+    [HideInInspector] public bool isAttacking;
 
     protected virtual void Start()
     {
@@ -32,13 +33,17 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
     }
     
-    
+
+    public virtual void UpdateWeaponTurnDir(TurnDirection turnDir)
+    {
+        
+    }
     
     
 
-    public virtual void WeaponPerformAttack(float attackDuration, PlayerCombat.TurnDirection turnDirection)
+    public virtual void WeaponPerformAttack(float attackDuration, TurnDirection turnDirection)
     {
-        if(isAlreadyAttacking) return;
+        if(isAttacking) return;
         Debug.Log("Tries to trigger attack");
         
     }

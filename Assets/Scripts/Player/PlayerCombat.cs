@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Photon.Pun;
 using UnityEngine.InputSystem;
+using TurnDirection = PlayerMovement.TurnDirection;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -67,6 +68,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
+        UpdateTurnDirection();
         //equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
     }
 
@@ -75,19 +77,9 @@ public class PlayerCombat : MonoBehaviour
         //attackSpeed = _playerStatus.attackSpeedMultiplier * equippedWeapon.baseAttackSpeed;
     }
     
-    public enum TurnDirection
-    {
-        Down = 0,
-        DownRight = 1,
-        Right = 2,
-        UpRight = 3,
-        Up = 4,
-        UpLeft = 5,
-        Left = 6,
-        DownLeft = 7
-    }
     
-    private TurnDirection GetTurnDirection()
+    
+    private TurnDirection GetTurnDirectionFromMouse()
     {
         Vector2 mouseScreenPosition = Input.mousePosition;
         Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
@@ -103,31 +95,40 @@ public class PlayerCombat : MonoBehaviour
         return (TurnDirection)directionIndex;
     }
     
-    private void SetLastTurnDirection()
+    private void SetLastTurnDirectionFromMouse()
     {
-        TurnDirection direction = GetTurnDirection();
-        Vector2[] directions = {
-            new(0f, -1f),  // Down
-            new(1f, -1f),  // DownRight
-            new(1f, 0f),   // Right
-            new(1f, 1f),   // UpRight
-            new(0f, 1f),   // Up
-            new(-1f, 1f),  // UpLeft
-            new(-1f, 0f),  // Left
-            new(-1f, -1f)  // DownLeft
-        };
-
-        _playerMovement.lastMovedirection = directions[(int)direction];
+        _playerMovement.SetTurnDirection(GetTurnDirectionFromMouse());
     }
 
+    private void UpdateTurnDirection()
+    {
+        if (equippedWeapon.isAttacking)
+        {
+            _playerMovement.SetTurnDirection(_hitDirection);
+            equippedWeapon.UpdateWeaponTurnDir(_hitDirection);
+        }
+        else if (!equippedWeapon.isAttacking && _playerMovement.isMoving)
+        {
+            _playerMovement.SetTurnDirection(_playerMovement.currentMoveDirection);
+            equippedWeapon.UpdateWeaponTurnDir(_playerMovement.currentMoveDirection);
+        }
+        else if (!equippedWeapon.isAttacking && !_playerMovement.isMoving)
+        {
+            _playerMovement.SetTurnDirection(_playerMovement.lastMovedirection);
+            equippedWeapon.UpdateWeaponTurnDir(_playerMovement.lastMovedirection);
+        }
+    }
+
+    private TurnDirection _hitDirection;
+    
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             Debug.Log("Pressed attack");
-            TurnDirection direction = GetTurnDirection();
-            SetLastTurnDirection();
-            equippedWeapon.WeaponPerformAttack(0.5f, direction);
+            _hitDirection = GetTurnDirectionFromMouse();
+            SetLastTurnDirectionFromMouse();
+            equippedWeapon.WeaponPerformAttack(0.5f, _playerMovement.currentTurnDirection);
         }
         
         if (!_pv.IsMine)
