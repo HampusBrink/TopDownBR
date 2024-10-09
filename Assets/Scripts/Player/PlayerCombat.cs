@@ -50,7 +50,7 @@ public class PlayerCombat : MonoBehaviour
         GetNeededComponents();
         if (!_pv.IsMine)
             return;
-        UpdateStats();
+        UpdateCombatStats();
     }
 
     private void GetNeededComponents()
@@ -60,17 +60,18 @@ public class PlayerCombat : MonoBehaviour
         _playerMovement = GetComponent<PlayerMovement>();
     }
     
-    private void UpdateStats()
-    {
-        UpdateAttackSpeed();
-        //equippedWeapon.UpdateAttackDamage(_playerStatus.attackDamageMultiplier);
-    }
-
     private void Update()
     {
         UpdateTurnDirection();
-        //equippedWeapon.UpdateWeaponLength(_playerStatus.weaponLengthMultiplier);
     }
+    
+    private void UpdateCombatStats()
+    {
+        UpdateAttackSpeed();
+        equippedWeapon.UpdateWeaponStats(_playerStatus.weaponStatMultipliers);
+    }
+
+    
 
     private void UpdateAttackSpeed()
     {
@@ -133,7 +134,7 @@ public class PlayerCombat : MonoBehaviour
         
         if (!_pv.IsMine)
             return;
-        UpdateStats();
+        UpdateCombatStats();
         //UpdateAttackDurations();
     }
     

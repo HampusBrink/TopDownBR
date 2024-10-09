@@ -7,11 +7,11 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     [SerializeField] private Image healthBarFill;
 
     [Header("Stats")] 
-    public float maxHealth = 100f;
-    public float attackDamageMultiplier = 1.0f;
-    public float attackSpeedMultiplier = 1.0f;
-    public float weaponLengthMultiplier = 1.0f;
-    public float movementSpeedMultiplier = 1.0f;
+    public PlayerStatMultipliers playerStatMultipliers;
+    public MovementStatMultipliers movementStatMultipliers;
+    public CombatStatMultipliers combatStatMultipliers;
+    public WeaponStatMultipliers weaponStatMultipliers;
+    
 
     private float _currentHealth;
 
@@ -19,15 +19,40 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
     public float CurrentHealth
     {
-        get => _currentHealth > maxHealth ? maxHealth : _currentHealth;
-        set => _currentHealth = value > maxHealth ? maxHealth : value;
+        get => _currentHealth > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : _currentHealth;
+        set => _currentHealth = value > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : value;
     }
 
     public PhotonView pv;
 
+    [System.Serializable]
+    public class PlayerStatMultipliers
+    {
+        public float maxHealth = 100f;
+    }
+
+    [System.Serializable]
+    public class MovementStatMultipliers
+    {
+        public float movementSpeedMultiplier = 1.0f;
+    }
+    
+    [System.Serializable]
+    public class CombatStatMultipliers
+    {
+        public float attackSpeedMultiplier = 1.0f;
+    }
+    
+    [System.Serializable]
+    public class WeaponStatMultipliers
+    {
+        public float attackDamageMultiplier = 1.0f;
+        public float attackRangeMultiplier = 1.0f;
+    }
+    
     public void Start()
     {
-        _currentHealth = maxHealth;
+        _currentHealth = playerStatMultipliers.maxHealth;
         pv = GetComponent<PhotonView>();
         if (pv.IsMine)
         {
@@ -51,7 +76,7 @@ public class PlayerStatus : MonoBehaviour, IDamagable
 
     private void UpdateHealthBar()
     {
-        float targetFillAmount = _currentHealth / maxHealth;
+        float targetFillAmount = _currentHealth / playerStatMultipliers.maxHealth;
         healthBarFill.fillAmount = targetFillAmount;
     }
 

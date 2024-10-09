@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateMovementSpeed()
     {
         _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
-        _multipliedSpeed = _playerStatus.movementSpeedMultiplier * _desiredSpeed;
+        _multipliedSpeed = _playerStatus.movementStatMultipliers.movementSpeedMultiplier * _desiredSpeed;
     }
     
     public void OnSprint(InputAction.CallbackContext context)

@@ -15,10 +15,13 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     
     [Header("Weapon Stats")]
     public float baseDamage = 10f;
+
+    public float attackRange = 1.0f;
     public float baseAttackSpeed = 2f;
     
 
     protected float _multipliedDamage;
+    protected float _multipliedRange;
 
     [HideInInspector] public bool isAttacking;
 
@@ -32,8 +35,14 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     {
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
     }
-    
 
+    public void UpdateWeaponStats(PlayerStatus.WeaponStatMultipliers stats)
+    {
+        UpdateAttackDamage(stats.attackDamageMultiplier);
+        UpdateAttackRange(stats.attackRangeMultiplier);
+    }
+    
+    
     public virtual void UpdateWeaponTurnDir(TurnDirection turnDir)
     {
         
@@ -48,12 +57,15 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
         
     }
 
-    public void UpdateAttackDamage(float multiplier)
+    private void UpdateAttackDamage(float multiplier)
     {
         _multipliedDamage = baseDamage * multiplier;
     }
 
-    
+    private void UpdateAttackRange(float multiplier)
+    {
+        _multipliedDamage = attackRange * multiplier;
+    }
     
     
 
