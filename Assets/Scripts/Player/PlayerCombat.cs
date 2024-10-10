@@ -17,7 +17,7 @@ public class PlayerCombat : MonoBehaviour
 
 
     [Header("Attack")]
-    [SerializeField] private float attackSpeed = 1f; // Attacks per second
+
 
     [Header("Other")]
     
@@ -103,12 +103,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void UpdateTurnDirection()
     {
-        if (equippedWeapon.isAttacking)
-        {
-            _playerMovement.SetTurnDirection(_hitDirection);
-            equippedWeapon.UpdateWeaponTurnDir(_hitDirection);
-        }
-        else if (!equippedWeapon.isAttacking && _playerMovement.isMoving)
+        if (!equippedWeapon.isAttacking && _playerMovement.isMoving)
         {
             _playerMovement.SetTurnDirection(_playerMovement.currentMoveDirection);
             equippedWeapon.UpdateWeaponTurnDir(_playerMovement.currentMoveDirection);
@@ -127,9 +122,14 @@ public class PlayerCombat : MonoBehaviour
         if (context.performed)
         {
             Debug.Log("Pressed attack");
-            _hitDirection = GetTurnDirectionFromMouse();
-            SetLastTurnDirectionFromMouse();
-            equippedWeapon.WeaponPerformAttack(0.5f, _playerMovement.currentTurnDirection);
+            if (!equippedWeapon.isAttacking)
+            {
+                _hitDirection = GetTurnDirectionFromMouse();
+                SetLastTurnDirectionFromMouse();
+                equippedWeapon.UpdateWeaponTurnDir(_hitDirection);
+                equippedWeapon.WeaponPerformAttack(_playerMovement.currentTurnDirection);
+            }
+            
         }
         
         if (!_pv.IsMine)

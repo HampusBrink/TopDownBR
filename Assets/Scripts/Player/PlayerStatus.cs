@@ -9,7 +9,6 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     [Header("Stats")] 
     public PlayerStatMultipliers playerStatMultipliers;
     public MovementStatMultipliers movementStatMultipliers;
-    public CombatStatMultipliers combatStatMultipliers;
     public WeaponStatMultipliers weaponStatMultipliers;
     
 
@@ -38,16 +37,11 @@ public class PlayerStatus : MonoBehaviour, IDamagable
     }
     
     [System.Serializable]
-    public class CombatStatMultipliers
-    {
-        public float attackSpeedMultiplier = 1.0f;
-    }
-    
-    [System.Serializable]
     public class WeaponStatMultipliers
     {
         public float attackDamageMultiplier = 1.0f;
         public float attackRangeMultiplier = 1.0f;
+        public float attackSpeedMultiplier = 1.0f;
     }
     
     public void Start()

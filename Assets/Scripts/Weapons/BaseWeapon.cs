@@ -15,13 +15,13 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     
     [Header("Weapon Stats")]
     public float baseDamage = 10f;
-
-    public float attackRange = 1.0f;
+    public float baseAttackRange = 1.0f;
     public float baseAttackSpeed = 2f;
     
 
     protected float _multipliedDamage;
     protected float _multipliedRange;
+    protected float _multipliedAttackSpeed;
 
     [HideInInspector] public bool isAttacking;
 
@@ -40,6 +40,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     {
         UpdateAttackDamage(stats.attackDamageMultiplier);
         UpdateAttackRange(stats.attackRangeMultiplier);
+        UpdateAttackSpeed(stats.attackSpeedMultiplier);
     }
     
     
@@ -50,7 +51,7 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
     
     
 
-    public virtual void WeaponPerformAttack(float attackDuration, TurnDirection turnDirection)
+    public virtual void WeaponPerformAttack(TurnDirection turnDirection)
     {
         if(isAttacking) return;
         Debug.Log("Tries to trigger attack");
@@ -64,10 +65,13 @@ public class BaseWeapon : MonoBehaviourPunCallbacks
 
     private void UpdateAttackRange(float multiplier)
     {
-        _multipliedDamage = attackRange * multiplier;
+        _multipliedDamage = baseAttackRange * multiplier;
     }
-    
-    
+
+    private void UpdateAttackSpeed(float multiplier)
+    {
+        _multipliedAttackSpeed = baseAttackSpeed * multiplier;
+    }
 
     
 }

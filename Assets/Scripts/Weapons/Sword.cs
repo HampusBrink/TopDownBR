@@ -37,12 +37,13 @@ public class Sword : BaseWeapon
         weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedWeaponLength, weaponCol.transform.localScale.z);
     }
 
-    public override void WeaponPerformAttack(float attackDuration, TurnDirection turnDirection)
+    public override void WeaponPerformAttack(TurnDirection turnDirection)
     {
-        base.WeaponPerformAttack(attackDuration, turnDirection);
+        base.WeaponPerformAttack(turnDirection);
+        if(isAttacking) return;
         RotateSwordToTurnDirection(turnDirection);
         animator.SetTrigger("Attack");
-        StartCoroutine(ActivateAttack(attackDuration));
+        StartCoroutine(ActivateAttack(_multipliedAttackSpeed));
     }
 
     private void RotateSwordToTurnDirection(TurnDirection turnDirection)
@@ -82,12 +83,15 @@ public class Sword : BaseWeapon
     }
     
 
-    private IEnumerator ActivateAttack(float attackDuration)
+    private IEnumerator ActivateAttack(float attackSpeed)
     {
+        
         // ReSharper disable once Unity.InefficientPropertyAccess
         isAttacking = true;
         weaponCol.enabled = true;
+
         
+        float attackDuration = 1.0f / attackSpeed;
         float attackTimeElapsed = 0f;
         while (attackTimeElapsed < attackDuration)
         {
