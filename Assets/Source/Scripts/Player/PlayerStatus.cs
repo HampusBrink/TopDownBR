@@ -1,3 +1,4 @@
+using System;
 using FishNet.CodeGenerating;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -17,47 +18,44 @@ namespace Source.Scripts.Player
         public float weaponLengthMultiplier = 1.0f;
         public float movementSpeedMultiplier = 1.0f;
 
-        [AllowMutableSyncType]
-        private SyncVar<float> _currentHealth;
+        private float _currentHealth;
 
         public bool IsDead { get; private set; }
 
-        private NetworkObject _no;
-
         public float CurrentHealth
         {
-            get => _currentHealth.Value > maxHealth ? maxHealth : _currentHealth.Value;
-            set => _currentHealth.Value = value > maxHealth ? maxHealth : value;
-        }
-
-        private void Awake()
-        {
-            _currentHealth.OnChange += OnHealthChange;
+            get => _currentHealth > maxHealth ? maxHealth : _currentHealth;
+            set => _currentHealth = value > maxHealth ? maxHealth : value;
         }
 
         public override void OnStartClient()
         {
             base.OnStartClient();
-        
+
             CurrentHealth = maxHealth;
-            _no = GetComponent<NetworkObject>();
             if (IsOwner)
             {
+                GameManager.Instance.PlayerJoined(this);
                 healthBarFill.color = Color.green;
             }
         }
 
 
-        private void OnHealthChange(float prev, float next, bool asserver)
+        [ServerRpc(RequireOwnership = false)]
+        public void TakeDamage(float damage)
         {
-            CurrentHealth = next;
+            RPC_TakeDamage(damage);
+
+            if (CurrentHealth <= 0) Die();
         }
 
-        public void TakeDamage(float damage)
+        [ObserversRpc]
+        private void RPC_TakeDamage(float damage)
         {
             CurrentHealth -= damage;
             UpdateHealthBar();
-            if (CurrentHealth <= 0) Die();
+            
+            if (CurrentHealth <= 0) GameManager.Instance.isDead = true;
         }
 
         public void Heal(float healAmount)
@@ -74,14 +72,9 @@ namespace Source.Scripts.Player
 
         void Die()
         {
-            if (_no.IsOwner)
-            {
-                GameManager.Instance.isDead = true;
-                GameManager.Instance.PlayerDied();
-                _no.Despawn();
-            }
-
-            if (!_no.IsServerInitialized) return;
+            GameManager.Instance.PlayerDied(this);
+            Despawn();
+            
             // GameManager.Instance.players.Remove(gameObject.GetPhotonView());
             GameManager.Instance.CheckForWinner();
         }

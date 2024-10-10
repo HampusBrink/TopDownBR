@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using FishNet.Object;
 using MultiplayerBase.Scripts;

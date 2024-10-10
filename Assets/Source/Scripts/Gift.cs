@@ -1,6 +1,7 @@
 using System;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
+using Source.Scripts.NetworkRelated;
 using UnityEngine;
 
 public class Gift : NetworkBehaviour
@@ -23,7 +24,7 @@ public class Gift : NetworkBehaviour
     public void Collect()
     {
         spawner.ReturnSpawnPosition(spawnPosition);
-        RogueRoyaleNetworkManager.Instance.NetworkManager.ServerManager.Despawn(gameObject);
+        Despawn(gameObject, DespawnType.Pool);
     }
 
     private void OnTriggerEnter2D(Collider2D col)

@@ -48,7 +48,6 @@ public class BaseWeapon : MonoBehaviour
         _isAlreadyAttacking = true;
         weaponCol.enabled = true;
         yield return new WaitForSeconds(attackDuration);
-        // ReSharper disable once Unity.InefficientPropertyAccess
         weaponCol.enabled = false;
         _isAlreadyAttacking = false;
     }
@@ -60,7 +59,7 @@ public class BaseWeapon : MonoBehaviour
         {
             if (no.TryGetComponent(out IDamagable damagable))
             {
-                if(!no.IsOwner) return;
+                if(!GetComponentInParent<NetworkObject>().IsOwner) return;
                 damagable.TakeDamage(_multipliedDamage);
                 weaponCol.enabled = false;
             }

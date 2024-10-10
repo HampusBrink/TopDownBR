@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using FishNet.Object;
-using FishNet.Object.Synchronizing;
+using Source.Scripts.NetworkRelated;
+using Source.Scripts.Player;
 using Source.Scripts.UI;
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 using static System.String;
 
@@ -13,8 +12,6 @@ namespace MultiplayerBase.Scripts
 {
     public class GameManager : NetworkBehaviour
     {
-        [SerializeField] private GameObject _playerPrefab;
-        [SerializeField] private List<Transform> _spawnPositions;
         [SerializeField] private UIScript _UI;
         [SerializeField] private TMP_Text _victoryRoyaleUI;
         public PowerupPopup powerupPopup;
@@ -24,7 +21,7 @@ namespace MultiplayerBase.Scripts
         public static GameManager Instance { get; private set; }
         
         [HideInInspector] public bool isDead;
-        [HideInInspector] public List<PlayerMovement> alivePlayers;
+        [HideInInspector] public List<PlayerStatus> alivePlayers;
 
         public bool GameStarted { get; private set; }
 
@@ -35,7 +32,7 @@ namespace MultiplayerBase.Scripts
         private float _timer;
 
         public float Timer => Mathf.Abs(_timer - _countDownTime);
-        
+
         void Awake()
         {
             if (isTestScene) GameStarted = true;
@@ -83,15 +80,21 @@ namespace MultiplayerBase.Scripts
             }
         }
 
-        public void PlayerDied()
+        public void PlayerDied(PlayerStatus deadPlayer)
         {
-            alivePlayers = FindObjectsOfType<PlayerMovement>().ToList();
+            alivePlayers.Remove(deadPlayer);
         }
         
         [ServerRpc]
         void RPC_DisplayVictor(string victorName)
         {
             DisplayVictor(victorName);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void PlayerJoined(PlayerStatus player)
+        {
+            alivePlayers.Add(player);
         }
 
         // [ServerRpc]

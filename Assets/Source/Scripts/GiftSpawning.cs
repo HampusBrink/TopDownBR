@@ -17,7 +17,7 @@ public class GiftSpawning : NetworkBehaviour
     {
         base.OnStartClient();
         
-        if(!IsOwner) return;
+        if(!IsServerInitialized) return;
 
         availableSpawnPositions = new List<Transform>(allSpawnPositions);
         StartCoroutine(SpawnGiftRoutine());
@@ -40,8 +40,10 @@ public class GiftSpawning : NetworkBehaviour
             int randomIndex = Random.Range(0, availableSpawnPositions.Count);
             Transform spawnPosition = availableSpawnPositions[randomIndex];
             
-            // GameObject gift = PhotonNetwork.Instantiate(giftPrefab.name, spawnPosition.position, Quaternion.identity);
-            // gift.GetComponent<Gift>().SetSpawnPosition(spawnPosition);
+            GameObject gift = Instantiate(giftPrefab, spawnPosition.position, Quaternion.identity);
+            GameManager.Instance.ServerManager.Spawn(gift);
+            
+            gift.GetComponent<Gift>().SetSpawnPosition(spawnPosition);
             
             availableSpawnPositions.RemoveAt(randomIndex);
         }

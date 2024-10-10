@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 7588194630976565295, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+  _playerPrefab: {fileID: 1576430411589563921, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
     type: 3}
   _addToDefaultScene: 1
   Spawns: []
@@ -689,7 +689,7 @@ MonoBehaviour:
   _objectPool: {fileID: 0}
   _persistence: 0
   _logging: {fileID: 0}
-  _spawnablePrefabs: {fileID: 11400000, guid: e012dae50b988a54fb20b3753ae3d21a, type: 2}
+  _spawnablePrefabs: {fileID: 11400000, guid: 3d42a40f809c08c4d937755883749aed, type: 2}
 --- !u!1 &7443408887696560927
 GameObject:
   m_ObjectHideFlags: 0
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 7588194630976565295, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+  _playerPrefab: {fileID: 1576430411589563921, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
     type: 3}
   _addToDefaultScene: 1
   Spawns: []
@@ -810,7 +810,7 @@ MonoBehaviour:
   _objectPool: {fileID: 0}
   _persistence: 0
   _logging: {fileID: 0}
-  _spawnablePrefabs: {fileID: 11400000, guid: e012dae50b988a54fb20b3753ae3d21a, type: 2}
+  _spawnablePrefabs: {fileID: 11400000, guid: 3d42a40f809c08c4d937755883749aed, type: 2}
 --- !u!1 &7443408888223772047
 GameObject:
   m_ObjectHideFlags: 0
