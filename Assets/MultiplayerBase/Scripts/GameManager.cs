@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using FishNet.Object;
-using Source.Scripts.NetworkRelated;
-using Source.Scripts.Player;
+using NetworkRelated;
+using Player;
 using Source.Scripts.UI;
 using TMPro;
+using UI;
 using UnityEngine;
 using static System.String;
 
