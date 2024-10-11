@@ -37,16 +37,18 @@ public class PlayerMovement : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        
-        if(!IsOwner) return;
+
+        if (!IsOwner)
+        {
+            staminaBarFill.transform.parent.gameObject.SetActive(false);
+            return;
+        }
         
         _rb = GetComponent<Rigidbody2D>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
-
-        if (!IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
-
+        
         if (IsOwner && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
 
         _desiredSpeed = _multipliedSpeed = walkSpeed;

@@ -35,7 +35,7 @@ namespace Source.Scripts.Player
             CurrentHealth = maxHealth;
             if (IsOwner)
             {
-                GameManager.Instance.PlayerJoined(this);
+                GameManager.Instance.SRPC_PlayerJoined(this);
                 healthBarFill.color = Color.green;
             }
         }
@@ -46,7 +46,6 @@ namespace Source.Scripts.Player
         {
             RPC_TakeDamage(damage);
 
-            if (CurrentHealth <= 0) Die();
         }
 
         [ObserversRpc]
@@ -55,7 +54,8 @@ namespace Source.Scripts.Player
             CurrentHealth -= damage;
             UpdateHealthBar();
             
-            if (CurrentHealth <= 0) GameManager.Instance.isDead = true;
+            if (CurrentHealth <= 0 && IsOwner) GameManager.Instance.isDead = true;
+            if (CurrentHealth <= 0 && IsServerInitialized) Die();
         }
 
         public void Heal(float healAmount)
@@ -72,7 +72,7 @@ namespace Source.Scripts.Player
 
         void Die()
         {
-            GameManager.Instance.PlayerDied(this);
+            GameManager.Instance.SRPC_PlayerDied(this);
             Despawn();
             
             // GameManager.Instance.players.Remove(gameObject.GetPhotonView());

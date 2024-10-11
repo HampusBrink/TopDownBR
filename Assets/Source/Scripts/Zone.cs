@@ -57,7 +57,7 @@ namespace Source.Scripts
 
             ChangeVisualSize(Mathf.Lerp(_startVisualRadius, endRadius, eval));
             
-
+            
             // Change relative visual size always, as we're nice to people with 50+ FPS.
         }
 

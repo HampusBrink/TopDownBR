@@ -20,7 +20,6 @@ namespace Source.Scripts.NetworkRelated
             _networkManager = GetComponent<NetworkManager>();
             Instance = this;
             _spawner = GetComponent<PlayerSpawner>();
-        
         }
 
         private void OnEnable()
@@ -28,7 +27,6 @@ namespace Source.Scripts.NetworkRelated
             SpawnPointHandler.OnFetchSpawnPoints += OnFetchSpawnPoints;
             SpawnPointHandler.OnPlayerSpawned += OnPlayerSpawned;
             _spawner.OnSpawned += FishySpawn;
-        
         }
 
         private void OnDisable()

@@ -49,33 +49,10 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 9003005508824862355}
   _networkObjectCache: {fileID: 9003005508824862355}
-  _playerPrefab: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-    type: 3}
-  _spawnPositions:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   _UI: {fileID: 0}
   _victoryRoyaleUI: {fileID: 0}
   powerupPopup: {fileID: 0}
-  _countDownTime: 15
+  _countDownTime: 5
   isDead: 0
   alivePlayers: []
   isTestScene: 0
@@ -1067,7 +1044,7 @@ MonoBehaviour:
   - {fileID: 0}
   giftPrefab: {fileID: 8825621775030287276, guid: 20cdb55a6a1565f44be52e5760e1ad99,
     type: 3}
-  spawnInterval: 4
+  spawnInterval: 5
 --- !u!114 &9003005508824862355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,7 +1085,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 3
+  <PrefabId>k__BackingField: 6
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 8906049769553811383
   <SceneId>k__BackingField: 0

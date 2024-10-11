@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using FishNet.Object;
@@ -23,6 +24,8 @@ namespace MultiplayerBase.Scripts
         [HideInInspector] public bool isDead;
         [HideInInspector] public List<PlayerStatus> alivePlayers;
 
+        public event Action<List<PlayerStatus>> OnAlivePlayersChanged; 
+
         public bool GameStarted { get; private set; }
 
         //remove later
@@ -44,6 +47,13 @@ namespace MultiplayerBase.Scripts
             {
                 Destroy(gameObject);
             }
+        }
+
+        public override void OnStopServer()
+        {
+            base.OnStopServer();
+            
+            print("Stoping server");
         }
 
         private void OnEnable()
@@ -68,7 +78,7 @@ namespace MultiplayerBase.Scripts
 
         public void OnStartGameClicked()
         {
-            RPC_StartGame();
+            SRPC_StartGame();
             _UI.startGameObject.SetActive(false);
         }
 
@@ -80,21 +90,30 @@ namespace MultiplayerBase.Scripts
             }
         }
 
-        public void PlayerDied(PlayerStatus deadPlayer)
+        [ServerRpc(RequireOwnership = false)]
+        public void SRPC_PlayerDied(PlayerStatus deadPlayer)
         {
             alivePlayers.Remove(deadPlayer);
+            ORPC_UpdateAlivePlayers(alivePlayers);
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void SRPC_PlayerJoined(PlayerStatus player)
+        {
+            alivePlayers.Add(player);
+            ORPC_UpdateAlivePlayers(alivePlayers);
+        }
+
+        [ObserversRpc]
+        private void ORPC_UpdateAlivePlayers(List<PlayerStatus> players)
+        {
+            OnAlivePlayersChanged?.Invoke(players);
         }
         
         [ServerRpc]
-        void RPC_DisplayVictor(string victorName)
+        private void SRPC_DisplayVictor(string victorName)
         {
-            DisplayVictor(victorName);
-        }
-
-        [ServerRpc(RequireOwnership = false)]
-        public void PlayerJoined(PlayerStatus player)
-        {
-            alivePlayers.Add(player);
+            ORPC_DisplayVictor(victorName);
         }
 
         // [ServerRpc]
@@ -106,13 +125,13 @@ namespace MultiplayerBase.Scripts
         
 
         [ServerRpc(RequireOwnership = false)]
-        public void RPC_StartGame()
+        private void SRPC_StartGame()
         {
-            StartGame();
+            ORPC_StartGame();
         }
 
         [ObserversRpc]
-        void DisplayVictor(string victorName)
+        private void ORPC_DisplayVictor(string victorName)
         {
             if (victorName == Empty)
             {
@@ -124,7 +143,7 @@ namespace MultiplayerBase.Scripts
         }
 
         [ObserversRpc]
-        public void StartGame()
+        private void ORPC_StartGame()
         {
             _timerStarted = true;
             _UI.timerDisplay.gameObject.SetActive(true);
