@@ -19,6 +19,11 @@ public class Bow : BaseWeapon
     private bool isCharging = false;
     private float initialBowAngle;
 
+    private void Start()
+    {
+        _camera = Camera.main;
+    }
+
     private void Update()
     {
         if (isCharging)
@@ -62,19 +67,35 @@ public class Bow : BaseWeapon
 
     private void PivotBowRotation()
     {
-        Vector2 currentMousePosition = Input.mousePosition;
-        float verticalDelta = currentMousePosition.y - initialMousePosition.y;
-        
-        float pivotAngle = Mathf.Clamp(verticalDelta / Screen.height * maxBowPivotAngle, -maxBowPivotAngle, maxBowPivotAngle);
-        float newAngle = initialBowAngle + pivotAngle;
+        // Convert screen mouse position to world position
+        Vector3 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPosition.z = 0f; // Make sure the z-axis is 0 for 2D
 
-        // Ensure the new angle stays within 45 degrees of the initial angle
-        float minAngle = initialBowAngle - 45f;
-        float maxAngle = initialBowAngle + 45f;
-        newAngle = Mathf.Clamp(newAngle, minAngle, maxAngle);
+        // Calculate direction from character to the mouse
+        Vector2 directionToMouse = (mouseWorldPosition - transform.position).normalized * -1;
 
-        transform.rotation = Quaternion.Euler(0f, 0f, newAngle);
+        // Calculate target angle to mouse in degrees
+        float targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+
+        // Adjust for the bow's default orientation (assuming it faces right by default)
+        float bowOffset = -90f; // Adjust this if the bow points in a different direction
+        targetAngle += bowOffset;  // Note: Changing this from "-" to "+" for proper rotation offset
+
+        // Calculate the angle difference relative to the initial bow angle
+        float angleDifference = Mathf.DeltaAngle(initialBowAngle, targetAngle);
+
+        // Clamp the angle difference to within ±45 degrees from the initial angle
+        float clampedAngleDifference = Mathf.Clamp(angleDifference, -45f, 45f);
+
+        // Calculate the final angle by adding the clamped difference to the initial bow angle
+        float finalAngle = initialBowAngle + clampedAngleDifference;
+
+        // Apply the rotation to the bow
+        transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
     }
+
+
+
     
     private void SpawnArrow(float shootForce)
     {
@@ -87,6 +108,8 @@ public class Bow : BaseWeapon
     }
 
     private TurnDirection _currentTurnDirection = TurnDirection.Down;
+    private Camera _camera;
+
     public override void WeaponPerformAttack(TurnDirection turnDirection)
     {
         SetAttackInitialRotation(turnDirection);
