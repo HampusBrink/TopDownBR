@@ -185,7 +185,8 @@ public class PlayerMovement : NetworkBehaviour
             }
         }
 
-        throw new ArgumentException("Vector2 does not match any TurnDirection.");
+        return lastMovedirection;
+        //throw new ArgumentException("Vector2 does not match any TurnDirection.");
     }
 
    
