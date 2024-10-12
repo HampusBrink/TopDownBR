@@ -135,6 +135,12 @@ namespace Player
                 }
             
             }
+            else if (context.canceled)
+            {
+                Debug.Log("Released Attack");
+                
+                equippedWeapon.WeaponReleaseAttack();
+            }
             
             UpdateCombatStats();
             //UpdateAttackDurations();

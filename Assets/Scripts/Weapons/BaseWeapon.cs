@@ -58,6 +58,11 @@ public class BaseWeapon : MonoBehaviour
         
     }
 
+    public virtual void WeaponReleaseAttack()
+    {
+        
+    }
+
     private void UpdateAttackDamage(float multiplier)
     {
         _multipliedDamage = baseDamage * multiplier;

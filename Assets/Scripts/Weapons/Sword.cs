@@ -14,8 +14,6 @@ public class Sword : BaseWeapon
     [SerializeField] private float sweepStartAngle = 90f;
     [SerializeField] private float sweepEndAngle = -90f;
     
-    [Header("Sword Specific Stats")]
-    public float baseWeaponLength = 1.4f;
 
     protected override void Start()
     {
@@ -31,11 +29,10 @@ public class Sword : BaseWeapon
     }
     
     
-    private float _multipliedWeaponLength;
     public void UpdateWeaponLength(float multiplier)
     {
-        _multipliedWeaponLength = baseWeaponLength * multiplier;
-        weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedWeaponLength, weaponCol.transform.localScale.z);
+        _multipliedRange = baseAttackRange * multiplier;
+        weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedRange, weaponCol.transform.localScale.z);
     }
 
     public override void WeaponPerformAttack(TurnDirection turnDirection)
