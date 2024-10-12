@@ -38,7 +38,10 @@ namespace MultiplayerBase.Scripts
 
         void Awake()
         {
-            if (isTestScene) GameStarted = true;
+            if (isTestScene)
+            {
+                GameStarted = true;
+            }
             if (Instance == null)
             {
                 Instance = this;
@@ -47,13 +50,6 @@ namespace MultiplayerBase.Scripts
             {
                 Destroy(gameObject);
             }
-        }
-
-        public override void OnStopServer()
-        {
-            base.OnStopServer();
-            
-            print("Stoping server");
         }
 
         private void OnEnable()
