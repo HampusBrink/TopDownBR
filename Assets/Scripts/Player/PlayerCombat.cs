@@ -1,3 +1,4 @@
+using System;
 using FishNet.Object;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -55,6 +56,19 @@ namespace Player
             UpdateCombatStats();
         }
 
+        private void Start()
+        {
+            if (_swordAnimator == null)
+            {
+                //Debug.LogError("Sword Animator not found!");
+            }
+        
+            GetNeededComponents();
+            if (!IsOffline)
+                return;
+            UpdateCombatStats();
+        }
+
         private void GetNeededComponents()
         {
             _playerStatus = GetComponent<PlayerStatus>();
@@ -63,7 +77,7 @@ namespace Player
     
         private void Update()
         {
-            if(!IsOwner) return;
+            if(!IsOwner && !IsOffline) return;
             UpdateTurnDirection();
         }
     
@@ -121,7 +135,7 @@ namespace Player
     
         public void OnAttack(InputAction.CallbackContext context)
         {
-            if (!IsOwner)
+            if (!IsOwner && !IsOffline)
                 return;
             if (context.performed)
             {
