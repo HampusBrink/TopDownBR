@@ -10,6 +10,7 @@ public class Bow : BaseWeapon
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform arrowSpawnPoint;
     [SerializeField] private ParticleSystem chargeParticle;
+    [SerializeField] private ParticleSystem fullChargeParticle;
     //[SerializeField] private float maxWindUpTime = 2f;
     //[SerializeField] private float minWindUpTimeForShot = 0.5f;
     [SerializeField] private float maxBowPivotAngle = 30f;
@@ -18,6 +19,7 @@ public class Bow : BaseWeapon
     private float _windUpTimeElapsed = 0f;
     private Quaternion _initialBowRotation;
     private bool _isCharging = false;
+    private bool _fullChargeParticlePlayed = false;
     private float _initialBowAngle;
     private float _maxWindUpTime = 1.0f;
     private ParticleSystem.MainModule _chargeParticleMain;
@@ -36,6 +38,11 @@ public class Bow : BaseWeapon
             
             float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / _maxWindUpTime);
             _chargeParticleMain.simulationSpeed = Mathf.Lerp(0.3f, 1.5f, chargePercentage);
+            if (chargePercentage == 1.0f && !_fullChargeParticlePlayed)
+            {
+                fullChargeParticle.Play();
+                _fullChargeParticlePlayed = true;
+            }
             
             PivotBowRotation();
         }
@@ -133,6 +140,7 @@ public class Bow : BaseWeapon
         chargeParticle.Stop();
         _isCharging = false;
         isAttacking = false;
+        _fullChargeParticlePlayed = false;
 
         
         float minWindUpTimeForShot = _maxWindUpTime / 3.0f;

@@ -25,6 +25,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 3644468925288299515
       objectReference: {fileID: 0}
@@ -37,6 +42,21 @@ PrefabInstance:
         type: 3}
       propertyPath: NetworkBehaviours.Array.data[6]
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: <InitializedNestedNetworkObjects>k__BackingField.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
@@ -122,22 +142,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7286489483471542867}
     m_Modifications:
-    - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
-        type: 3}
-      propertyPath: arrowPrefab
-      value: 
-      objectReference: {fileID: 2817257419962778432, guid: 91bfb7a3c48c6f04c860e2ba37f64015,
-        type: 3}
-    - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
-        type: 3}
-      propertyPath: arrowSpawnPoint
-      value: 
-      objectReference: {fileID: 855026869124311682}
-    - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
-        type: 3}
-      propertyPath: baseAttackSpeed
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6843099930137547613, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -198,12 +202,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff58d5ed2d5bf234cb3ededf3e2eb450, type: 3}
---- !u!4 &855026869124311682 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2330967580117854217, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
-    type: 3}
-  m_PrefabInstance: {fileID: 3135887161626313355}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7399147350950944460 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
