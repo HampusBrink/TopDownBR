@@ -6,18 +6,18 @@ using TurnDirection = PlayerMovement.TurnDirection;
 
 public class Bow : BaseWeapon
 {
+    [Header("Bow Settings")]
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform arrowSpawnPoint;
-    [SerializeField] private float maxWindUpTime = 2f;
-    [SerializeField] private float minWindUpTimeForShot = 0.5f;
+    //[SerializeField] private float maxWindUpTime = 2f;
+    //[SerializeField] private float minWindUpTimeForShot = 0.5f;
     [SerializeField] private float maxBowPivotAngle = 30f;
     [SerializeField] private float maxShootForce = 20f;
 
-    private float windUpTimeElapsed = 0f;
-    private Vector2 initialMousePosition;
-    private Quaternion initialBowRotation;
-    private bool isCharging = false;
-    private float initialBowAngle;
+    private float _windUpTimeElapsed = 0f;
+    private Quaternion _initialBowRotation;
+    private bool _isCharging = false;
+    private float _initialBowAngle;
 
     private void Start()
     {
@@ -26,9 +26,9 @@ public class Bow : BaseWeapon
 
     private void Update()
     {
-        if (isCharging)
+        if (_isCharging)
         {
-            windUpTimeElapsed += Time.deltaTime;
+            _windUpTimeElapsed += Time.deltaTime;
             PivotBowRotation();
         }
     }
@@ -60,9 +60,8 @@ public class Bow : BaseWeapon
     
     private void SetAttackInitialRotation(TurnDirection turnDirection)
     {
-        initialBowAngle = GetBowRotationFromTurnDirection(turnDirection);
-        transform.rotation = Quaternion.Euler(0f, 0f, initialBowAngle);
-        initialMousePosition = Input.mousePosition;
+        _initialBowAngle = GetBowRotationFromTurnDirection(turnDirection);
+        transform.rotation = Quaternion.Euler(0f, 0f, _initialBowAngle);
     }
 
     private void PivotBowRotation()
@@ -82,13 +81,13 @@ public class Bow : BaseWeapon
         targetAngle += bowOffset;  // Note: Changing this from "-" to "+" for proper rotation offset
 
         // Calculate the angle difference relative to the initial bow angle
-        float angleDifference = Mathf.DeltaAngle(initialBowAngle, targetAngle);
+        float angleDifference = Mathf.DeltaAngle(_initialBowAngle, targetAngle);
 
         // Clamp the angle difference to within ±45 degrees from the initial angle
         float clampedAngleDifference = Mathf.Clamp(angleDifference, -45f, 45f);
 
         // Calculate the final angle by adding the clamped difference to the initial bow angle
-        float finalAngle = initialBowAngle + clampedAngleDifference;
+        float finalAngle = _initialBowAngle + clampedAngleDifference;
 
         // Apply the rotation to the bow
         transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
@@ -114,19 +113,21 @@ public class Bow : BaseWeapon
     {
         SetAttackInitialRotation(turnDirection);
         _currentTurnDirection = turnDirection;
-        isCharging = true;
-        windUpTimeElapsed = 0f;
+        _isCharging = true;
+        _windUpTimeElapsed = 0f;
         isAttacking = true;
     }
     
     public override void WeaponReleaseAttack()
     {
-        isCharging = false;
+        _isCharging = false;
         isAttacking = false;
 
-        if (windUpTimeElapsed >= minWindUpTimeForShot)
+        float maxWindUpTime = 1.0f / MultipliedAttackSpeed;
+        float minWindUpTimeForShot = maxWindUpTime / 3.0f;
+        if (_windUpTimeElapsed >= minWindUpTimeForShot)
         {
-            float chargePercentage = Mathf.Clamp01(windUpTimeElapsed / maxWindUpTime);
+            float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / maxWindUpTime);
             float shootForce = chargePercentage * maxShootForce;
             SpawnArrow(shootForce);
             Debug.Log($"Arrow shot with force: {shootForce}");
@@ -136,7 +137,7 @@ public class Bow : BaseWeapon
             Debug.Log("Attack canceled - not enough charge");
         }
 
-        windUpTimeElapsed = 0f;
+        _windUpTimeElapsed = 0f;
     }
 }
 

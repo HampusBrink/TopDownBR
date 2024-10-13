@@ -996,11 +996,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2907458415889341654, guid: 8d95ce330d2907c4f9f1223e95ce4293,
         type: 3}
-      propertyPath: _isNetworked
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2907458415889341654, guid: 8d95ce330d2907c4f9f1223e95ce4293,
-        type: 3}
       propertyPath: <SceneId>k__BackingField
       value: 2665971386
       objectReference: {fileID: 0}

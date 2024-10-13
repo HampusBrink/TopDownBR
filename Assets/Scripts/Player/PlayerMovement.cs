@@ -243,7 +243,7 @@ public class PlayerMovement : NetworkBehaviour
     private void ApplyMovement()
     {
         UpdateMovementSpeed();
-        print(_moveVector);
+        //print(_moveVector);
         if (_moveVector != Vector2.zero)
         {
             _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);

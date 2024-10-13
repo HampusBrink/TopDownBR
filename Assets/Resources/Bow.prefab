@@ -132,5 +132,10 @@ MonoBehaviour:
   animator: {fileID: 0}
   baseDamage: 10
   baseAttackRange: 1
-  baseAttackSpeed: 2
+  baseAttackSpeed: 1
   isAttacking: 0
+  arrowPrefab: {fileID: 2817257419962778432, guid: 91bfb7a3c48c6f04c860e2ba37f64015,
+    type: 3}
+  arrowSpawnPoint: {fileID: 2330967580117854217}
+  maxBowPivotAngle: 30
+  maxShootForce: 20

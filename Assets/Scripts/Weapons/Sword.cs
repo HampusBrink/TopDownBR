@@ -31,8 +31,8 @@ public class Sword : BaseWeapon
     
     public void UpdateWeaponLength(float multiplier)
     {
-        _multipliedRange = baseAttackRange * multiplier;
-        weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedRange, weaponCol.transform.localScale.z);
+        MultipliedRange = baseAttackRange * multiplier;
+        weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, MultipliedRange, weaponCol.transform.localScale.z);
     }
 
     public override void WeaponPerformAttack(TurnDirection turnDirection)
@@ -41,7 +41,7 @@ public class Sword : BaseWeapon
         if(isAttacking) return;
         RotateSwordToTurnDirection(turnDirection);
         animator.SetTrigger("Attack");
-        StartCoroutine(ActivateAttack(_multipliedAttackSpeed));
+        StartCoroutine(ActivateAttack(MultipliedAttackSpeed));
     }
 
     private void RotateSwordToTurnDirection(TurnDirection turnDirection)
@@ -111,7 +111,7 @@ public class Sword : BaseWeapon
             if (no.TryGetComponent(out IDamagable damagable))
             {
                 if(!GetComponentInParent<NetworkObject>().IsOwner) return;
-                damagable.TakeDamage(_multipliedDamage);
+                damagable.TakeDamage(MultipliedDamage);
                 weaponCol.enabled = false;
             }
         }

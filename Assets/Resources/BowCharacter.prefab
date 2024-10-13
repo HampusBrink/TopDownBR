@@ -13,6 +13,16 @@ PrefabInstance:
       propertyPath: equippedWeapon
       value: 
       objectReference: {fileID: 7399147350950944460}
+    - target: {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: weaponStatMultipliers.attackSpeedMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: _isNetworked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: <AssetPathHash>k__BackingField
@@ -123,6 +133,11 @@ PrefabInstance:
       propertyPath: arrowSpawnPoint
       value: 
       objectReference: {fileID: 855026869124311682}
+    - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: baseAttackSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6843099930137547613, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
         type: 3}
       propertyPath: m_LocalPosition.x
