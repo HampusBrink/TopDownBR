@@ -9,6 +9,7 @@ public class Bow : BaseWeapon
     [Header("Bow Settings")]
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform arrowSpawnPoint;
+    [SerializeField] private ParticleSystem chargeParticle;
     //[SerializeField] private float maxWindUpTime = 2f;
     //[SerializeField] private float minWindUpTimeForShot = 0.5f;
     [SerializeField] private float maxBowPivotAngle = 30f;
@@ -18,10 +19,13 @@ public class Bow : BaseWeapon
     private Quaternion _initialBowRotation;
     private bool _isCharging = false;
     private float _initialBowAngle;
+    private float _maxWindUpTime = 1.0f;
+    private ParticleSystem.MainModule _chargeParticleMain;
 
     private void Start()
     {
         _camera = Camera.main;
+        _chargeParticleMain = chargeParticle.main;
     }
 
     private void Update()
@@ -29,6 +33,10 @@ public class Bow : BaseWeapon
         if (_isCharging)
         {
             _windUpTimeElapsed += Time.deltaTime;
+            
+            float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / _maxWindUpTime);
+            _chargeParticleMain.simulationSpeed = Mathf.Lerp(0.3f, 1.5f, chargePercentage);
+            
             PivotBowRotation();
         }
     }
@@ -111,23 +119,26 @@ public class Bow : BaseWeapon
 
     public override void WeaponPerformAttack(TurnDirection turnDirection)
     {
+        _maxWindUpTime = 1.0f / MultipliedAttackSpeed;
         SetAttackInitialRotation(turnDirection);
         _currentTurnDirection = turnDirection;
         _isCharging = true;
         _windUpTimeElapsed = 0f;
         isAttacking = true;
+        chargeParticle.Play();
     }
     
     public override void WeaponReleaseAttack()
     {
+        chargeParticle.Stop();
         _isCharging = false;
         isAttacking = false;
 
-        float maxWindUpTime = 1.0f / MultipliedAttackSpeed;
-        float minWindUpTimeForShot = maxWindUpTime / 3.0f;
+        
+        float minWindUpTimeForShot = _maxWindUpTime / 3.0f;
         if (_windUpTimeElapsed >= minWindUpTimeForShot)
         {
-            float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / maxWindUpTime);
+            float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / _maxWindUpTime);
             float shootForce = chargePercentage * maxShootForce;
             SpawnArrow(shootForce);
             Debug.Log($"Arrow shot with force: {shootForce}");
