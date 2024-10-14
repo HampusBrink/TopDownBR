@@ -15,6 +15,11 @@ public class Bow : BaseWeapon
     //[SerializeField] private float minWindUpTimeForShot = 0.5f;
     [SerializeField] private float maxBowPivotAngle = 30f;
     [SerializeField] private float maxShootForce = 20f;
+    
+    [Header("Bonus arrow settings")]
+    [SerializeField] private int bonusArrows = 1;
+    [SerializeField] private float angleBetweenBonusArrows = 15;
+    
 
     private float _windUpTimeElapsed = 0f;
     private Quaternion _initialBowRotation;
@@ -118,7 +123,7 @@ public class Bow : BaseWeapon
 
         for (int i = -Mathf.FloorToInt(bonusArrows); i <= Mathf.FloorToInt(bonusArrows); i++)
         {
-            Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleIncrement);
+            Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
             Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
             if (arrowRb != null)
@@ -143,7 +148,6 @@ public class Bow : BaseWeapon
         chargeParticle.Play();
     }
 
-    public int bonusArrows = 1;
     public override void WeaponReleaseAttack()
     {
         chargeParticle.Stop();
