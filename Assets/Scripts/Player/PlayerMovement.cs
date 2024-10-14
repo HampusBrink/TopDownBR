@@ -28,7 +28,8 @@ public class PlayerMovement : NetworkBehaviour
     private bool _isSprinting = false;
     private float _stamina;
 
-    [SerializeField] private Animator anim;
+    [SerializeField] private Animator bodyAnim;
+    [SerializeField] private Animator legsAnim;
     private bool facingLeft = true;
     private Vector3 _initialScale;
     
@@ -218,11 +219,17 @@ public class PlayerMovement : NetworkBehaviour
 
     void Animate()
     {
-        anim.SetFloat("MoveX", _input.x);
-        anim.SetFloat("MoveY", _input.y);
-        anim.SetFloat("MoveMagnitude", _input.magnitude);
-        anim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
-        anim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
+        bodyAnim.SetFloat("MoveX", _input.x);
+        bodyAnim.SetFloat("MoveY", _input.y);
+        bodyAnim.SetFloat("MoveMagnitude", _input.magnitude);
+        bodyAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
+        bodyAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
+        
+        legsAnim.SetFloat("MoveX", _input.x);
+        legsAnim.SetFloat("MoveY", _input.y);
+        legsAnim.SetFloat("MoveMagnitude", _input.magnitude);
+        legsAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
+        legsAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
     }
 
     private void ApplyMovement()
