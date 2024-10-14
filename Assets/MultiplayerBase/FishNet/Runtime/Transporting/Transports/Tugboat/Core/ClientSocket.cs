@@ -169,7 +169,6 @@ namespace FishNet.Transporting.Tugboat.Client
         {
             if (base.GetConnectionState() == LocalConnectionState.Stopped || base.GetConnectionState() == LocalConnectionState.Stopping)
                 return false;
-
             if (info != null)
                 base.Transport.NetworkManager.Log($"Local client disconnect reason: {info.Value.Reason}.");
 

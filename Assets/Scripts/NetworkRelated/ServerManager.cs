@@ -1,35 +1,36 @@
-using System.Linq;
 using FishNet.Object;
-using UnityEngine;
+using FishNet.Transporting;
+using LiteNetLib;
 
 namespace NetworkRelated
 {
     public class ServerManager : NetworkBehaviour
     {
-        public override void OnStopServer()
+        EventBasedNetListener eventListener = new ();
+
+        private void Start()
         {
-            base.OnStopServer();
-            print("Client");
-
-            if(!IsServerInitialized) return;
-
-            InitializeHostMigration();
-        }
-
-        private void InitializeHostMigration()
-        {
-            ORPC_AssignNewHost();
-            print("Server");
             
-            throw new System.NotImplementedException();
+            eventListener.PeerDisconnectedEvent += EventListenerOnPeerDisconnectedEvent;
+            NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
+            ServerManager.OnServerConnectionState += ServerManagerOnOnServerConnectionState;
+            
         }
 
-        [ObserversRpc]
-        void ORPC_AssignNewHost()
+        private void EventListenerOnPeerDisconnectedEvent(NetPeer peer, DisconnectInfo disconnectinfo)
         {
-            print("RPC");
-            NetworkManager.ServerManager.StartConnection();
-            NetworkManager.ClientManager.StartConnection();
+            print(peer);
+            print(disconnectinfo);
+        }
+
+        private void ServerManagerOnOnServerConnectionState(ServerConnectionStateArgs obj)
+        {
+            print("BALLOCKS");
+        }
+
+        private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
+        {
+            
         }
     }
 }

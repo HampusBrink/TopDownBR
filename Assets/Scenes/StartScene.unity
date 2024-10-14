@@ -685,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211a9f6ec51ddc14f908f5acc0cd0423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPrefab: {fileID: 1576430411589563921, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+  _playerPrefab: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
     type: 3}
   _addToDefaultScene: 1
   Spawns: []
@@ -744,7 +744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &7443408887696560929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -863,7 +863,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7443408888223772048
 MonoBehaviour:
   m_ObjectHideFlags: 0
