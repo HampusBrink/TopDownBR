@@ -999,6 +999,16 @@ PrefabInstance:
       propertyPath: <SceneId>k__BackingField
       value: 2665971386
       objectReference: {fileID: 0}
+    - target: {fileID: 3814239235192985877, guid: 8d95ce330d2907c4f9f1223e95ce4293,
+        type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814239235192985877, guid: 8d95ce330d2907c4f9f1223e95ce4293,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.09
+      objectReference: {fileID: 0}
     - target: {fileID: 6110607818350151051, guid: 8d95ce330d2907c4f9f1223e95ce4293,
         type: 3}
       propertyPath: m_LocalPosition.x

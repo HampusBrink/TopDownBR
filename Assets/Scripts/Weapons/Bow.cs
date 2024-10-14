@@ -111,15 +111,23 @@ public class Bow : BaseWeapon
 
 
     
-    private void SpawnArrow(float shootForce)
+    private void SpawnArrow(float shootForce, int bonusArrows)
     {
-        GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, transform.rotation);
-        Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
-        if (arrowRb != null)
+        int totalArrows = 1 + (2 * bonusArrows);
+        float angleIncrement = 15f; // Angle between arrows, can be adjusted
+
+        for (int i = -Mathf.FloorToInt(bonusArrows); i <= Mathf.FloorToInt(bonusArrows); i++)
         {
-            arrowRb.AddForce(transform.up * -1 * shootForce, ForceMode2D.Impulse);
+            Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleIncrement);
+            GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
+            Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
+            if (arrowRb != null)
+            {
+                arrowRb.AddForce(arrowRotation * Vector2.up * -1 * shootForce, ForceMode2D.Impulse);
+            }
         }
     }
+
 
     private TurnDirection _currentTurnDirection = TurnDirection.Down;
     private Camera _camera;
@@ -134,7 +142,8 @@ public class Bow : BaseWeapon
         isAttacking = true;
         chargeParticle.Play();
     }
-    
+
+    public int bonusArrows = 1;
     public override void WeaponReleaseAttack()
     {
         chargeParticle.Stop();
@@ -148,7 +157,7 @@ public class Bow : BaseWeapon
         {
             float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / _maxWindUpTime);
             float shootForce = chargePercentage * maxShootForce;
-            SpawnArrow(shootForce);
+            SpawnArrow(shootForce, bonusArrows);
             Debug.Log($"Arrow shot with force: {shootForce}");
         }
         else
