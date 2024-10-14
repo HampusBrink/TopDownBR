@@ -65,6 +65,7 @@ namespace Player
         {
             if(!IsOwner) return;
             UpdateTurnDirection();
+            PlayAttackAnimation();
         }
     
         private void UpdateCombatStats()
@@ -139,8 +140,41 @@ namespace Player
             UpdateCombatStats();
             //UpdateAttackDurations();
         }
-    
-    
-
+        
+        bool IsOppositeDirection(TurnDirection direction1, TurnDirection direction2)
+        {
+            int difference = Mathf.Abs((int)direction1 - (int)direction2);
+            return difference == 4 || difference == 4 - 8 || difference == 4 + 8;
+        }
+        
+        void PlayAttackAnimation()
+        {
+            if (equippedWeapon.isAttacking)
+            {
+                _playerMovement.bodyAnim.SetBool("IsAttacking", true);
+                _playerMovement.bodyAnim.SetFloat("AttackX", _playerMovement.TurnDirectionToVector2(_hitDirection).x);
+                _playerMovement.bodyAnim.SetFloat("AttackY", _playerMovement.TurnDirectionToVector2(_hitDirection).y);
+            
+                _playerMovement.legsAnim.SetFloat("MoveX", _playerMovement.TurnDirectionToVector2(_playerMovement.currentMoveDirection).x);
+                _playerMovement.legsAnim.SetFloat("MoveY", _playerMovement.TurnDirectionToVector2(_playerMovement.currentMoveDirection).y);
+            
+                if (IsOppositeDirection(_hitDirection, _playerMovement.currentMoveDirection))
+                {
+                    _playerMovement.legsAnim.SetBool("Reverse", true);
+                }
+                else
+                {
+                    _playerMovement.legsAnim.SetBool("Reverse", false);
+                }
+            }
+            else
+            {
+                _playerMovement.bodyAnim.SetBool("IsAttacking", false);
+                _playerMovement.bodyAnim.SetFloat("AttackX", 0);
+                _playerMovement.bodyAnim.SetFloat("AttackY", 0);
+                _playerMovement.legsAnim.SetBool("Reverse", false);
+            }
+            
+        }
     }
 }

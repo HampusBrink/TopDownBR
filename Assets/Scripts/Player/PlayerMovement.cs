@@ -28,8 +28,8 @@ public class PlayerMovement : NetworkBehaviour
     private bool _isSprinting = false;
     private float _stamina;
 
-    [SerializeField] private Animator bodyAnim;
-    [SerializeField] private Animator legsAnim;
+    [SerializeField] public Animator bodyAnim;
+    [SerializeField] public Animator legsAnim;
     private bool facingLeft = true;
     private Vector3 _initialScale;
     
@@ -216,7 +216,6 @@ public class PlayerMovement : NetworkBehaviour
         }
         
     }
-
     void Animate()
     {
         bodyAnim.SetFloat("MoveX", _input.x);
@@ -224,6 +223,7 @@ public class PlayerMovement : NetworkBehaviour
         bodyAnim.SetFloat("MoveMagnitude", _input.magnitude);
         bodyAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
         bodyAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
+        
         
         legsAnim.SetFloat("MoveX", _input.x);
         legsAnim.SetFloat("MoveY", _input.y);
