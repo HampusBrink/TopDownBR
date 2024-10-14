@@ -68,9 +68,24 @@ public class PlayerMovement : NetworkBehaviour
         _desiredSpeed = _multipliedSpeed = walkSpeed;
     }
 
+    private void Start()
+    {
+        if(!IsOffline) return;
+        
+        _rb = GetComponent<Rigidbody2D>();
+        _playerStatus = GetComponent<PlayerStatus>();
+        _camera = Camera.main;
+        _stamina = maxStamina;
+        _initialScale = transform.localScale;
+        
+        if (_camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
+
+        _desiredSpeed = _multipliedSpeed = walkSpeed;
+    }
+
     private void Update()
     {
-        if(!IsOwner) return;
+        if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
         
         UpdateStamina();
@@ -83,7 +98,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if(!IsOwner) return;
+        if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
 
         if (!GameManager.Instance.powerupPopup.gameObject.activeInHierarchy)
@@ -100,7 +115,7 @@ public class PlayerMovement : NetworkBehaviour
     
     public void OnSprint(InputAction.CallbackContext context)
     {
-        if(!IsOwner) return;
+        if(!IsOwner && !IsOffline) return;
 
         UpdateMovementSpeed();
         
@@ -116,7 +131,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void UpdateStamina()
     {
-        if(!IsOwner) return;
+        if(!IsOwner && !IsOffline) return;
         if (_isSprinting)
         {
             _stamina = Mathf.Clamp(_stamina - staminaDrain * Time.deltaTime, 0, maxStamina);
@@ -205,7 +220,7 @@ public class PlayerMovement : NetworkBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         isMoving = true;
-        if (!IsOwner) return;
+        if (!IsOwner && !IsOffline) return;
         if (!GameManager.Instance.GameStarted) return;
 
         _moveVector = context.ReadValue<Vector2>();
@@ -235,6 +250,7 @@ public class PlayerMovement : NetworkBehaviour
     private void ApplyMovement()
     {
         UpdateMovementSpeed();
+        //print(_moveVector);
         if (_moveVector != Vector2.zero)
         {
             _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);

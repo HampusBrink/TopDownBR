@@ -13,6 +13,21 @@ PrefabInstance:
       propertyPath: equippedWeapon
       value: 
       objectReference: {fileID: 7399147350950944460}
+    - target: {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: weaponStatMultipliers.attackSpeedMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: _isNetworked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: <AssetPathHash>k__BackingField
@@ -26,6 +41,26 @@ PrefabInstance:
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: NetworkBehaviours.Array.data[6]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: <InitializedNestedNetworkObjects>k__BackingField.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: <InitializedNestedNetworkObjects>k__BackingField.Array.data[0]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5619369209906095554, guid: 36391774a5f3b014e9f8bd9e1fb86abc,

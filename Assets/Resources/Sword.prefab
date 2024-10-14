@@ -130,7 +130,6 @@ MonoBehaviour:
   weaponColObject: {fileID: 5620933071536222842}
   sweepStartAngle: 90
   sweepEndAngle: -90
-  baseWeaponLength: 1.4
 --- !u!114 &5735867115224332109
 MonoBehaviour:
   m_ObjectHideFlags: 0
