@@ -98,6 +98,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f8170310-52d5-407f-a6d0-ec870ada0824
     m_ActionName: Combat/New action
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4192950349405535469}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnDodgeRoll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 93166e8e-971e-48e1-af3d-2a66913f8f0e
+    m_ActionName: Movement/DodgeRoll[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Movement
@@ -990,6 +1006,9 @@ MonoBehaviour:
   acceleration: 100
   maxStamina: 100
   staminaDrain: 20
+  rollSpeed: 25
+  rollDuration: 0.3
+  rollCooldown: 1
   playerGFX: {fileID: 3873363251755891362}
   staminaBarFill: {fileID: 1487017763120518116}
   bodyAnim: {fileID: 6801425199344782826}
