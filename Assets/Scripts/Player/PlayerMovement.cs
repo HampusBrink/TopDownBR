@@ -109,7 +109,8 @@ public class PlayerMovement : NetworkBehaviour
         
         UpdateStamina();
         Animate();
-        UpdateMoveDirection();
+        if(!_isRolling)
+            UpdateMoveDirection();
     }
     
 
