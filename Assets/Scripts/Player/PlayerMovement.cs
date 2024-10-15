@@ -304,6 +304,7 @@ public class PlayerMovement : NetworkBehaviour
         _canRoll = false;
         _rollTime = 0f;
         _rollDirection = _moveVector.normalized;
+        _playerStatus.hitBox.enabled = false;
     
         // Make player invulnerable
         //_playerStatus.isInvulnerable = true;
@@ -317,6 +318,7 @@ public class PlayerMovement : NetworkBehaviour
     private void EndRoll()
     {
         _isRolling = false;
+        _playerStatus.hitBox.enabled = true;
         //_playerStatus.isInvulnerable = false;
     }
     

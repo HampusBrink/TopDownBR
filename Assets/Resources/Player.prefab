@@ -1117,7 +1117,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 3560203185535188127}
   _networkObjectCache: {fileID: 3560203185535188127}
   healthBarFill: {fileID: 7377175790934219997}
-  hitBox: {fileID: 0}
+  hitBox: {fileID: 6650829245086280536}
   playerStatMultipliers:
     maxHealth: 100
   movementStatMultipliers:
