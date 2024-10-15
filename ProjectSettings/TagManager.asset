@@ -11,10 +11,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - PlayerCollider
+  - PlayerHitbox
+  - Damager
+  - Environment
   - 
   - 
   - 

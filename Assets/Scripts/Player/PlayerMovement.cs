@@ -104,13 +104,14 @@ public class PlayerMovement : NetworkBehaviour
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
         
+        if(!_isRolling)
+            UpdateMoveDirection();
         
         HandleRollUpdate();
         
         UpdateStamina();
         Animate();
-        if(!_isRolling)
-            UpdateMoveDirection();
+        
     }
     
 

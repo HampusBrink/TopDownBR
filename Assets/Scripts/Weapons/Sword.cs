@@ -105,15 +105,21 @@ public class Sword : BaseWeapon
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(!GameManager.Instance.GameStarted) return;
-        if (col.TryGetComponent(out NetworkObject no))
+        if (!GameManager.Instance.GameStarted) return;
+
+        if (col.gameObject.layer == 7) // Assuming PlayerHitbox is layer 7
         {
-            if (no.TryGetComponent(out IDamagable damagable))
+            if (col.TryGetComponent(out NetworkObject no))
             {
-                if(!GetComponentInParent<NetworkObject>().IsOwner) return;
-                damagable.TakeDamage(MultipliedDamage);
-                weaponCol.enabled = false;
+                if (no.TryGetComponent(out IDamagable damagable))
+                {
+                    if (!GetComponentInParent<NetworkObject>().IsOwner) return;
+
+                    damagable.TakeDamage(MultipliedDamage);
+                    weaponCol.enabled = false; 
+                }
             }
         }
     }
+
 }

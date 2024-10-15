@@ -125,6 +125,8 @@ public class Bow : BaseWeapon
         {
             Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
+            if (arrow.TryGetComponent(out Arrow arrowComponent))
+                arrowComponent.SetDamage(MultipliedDamage);
             Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
             if (arrowRb != null)
             {
