@@ -1,3 +1,4 @@
+using System.Linq;
 using FishNet.Managing;
 using HeathenEngineering.SteamworksIntegration;
 using MultiplayerBase.Scripts;
@@ -18,6 +19,7 @@ namespace NetworkRelated.Steam
         protected Callback<GameLobbyJoinRequested_t> JoinRequested;
         protected Callback<LobbyEnter_t> LobbyEnter;
         protected Callback<LobbyMatchList_t> Lobbies;
+        protected Callback<LobbyDataUpdate_t> LobbyDataUpdate;
         
         public ulong CurrentLobbyID { get; private set; }
 
@@ -41,6 +43,23 @@ namespace NetworkRelated.Steam
             JoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequested);
             LobbyEnter = Callback<LobbyEnter_t>.Create(OnLobbyEnter);
             Lobbies = Callback<LobbyMatchList_t>.Create(OnLobbyMatchList);
+            LobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdate);
+        }
+
+        private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
+        {
+            for (int i = 0; i < SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)); i++)
+            {
+                var client = SteamMatchmaking.GetLobbyMemberByIndex(new CSteamID(CurrentLobbyID), i);
+
+                if (new CSteamID(client.m_SteamID) == SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID)))
+                {
+                    print("Is Host");
+                }
+            }
+            
+            var playerID = SpawnPointHandler.FetchClientID();
+            var host = _networkManager.ClientManager.Clients.FirstOrDefault(c => c.Value.IsHost);
         }
 
         private void OnLobbyCreated(LobbyCreated_t callback)

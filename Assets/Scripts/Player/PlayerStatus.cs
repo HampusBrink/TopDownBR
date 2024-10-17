@@ -1,3 +1,4 @@
+using System;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
 using UnityEngine;
@@ -43,7 +44,7 @@ namespace Player
             get => _currentHealth > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : _currentHealth;
             set => _currentHealth = value > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : value;
         }
-
+        
         public override void OnStartClient()
         {
             base.OnStartClient();
