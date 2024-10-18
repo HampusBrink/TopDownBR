@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idlediagdown_0
+      name: walk R legs sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a93eebc1040fa44ba995cbb00c0ffd1
-      internalID: -498962226
+      spriteID: f2c3687833d359c4480efbec20bb7e52
+      internalID: -1667788538
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idlediagdown_1
+      name: walk R legs sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -139,14 +139,140 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4875b85e2e0147643a4658edc6e29475
-      internalID: 456274485
+      spriteID: c4a00549120ad3a4f85adf2428dacc42
+      internalID: -28539812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs sheet_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed048e91f64ebc44b0f70762265dea4
+      internalID: 150410792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs sheet_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd48066c68c850649b6bb6b564ca9064
+      internalID: 1764631310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs sheet_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab32994ec1b3f7d42b1fb350e44dc020
+      internalID: 723576474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs sheet_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3393076f1516c2b4dbd38de42293e824
+      internalID: -413469131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs sheet_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7830a2d3ad6ea6f4c940e6a46a70edc4
+      internalID: -25942661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs sheet_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2db6c917eccd3dc4c8c201a590523112
+      internalID: -1145025615
       vertices: []
       indices: 
       edges: []
@@ -164,8 +290,14 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: 5f4c2f97ac68f6e4fad8b83a9001b870, type: 3}
       name: _NormalMap
     nameFileIdTable:
-      idlediagdown_0: -498962226
-      idlediagdown_1: 456274485
+      walk R legs sheet_0: -1667788538
+      walk R legs sheet_1: -28539812
+      walk R legs sheet_2: 150410792
+      walk R legs sheet_3: 1764631310
+      walk R legs sheet_4: 723576474
+      walk R legs sheet_5: -413469131
+      walk R legs sheet_6: -25942661
+      walk R legs sheet_7: -1145025615
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

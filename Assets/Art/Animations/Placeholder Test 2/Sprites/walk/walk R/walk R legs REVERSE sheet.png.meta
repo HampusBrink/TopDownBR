@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idlediagdown_0
+      name: walk R legs REVERSE sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0a93eebc1040fa44ba995cbb00c0ffd1
-      internalID: -498962226
+      spriteID: 5874fe3de95cf3247bbdb64c84bb94c4
+      internalID: 266349148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idlediagdown_1
+      name: walk R legs REVERSE sheet_1
       rect:
         serializedVersion: 2
         x: 32
@@ -139,14 +139,140 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4875b85e2e0147643a4658edc6e29475
-      internalID: 456274485
+      spriteID: e4f5a8536bdf7024fbcf9332e2c4fa09
+      internalID: 35391581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs REVERSE sheet_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159edeb19295ac04fa324e549b2c7506
+      internalID: 910481974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs REVERSE sheet_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3ef5d125545353459afdceb75d8d850
+      internalID: 1718957249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs REVERSE sheet_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a9b454f4be627a48be8481747cd440c
+      internalID: 1787688918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs REVERSE sheet_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b16ff51a216e50845ba1dad2dd6b9693
+      internalID: 721610865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs REVERSE sheet_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b474aad0324cab42a5beb1cd7518556
+      internalID: 663599902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk R legs REVERSE sheet_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65b8fb9a633fa6e4487128290823a2be
+      internalID: 619919836
       vertices: []
       indices: 
       edges: []
@@ -164,8 +290,14 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: 5f4c2f97ac68f6e4fad8b83a9001b870, type: 3}
       name: _NormalMap
     nameFileIdTable:
-      idlediagdown_0: -498962226
-      idlediagdown_1: 456274485
+      walk R legs REVERSE sheet_0: 266349148
+      walk R legs REVERSE sheet_1: 35391581
+      walk R legs REVERSE sheet_2: 910481974
+      walk R legs REVERSE sheet_3: 1718957249
+      walk R legs REVERSE sheet_4: 1787688918
+      walk R legs REVERSE sheet_5: 721610865
+      walk R legs REVERSE sheet_6: 663599902
+      walk R legs REVERSE sheet_7: 619919836
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

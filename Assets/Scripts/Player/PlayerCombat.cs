@@ -79,6 +79,7 @@ namespace Player
         {
             if(!IsOwner && !IsOffline) return;
             UpdateTurnDirection();
+            PlayAttackAnimation();
         }
     
         private void UpdateCombatStats()
@@ -149,12 +150,47 @@ namespace Player
                 }
             
             }
+            else if (context.canceled)
+            {
+                Debug.Log("Released Attack");
+                
+                equippedWeapon.WeaponReleaseAttack();
+            }
             
             UpdateCombatStats();
             //UpdateAttackDurations();
         }
-    
-    
+        
+        bool IsOppositeOrAdjacentDirection(TurnDirection hitDirection, TurnDirection moveDirection)
+        {
+            int hitValue = (int)hitDirection;
+            int moveValue = (int)moveDirection;
+            int difference = (hitValue - moveValue + 8) % 8; // Ensure positive difference
 
+            // Check if the difference is 3, 4, or 5 (opposite or adjacent)
+            return difference >= 3 && difference <= 5;
+        }
+
+        void PlayAttackAnimation()
+        {
+            if (equippedWeapon.isAttacking)
+            {
+                _playerMovement.bodyAnim.SetBool("IsAttacking", true);
+                _playerMovement.bodyAnim.SetFloat("AttackX", _playerMovement.TurnDirectionToVector2(_hitDirection).x);
+                _playerMovement.bodyAnim.SetFloat("AttackY", _playerMovement.TurnDirectionToVector2(_hitDirection).y);
+    
+                _playerMovement.legsAnim.SetFloat("MoveX", _playerMovement.TurnDirectionToVector2(_playerMovement.currentMoveDirection).x);
+                _playerMovement.legsAnim.SetFloat("MoveY", _playerMovement.TurnDirectionToVector2(_playerMovement.currentMoveDirection).y);
+    
+                _playerMovement.legsAnim.SetBool("Reverse", IsOppositeOrAdjacentDirection(_hitDirection, _playerMovement.currentMoveDirection));
+            }
+            else
+            {
+                _playerMovement.bodyAnim.SetBool("IsAttacking", false);
+                _playerMovement.bodyAnim.SetFloat("AttackX", 0);
+                _playerMovement.bodyAnim.SetFloat("AttackY", 0);
+                _playerMovement.legsAnim.SetBool("Reverse", false);
+            }
+        }
     }
 }

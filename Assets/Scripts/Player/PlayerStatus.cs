@@ -9,6 +9,7 @@ namespace Player
     public class PlayerStatus : NetworkBehaviour, IDamagable
     {
         [SerializeField] private Image healthBarFill;
+        public CapsuleCollider2D hitBox;
         
         [Header("Stats")] 
         public PlayerStatMultipliers playerStatMultipliers;

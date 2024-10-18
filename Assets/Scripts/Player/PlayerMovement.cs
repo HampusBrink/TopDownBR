@@ -12,28 +12,42 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : NetworkBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 22f;
     [SerializeField] private float acceleration = 5f;
+    
+    [Header("Stamina")]
     [SerializeField] public float maxStamina = 100f;
     [SerializeField] public float staminaDrain = 2f;
     
-
+    [Header("DodgeRoll")]
+    [SerializeField] private float rollSpeed = 15f;
+    [SerializeField] private float rollDuration = 0.3f;
+    [SerializeField] private float rollCooldown = 1f;
+    
+    [Header("Other")]
     [SerializeField] private GameObject playerGFX;
     [SerializeField] private Image staminaBarFill;
 
+    // Movement private fields
     private Vector2 _velocity = Vector2.zero;
     private float _desiredSpeed;
     private float _multipliedSpeed;
     private bool _isSprinting = false;
     private float _stamina;
-
-    [SerializeField] private Animator anim;
-    private bool facingLeft = true;
-    private Vector3 _initialScale;
     
-    private Camera _camera;
+    // DodgeRoll private fields
+    private bool _isRolling = false;
+    private bool _canRoll = true;
+    private float _rollTime = 0f;
+    private Vector2 _rollDirection;
 
+    [SerializeField] public Animator bodyAnim;
+    [SerializeField] public Animator legsAnim;
+    
+    // Components
+    private Camera _camera;
     private PlayerStatus _playerStatus;
     private Vector2 _moveVector;
     private Rigidbody2D _rb;
@@ -58,7 +72,6 @@ public class PlayerMovement : NetworkBehaviour
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
-        _initialScale = transform.localScale;
 
         if (!IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
 
@@ -71,15 +84,19 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(!IsOffline) return;
         
+        AssignComponents();
+        
+        _stamina = maxStamina;
+        
+        _desiredSpeed = _multipliedSpeed = walkSpeed;
+    }
+
+    private void AssignComponents()
+    {
         _rb = GetComponent<Rigidbody2D>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
-        _stamina = maxStamina;
-        _initialScale = transform.localScale;
-        
         if (_camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
-
-        _desiredSpeed = _multipliedSpeed = walkSpeed;
     }
 
     private void Update()
@@ -87,11 +104,14 @@ public class PlayerMovement : NetworkBehaviour
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
         
+        if(!_isRolling)
+            UpdateMoveDirection();
+        
+        HandleRollUpdate();
+        
         UpdateStamina();
-
         Animate();
         
-        UpdateMoveDirection();
     }
     
 
@@ -100,7 +120,9 @@ public class PlayerMovement : NetworkBehaviour
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
 
-        if (!GameManager.Instance.powerupPopup.gameObject.activeInHierarchy)
+        HandleRollMovement();
+        
+        if (!GameManager.Instance.powerupPopup.gameObject.activeInHierarchy && !_isRolling)
         {
             ApplyMovement();
         }
@@ -218,10 +240,11 @@ public class PlayerMovement : NetworkBehaviour
     
     public void OnMove(InputAction.CallbackContext context)
     {
-        isMoving = true;
+        // moved isMoving = true from here
         if (!IsOwner && !IsOffline) return;
         if (!GameManager.Instance.GameStarted) return;
 
+        isMoving = true;
         _moveVector = context.ReadValue<Vector2>();
 
         if (context.canceled)
@@ -230,19 +253,26 @@ public class PlayerMovement : NetworkBehaviour
         }
         
     }
-
     void Animate()
     {
-        anim.SetFloat("MoveX", _input.x);
-        anim.SetFloat("MoveY", _input.y);
-        anim.SetFloat("MoveMagnitude", _input.magnitude);
-        anim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
-        anim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
+        bodyAnim.SetFloat("MoveX", _input.x);
+        bodyAnim.SetFloat("MoveY", _input.y);
+        bodyAnim.SetFloat("MoveMagnitude", _input.magnitude);
+        bodyAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
+        bodyAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
+        
+        
+        legsAnim.SetFloat("MoveX", _input.x);
+        legsAnim.SetFloat("MoveY", _input.y);
+        legsAnim.SetFloat("MoveMagnitude", _input.magnitude);
+        legsAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
+        legsAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
     }
 
     private void ApplyMovement()
     {
         UpdateMovementSpeed();
+        //print(_moveVector);
         if (_moveVector != Vector2.zero)
         {
             _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
@@ -252,8 +282,71 @@ public class PlayerMovement : NetworkBehaviour
             _velocity = Vector2.MoveTowards(_velocity, Vector2.zero, acceleration * Time.fixedDeltaTime);
         }
 
-        _rb.linearVelocity = _velocity;
+        _rb.velocity = _velocity;
     }
 
+    #region Dodge Roll
+
+    public void OnDodgeRoll(InputAction.CallbackContext context)
+    {
+        if (!IsOwner && !IsOffline) return;
+        if (!GameManager.Instance.GameStarted) return;
+        
+        if (context.performed && _moveVector != Vector2.zero && _canRoll && !_isRolling)
+        {
+            StartRoll();
+        }
+    }
+    
+    private void StartRoll()
+    {
+        _isRolling = true;
+        _canRoll = false;
+        _rollTime = 0f;
+        _rollDirection = _moveVector.normalized;
+        _playerStatus.hitBox.enabled = false;
+    
+        // Make player invulnerable
+        //_playerStatus.isInvulnerable = true;
+    
+        // Optionally play roll animation
+        // bodyAnim.SetTrigger("Roll");
+    
+        Invoke(nameof(ResetRollCooldown), rollCooldown);
+    }
+    
+    private void EndRoll()
+    {
+        _isRolling = false;
+        _playerStatus.hitBox.enabled = true;
+        //_playerStatus.isInvulnerable = false;
+    }
+    
+    private void ResetRollCooldown()
+    {
+        _canRoll = true;
+    }
+    
+    private void HandleRollUpdate()
+    {
+        if (_isRolling)
+        {
+            _rollTime += Time.deltaTime;
+            if (_rollTime >= rollDuration)
+            {
+                EndRoll();
+            }
+        }
+    }
+    
+    private void HandleRollMovement()
+    {
+        if (_isRolling)
+        {
+            _rb.velocity = _rollDirection * rollSpeed;
+        }
+    }
+
+    #endregion
     
 }

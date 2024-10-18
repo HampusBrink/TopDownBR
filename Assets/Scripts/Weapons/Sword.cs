@@ -14,8 +14,6 @@ public class Sword : BaseWeapon
     [SerializeField] private float sweepStartAngle = 90f;
     [SerializeField] private float sweepEndAngle = -90f;
     
-    [Header("Sword Specific Stats")]
-    public float baseWeaponLength = 1.4f;
 
     protected override void Start()
     {
@@ -31,11 +29,10 @@ public class Sword : BaseWeapon
     }
     
     
-    private float _multipliedWeaponLength;
     public void UpdateWeaponLength(float multiplier)
     {
-        _multipliedWeaponLength = baseWeaponLength * multiplier;
-        weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, _multipliedWeaponLength, weaponCol.transform.localScale.z);
+        MultipliedRange = baseAttackRange * multiplier;
+        weaponCol.transform.localScale = new Vector3(weaponCol.transform.localScale.x, MultipliedRange, weaponCol.transform.localScale.z);
     }
 
     public override void WeaponPerformAttack(TurnDirection turnDirection)
@@ -44,7 +41,7 @@ public class Sword : BaseWeapon
         if(isAttacking) return;
         RotateSwordToTurnDirection(turnDirection);
         animator.SetTrigger("Attack");
-        StartCoroutine(ActivateAttack(_multipliedAttackSpeed));
+        StartCoroutine(ActivateAttack(MultipliedAttackSpeed));
     }
 
     private void RotateSwordToTurnDirection(TurnDirection turnDirection)
@@ -108,15 +105,21 @@ public class Sword : BaseWeapon
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if(!GameManager.Instance.GameStarted) return;
-        if (col.TryGetComponent(out NetworkObject no))
+        if (!GameManager.Instance.GameStarted) return;
+
+        if (col.gameObject.layer == 7) // Assuming PlayerHitbox is layer 7
         {
-            if (no.TryGetComponent(out IDamagable damagable))
+            if (col.TryGetComponent(out NetworkObject no))
             {
-                if(!GetComponentInParent<NetworkObject>().IsOwner) return;
-                damagable.TakeDamage(_multipliedDamage);
-                weaponCol.enabled = false;
+                if (no.TryGetComponent(out IDamagable damagable))
+                {
+                    if (!GetComponentInParent<NetworkObject>().IsOwner) return;
+
+                    damagable.TakeDamage(MultipliedDamage);
+                    weaponCol.enabled = false; 
+                }
             }
         }
     }
+
 }

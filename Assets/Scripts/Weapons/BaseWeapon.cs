@@ -19,16 +19,16 @@ public class BaseWeapon : MonoBehaviour
     public float baseAttackSpeed = 2f;
     
 
-    protected float _multipliedDamage;
-    protected float _multipliedRange;
-    protected float _multipliedAttackSpeed;
+    protected float MultipliedDamage;
+    protected float MultipliedRange;
+    protected float MultipliedAttackSpeed;
 
     [HideInInspector] public bool isAttacking;
 
     protected virtual void Start()
     {
         BaseWeaponGetComponents();
-        _multipliedDamage = baseDamage;
+        MultipliedDamage = baseDamage;
     }
 
     private void BaseWeaponGetComponents()
@@ -58,19 +58,24 @@ public class BaseWeapon : MonoBehaviour
         
     }
 
+    public virtual void WeaponReleaseAttack()
+    {
+        
+    }
+
     private void UpdateAttackDamage(float multiplier)
     {
-        _multipliedDamage = baseDamage * multiplier;
+        MultipliedDamage = baseDamage * multiplier;
     }
 
     private void UpdateAttackRange(float multiplier)
     {
-        _multipliedDamage = baseAttackRange * multiplier;
+        MultipliedDamage = baseAttackRange * multiplier;
     }
 
     private void UpdateAttackSpeed(float multiplier)
     {
-        _multipliedAttackSpeed = baseAttackSpeed * multiplier;
+        MultipliedAttackSpeed = baseAttackSpeed * multiplier;
     }
 
     
