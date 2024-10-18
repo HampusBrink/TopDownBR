@@ -282,7 +282,7 @@ public class PlayerMovement : NetworkBehaviour
             _velocity = Vector2.MoveTowards(_velocity, Vector2.zero, acceleration * Time.fixedDeltaTime);
         }
 
-        _rb.velocity = _velocity;
+        _rb.linearVelocity = _velocity;
     }
 
     #region Dodge Roll
@@ -343,7 +343,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (_isRolling)
         {
-            _rb.velocity = _rollDirection * rollSpeed;
+            _rb.linearVelocity = _rollDirection * rollSpeed;
         }
     }
 
