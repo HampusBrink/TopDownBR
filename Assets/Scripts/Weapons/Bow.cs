@@ -40,6 +40,32 @@ public class Bow : BaseWeapon
         if (_isCharging)
         {
             _windUpTimeElapsed += Time.deltaTime;
+
+            float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / _maxWindUpTime);
+            _chargeParticleMain.simulationSpeed = Mathf.Lerp(0.3f, 1.5f, chargePercentage);
+
+            if (chargePercentage == 1.0f && !_fullChargeParticlePlayed)
+            {
+                fullChargeParticle.Play();
+                _fullChargeParticlePlayed = true;
+
+                // Automatically fire the arrow when fully charged
+                float shootForce = maxShootForce;
+                SpawnArrow(shootForce, bonusArrows);
+                Debug.Log($"Arrow shot with max force: {shootForce}");
+
+                // Reset charging and particles after shooting
+                ResetBowAfterShot();
+            }
+
+            PivotBowRotation();
+        }
+        
+        // Old logic: 
+        /*
+        if (_isCharging)
+        {
+            _windUpTimeElapsed += Time.deltaTime;
             
             float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / _maxWindUpTime);
             _chargeParticleMain.simulationSpeed = Mathf.Lerp(0.3f, 1.5f, chargePercentage);
@@ -51,6 +77,7 @@ public class Bow : BaseWeapon
             
             PivotBowRotation();
         }
+        */
     }
 
     private float GetBowRotationFromTurnDirection(TurnDirection turnDirection)
@@ -150,6 +177,16 @@ public class Bow : BaseWeapon
         chargeParticle.Play();
     }
 
+    private void ResetBowAfterShot()
+    {
+        chargeParticle.Stop();
+        _isCharging = false;
+        isAttacking = false;
+        _fullChargeParticlePlayed = false;
+        _windUpTimeElapsed = 0f; // Reset charge timer
+    }
+    
+    /*
     public override void WeaponReleaseAttack()
     {
         chargeParticle.Stop();
@@ -173,5 +210,6 @@ public class Bow : BaseWeapon
 
         _windUpTimeElapsed = 0f;
     }
+    */
 }
 
