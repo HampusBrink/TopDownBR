@@ -35,12 +35,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
-      propertyPath: NetworkBehaviours.Array.data[5]
+      propertyPath: 'NetworkBehaviours.Array.data[5]'
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
-      propertyPath: NetworkBehaviours.Array.data[6]
+      propertyPath: 'NetworkBehaviours.Array.data[6]'
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
@@ -60,7 +60,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
-      propertyPath: <InitializedNestedNetworkObjects>k__BackingField.Array.data[0]
+      propertyPath: '<InitializedNestedNetworkObjects>k__BackingField.Array.data[0]'
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5619369209906095554, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
