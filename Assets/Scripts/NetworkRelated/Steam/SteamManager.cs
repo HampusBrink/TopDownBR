@@ -48,14 +48,18 @@ namespace NetworkRelated.Steam
 
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
         {
+            print(SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)));
             for (int i = 0; i < SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)); i++)
             {
                 var client = SteamMatchmaking.GetLobbyMemberByIndex(new CSteamID(CurrentLobbyID), i);
                 
                 if (new CSteamID(client.m_SteamID) == SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID)))
                 {
-                    print("Host Exists");
+                    print(client.m_SteamID + "Is Host");
+                    continue;
                 }
+                
+                print(client.m_SteamID);
             }
             
             var playerID = SpawnPointHandler.FetchClientID();

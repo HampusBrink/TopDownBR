@@ -2,6 +2,8 @@ using FishNet.Managing;
 using FishNet.Object;
 using FishNet.Transporting;
 using LiteNetLib;
+using NetworkRelated.Steam;
+using Steamworks;
 using UnityEngine;
 
 namespace NetworkRelated
@@ -42,7 +44,7 @@ namespace NetworkRelated
 
         public void LeaveGame()
         {
-            
+            SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
             ServerManager.StopConnection(true);
         }
     }
