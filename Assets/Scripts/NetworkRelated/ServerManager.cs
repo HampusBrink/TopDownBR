@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Object;
 using FishNet.Transporting;
@@ -14,12 +15,9 @@ namespace NetworkRelated
 
         private void Start()
         {
-            ServerManager.SetRemoteClientTimeout(RemoteTimeoutType.Disabled,10);
-            eventListener.PeerDisconnectedEvent += EventListenerOnPeerDisconnectedEvent;
-            
-            
             NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
-            ServerManager.OnServerConnectionState += ServerManagerOnOnServerConnectionState;
+            ServerManager.OnRemoteConnectionState += ServerManagerOnOnServerConnectionState;
+            
         }
 
         private void ClientManagerOnOnClientConnectionState(ClientConnectionStateArgs obj)
@@ -32,13 +30,15 @@ namespace NetworkRelated
             Debug.Log("hejsan");
         }
 
-        private void ServerManagerOnOnServerConnectionState(ServerConnectionStateArgs obj)
+        private void ServerManagerOnOnServerConnectionState(NetworkConnection networkConnection, RemoteConnectionStateArgs remoteConnectionStateArgs)
         {
-            
+            print("Client Left");
+            SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
         }
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
+            print("Client Left");
             SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
         }
 
