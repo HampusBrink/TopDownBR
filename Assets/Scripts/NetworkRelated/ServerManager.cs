@@ -39,12 +39,11 @@ namespace NetworkRelated
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            
+            SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
         }
 
         public void LeaveGame()
         {
-            SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
             ServerManager.StopConnection(true);
         }
     }
