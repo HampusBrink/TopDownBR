@@ -1,35 +1,50 @@
-using System.Linq;
+using FishNet.Managing;
 using FishNet.Object;
+using FishNet.Transporting;
+using LiteNetLib;
+using NetworkRelated.Steam;
+using Steamworks;
 using UnityEngine;
 
 namespace NetworkRelated
 {
     public class ServerManager : NetworkBehaviour
     {
-        public override void OnStopServer()
+        EventBasedNetListener eventListener = new ();
+
+        private void Start()
         {
-            base.OnStopServer();
-            print("Client");
-
-            if(!IsServerInitialized) return;
-
-            InitializeHostMigration();
-        }
-
-        private void InitializeHostMigration()
-        {
-            ORPC_AssignNewHost();
-            print("Server");
+            ServerManager.SetRemoteClientTimeout(RemoteTimeoutType.Disabled,10);
+            eventListener.PeerDisconnectedEvent += EventListenerOnPeerDisconnectedEvent;
             
-            throw new System.NotImplementedException();
+            
+            NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
+            ServerManager.OnServerConnectionState += ServerManagerOnOnServerConnectionState;
         }
 
-        [ObserversRpc]
-        void ORPC_AssignNewHost()
+        private void ClientManagerOnOnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            print("RPC");
-            NetworkManager.ServerManager.StartConnection();
-            NetworkManager.ClientManager.StartConnection();
+            
+        }
+
+        private void EventListenerOnPeerDisconnectedEvent(NetPeer peer, DisconnectInfo disconnectinfo)
+        {
+            Debug.Log("hejsan");
+        }
+
+        private void ServerManagerOnOnServerConnectionState(ServerConnectionStateArgs obj)
+        {
+            
+        }
+
+        private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
+        {
+            SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
+        }
+
+        public void LeaveGame()
+        {
+            ServerManager.StopConnection(true);
         }
     }
 }
