@@ -36,6 +36,8 @@ public class CameraMovement : MonoBehaviour
         _mainCamera = Camera.main;
         
         GameManager.Instance.OnAlivePlayersChanged += UpdateAlivePlayerList;
+        
+        _desiredMouseFollowDistance = _isZooming ? cameraFocusMaxOffsetDistance : cameraMaxOffsetDistance;
     }
 
     private void OnDisable()
