@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1501954421303485302}
   - component: {fileID: 8144345746848062322}
   - component: {fileID: 3803255035599315248}
+  - component: {fileID: 2710464916360331090}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -106,12 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f307ff7afa2fbb044960454b70c7af9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseFollowStrength: 3
-  cameraMaxOffsetDistance: 3
+  mouseFollowStrength: 2
+  cameraMaxOffsetDistance: 1.3
   cameraFocusMaxOffsetDistance: 6
-  playerFollowStrength: 10
-  maxMouseOffsetDistance: 2
-  cameraZoom: -10
+  targetFollowStrength: 9
+  maxMouseOffsetDistance: 6
+  cameraZOffset: -10
 --- !u!114 &3803255035599315248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,11 +142,11 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 4bcc63cf-09fa-498c-8369-b9efe278c155
-    m_ActionName: Movement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+    m_ActionName: 'Movement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ea5241f0-db4e-4152-ba1c-09068f599923
-    m_ActionName: Movement/Sprint[/Keyboard/leftShift]
+    m_ActionName: 'Movement/Sprint[/Keyboard/leftShift]'
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8144345746848062322}
@@ -161,13 +162,61 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
     m_ActionId: cfff1fc6-e3cb-4afb-b451-040d6400925a
-    m_ActionName: Camera/Focus[/Mouse/rightButton]
+    m_ActionName: 'Camera/Focus[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: f8170310-52d5-407f-a6d0-ec870ada0824
-    m_ActionName: Combat/Attack[/Mouse/leftButton]
+    m_ActionName: 'Combat/Attack[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 93166e8e-971e-48e1-af3d-2a66913f8f0e
+    m_ActionName: 'Movement/DodgeRoll[/Keyboard/space]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Camera
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 106633476716016222}
+--- !u!114 &2710464916360331090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3268315817713906109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
