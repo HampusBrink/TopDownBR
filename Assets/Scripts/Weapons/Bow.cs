@@ -140,8 +140,15 @@ public class Bow : BaseWeapon
         transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
     }
 
+    private float GetShootForce()
+    {
+        return (MultipliedAttackSpeed * maxShootForce) / 3f;
+    }
 
-
+    private void PropellArrow(Rigidbody2D rb, Quaternion arrowRotation)
+    {
+        rb.AddForce(arrowRotation * Vector2.up * (-1 * GetShootForce()), ForceMode2D.Impulse);
+    }
     
     private void SpawnArrow(float shootForce, int bonusArrows)
     {
@@ -152,13 +159,12 @@ public class Bow : BaseWeapon
         {
             Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
+            
             if (arrow.TryGetComponent(out Arrow arrowComponent))
-                arrowComponent.SetDamage(MultipliedDamage);
-            Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
-            if (arrowRb != null)
-            {
-                arrowRb.AddForce(arrowRotation * Vector2.up * -1 * shootForce, ForceMode2D.Impulse);
-            }
+                arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
+            
+            if (arrow.TryGetComponent(out Rigidbody2D arrowRb))
+               PropellArrow(arrowRb, arrowRotation);
         }
     }
 

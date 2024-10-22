@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 594371776586399853}
   - component: {fileID: 6590784513265258646}
   - component: {fileID: 8143474763524773626}
+  - component: {fileID: 5681718351735372892}
   m_Layer: 8
   m_Name: Arrow
   m_TagString: Untagged
@@ -125,7 +126,7 @@ CapsuleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2817257419962778432}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -167,4 +168,57 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a46bef2af494de649ba01ab50329c5a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 5681718351735372892}
+  _networkObjectCache: {fileID: 5681718351735372892}
   collider: {fileID: 6590784513265258646}
+  spriteRenderer: {fileID: 2480787313476840676}
+  _startColor: {r: 1, g: 1, b: 1, a: 1}
+  _endColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+--- !u!114 &5681718351735372892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2817257419962778432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
+  <PredictedOwner>k__BackingField: {fileID: 0}
+  NetworkBehaviours:
+  - {fileID: 8143474763524773626}
+  <InitializedParentNetworkBehaviour>k__BackingField: {fileID: 0}
+  <InitializedNestedNetworkObjects>k__BackingField: []
+  _isNetworked: 0
+  _isSpawnable: 1
+  _isGlobal: 0
+  _initializeOrder: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  _enablePrediction: 0
+  _predictionType: 0
+  _graphicalObject: {fileID: 0}
+  _detachGraphicalObject: 0
+  _enableStateForwarding: 1
+  _networkTransform: {fileID: 0}
+  _ownerInterpolation: 1
+  _ownerSmoothedProperties: 255
+  _adaptiveInterpolation: 3
+  _spectatorSmoothedProperties: 255
+  _spectatorInterpolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  <PrefabId>k__BackingField: 5
+  <SpawnableCollectionId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 6015173322191958849
+  <SceneId>k__BackingField: 0
+  SerializedTransformProperties:
+    Position: {x: -0.08514626, y: -7.897828, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 0.051071353, y: 0.38333, z: 1}

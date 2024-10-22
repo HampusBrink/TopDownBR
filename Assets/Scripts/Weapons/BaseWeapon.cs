@@ -70,7 +70,7 @@ public class BaseWeapon : MonoBehaviour
 
     private void UpdateAttackRange(float multiplier)
     {
-        MultipliedDamage = baseAttackRange * multiplier;
+        MultipliedRange = baseAttackRange * multiplier;
     }
 
     private void UpdateAttackSpeed(float multiplier)
