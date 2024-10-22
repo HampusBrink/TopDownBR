@@ -54,34 +54,21 @@ namespace NetworkRelated.Steam
 
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
         {
-            print(SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)));
-            for (int i = 0; i < SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)); i++)
-            {
-                var client = SteamMatchmaking.GetLobbyMemberByIndex(new CSteamID(CurrentLobbyID), i);
-                
-                if (new CSteamID(client.m_SteamID) == SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID)))
-                {
-                    print(client.m_SteamID + "Is Host");
-                }
-                
-            }
-
             var lobbyOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID));
             if(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress") != lobbyOwner.ToString())
             {
                 if (SteamUser.GetSteamID() == lobbyOwner)
                 {
                     SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
-                    _fishySteamworks.SetClientAddress(SteamUser.GetSteamID().ToString());
                     _fishySteamworks.StartConnection(true);
                 }
                 else
                 {
-                    _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
                     _fishySteamworks.StartConnection(false);
                 }
                 print("Host Migration!");
             }
+            print(_fishySteamworks.GetClientAddress() + "Client Adress");
             
             var playerID = SpawnPointHandler.FetchClientID();
             var host = _networkManager.ClientManager.Clients.FirstOrDefault(c => c.Value.IsHost);
