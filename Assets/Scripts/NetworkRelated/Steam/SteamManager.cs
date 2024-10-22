@@ -61,6 +61,7 @@ namespace NetworkRelated.Steam
                 {
                     SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
                     _fishySteamworks.StartConnection(true);
+                    MainMenuManagerScript.LoadScene("GameScene");
                 }
                 else
                 {
