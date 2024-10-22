@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using FishNet.Managing;
 using HeathenEngineering.SteamworksIntegration;
@@ -46,6 +47,11 @@ namespace NetworkRelated.Steam
             LobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdate);
         }
 
+        private void Update()
+        {
+            //SteamMatchmaking.RequestLobbyData(new CSteamID(CurrentLobbyID));
+        }
+
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
         {
             print(SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)));
@@ -56,10 +62,25 @@ namespace NetworkRelated.Steam
                 if (new CSteamID(client.m_SteamID) == SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID)))
                 {
                     print(client.m_SteamID + "Is Host");
-                    continue;
                 }
                 
-                print(client.m_SteamID);
+            }
+
+            var lobbyOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID));
+            if(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress") != lobbyOwner.ToString())
+            {
+                if (SteamUser.GetSteamID() == lobbyOwner)
+                {
+                    SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
+                    _fishySteamworks.SetClientAddress(SteamUser.GetSteamID().ToString());
+                    _fishySteamworks.StartConnection(true);
+                }
+                else
+                {
+                    _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
+                    _fishySteamworks.StartConnection(false);
+                }
+                print("Host Migration!");
             }
             
             var playerID = SpawnPointHandler.FetchClientID();
