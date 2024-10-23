@@ -9,6 +9,7 @@ public class Arrow : NetworkBehaviour
 {
     [SerializeField] private CapsuleCollider2D collider;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    public Rigidbody2D rb;
     
     public Color _startColor = Color.white; // Start color (white)
     public Color _endColor = Color.black;

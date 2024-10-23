@@ -163,8 +163,7 @@ public class Bow : BaseWeapon
             if (arrow.TryGetComponent(out Arrow arrowComponent))
                 arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
             
-            if (arrow.TryGetComponent(out Rigidbody2D arrowRb))
-               PropellArrow(arrowRb, arrowRotation);
+            PropellArrow(arrowComponent.rb, arrowRotation);
         }
     }
 

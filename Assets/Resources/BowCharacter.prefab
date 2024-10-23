@@ -121,7 +121,7 @@ PrefabInstance:
     - target: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -147,6 +147,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7286489483471542867}
     m_Modifications:
+    - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: baseAttackRange
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 6843099930137547613, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
         type: 3}
       propertyPath: m_LocalPosition.x
