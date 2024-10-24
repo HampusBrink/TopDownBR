@@ -20,12 +20,14 @@ namespace NetworkRelated
             
         }
         
-        private void Awake()
+
+        public override void OnStartServer()
         {
+            base.OnStartServer();
             ServerManager.Objects.OnPreDestroyClientObjects += Objects_OnPreDestroyClientObjects;
         }
 
-        protected virtual void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
+        private void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
         {
             foreach (NetworkObject networkObject in conn.Objects)
                 networkObject.RemoveOwnership();

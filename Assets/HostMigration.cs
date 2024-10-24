@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class HostMigration : MonoBehaviour
 {
-    private void Awake()
+    private void Start()
     {
         ServerManager sm = GetComponent<ServerManager>();
         sm.Objects.OnPreDestroyClientObjects += Objects_OnPreDestroyClientObjects;
     }
 
-    protected virtual void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
+    private void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
     {
         foreach (NetworkObject networkObject in conn.Objects)
             networkObject.RemoveOwnership();
