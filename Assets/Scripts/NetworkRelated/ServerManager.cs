@@ -19,18 +19,6 @@ namespace NetworkRelated
             ServerManager.OnRemoteConnectionState += ServerManagerOnOnServerConnectionState;
             
         }
-        
-
-        public override void OnStartClient()
-        {
-            ServerManager.Objects.OnPreDestroyClientObjects += Objects_OnPreDestroyClientObjects;
-        }
-
-        private void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
-        {
-            foreach (NetworkObject networkObject in conn.Objects)
-                networkObject.RemoveOwnership();
-        }
 
         private void ClientManagerOnOnClientConnectionState(ClientConnectionStateArgs obj)
         {
@@ -51,6 +39,9 @@ namespace NetworkRelated
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
             print("Client Left");
+            foreach (NetworkObject networkObject in NetworkManager.ClientManager.Connection.Objects)
+                networkObject.RemoveOwnership();
+            
             SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
         }
 
