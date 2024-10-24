@@ -1055,6 +1055,11 @@ PrefabInstance:
       propertyPath: baseAttackRange
       value: 0.7
       objectReference: {fileID: 0}
+    - target: {fileID: 7399147350950944460, guid: 8d95ce330d2907c4f9f1223e95ce4293,
+        type: 3}
+      propertyPath: damageToArrowSizeScale
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8023258621023827996, guid: 8d95ce330d2907c4f9f1223e95ce4293,
         type: 3}
       propertyPath: m_Name

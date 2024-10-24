@@ -15,12 +15,14 @@ public class Bow : BaseWeapon
     //[SerializeField] private float minWindUpTimeForShot = 0.5f;
     [SerializeField] private float maxBowPivotAngle = 30f;
     [SerializeField] private float maxShootForce = 20f;
+    [SerializeField] private float damageToArrowSizeScale = 1.1f;
     
     [Header("Bonus arrow settings")]
     [SerializeField] private int bonusArrows = 1;
     [SerializeField] private float angleBetweenBonusArrows = 15;
     
 
+    private float _playerDamageMultiplier = 1f;
     private float _windUpTimeElapsed = 0f;
     private Quaternion _initialBowRotation;
     private bool _isCharging = false;
@@ -29,7 +31,13 @@ public class Bow : BaseWeapon
     private float _maxWindUpTime = 1.0f;
     private ParticleSystem.MainModule _chargeParticleMain;
 
-    private void Start()
+    protected override void Start()
+    {
+        base.Start();
+        BowGetComponents();
+    }
+    
+    private void BowGetComponents()
     {
         _camera = Camera.main;
         _chargeParticleMain = chargeParticle.main;
@@ -140,6 +148,12 @@ public class Bow : BaseWeapon
         transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
     }
 
+    protected override void UpdateAttackDamage(float multiplier)
+    {
+        base.UpdateAttackDamage(multiplier);
+        _playerDamageMultiplier = multiplier;
+    }
+
     private float GetShootForce()
     {
         return (MultipliedAttackSpeed * maxShootForce) / 3f;
@@ -148,6 +162,12 @@ public class Bow : BaseWeapon
     private void PropellArrow(Rigidbody2D rb, Quaternion arrowRotation)
     {
         rb.AddForce(arrowRotation * Vector2.up * (-1 * GetShootForce()), ForceMode2D.Impulse);
+    }
+
+    private Vector3 GetArrowSize()
+    {
+        float multipliedSize = _playerDamageMultiplier * damageToArrowSizeScale;
+        return new Vector3(multipliedSize, multipliedSize, multipliedSize);
     }
     
     private void SpawnArrow(float shootForce, int bonusArrows)
@@ -159,6 +179,7 @@ public class Bow : BaseWeapon
         {
             Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
+            arrow.transform.localScale = GetArrowSize();
             
             if (arrow.TryGetComponent(out Arrow arrowComponent))
                 arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
