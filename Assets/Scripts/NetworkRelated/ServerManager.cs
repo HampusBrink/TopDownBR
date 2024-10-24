@@ -19,6 +19,17 @@ namespace NetworkRelated
             ServerManager.OnRemoteConnectionState += ServerManagerOnOnServerConnectionState;
             
         }
+        
+        private void Awake()
+        {
+            ServerManager.Objects.OnPreDestroyClientObjects += Objects_OnPreDestroyClientObjects;
+        }
+
+        protected virtual void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
+        {
+            foreach (NetworkObject networkObject in conn.Objects)
+                networkObject.RemoveOwnership();
+        }
 
         private void ClientManagerOnOnClientConnectionState(ClientConnectionStateArgs obj)
         {
