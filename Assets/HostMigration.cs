@@ -13,6 +13,7 @@ public class HostMigration : MonoBehaviour
 
     private void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
     {
+        print("YEEPERS");
         foreach (NetworkObject networkObject in conn.Objects)
             networkObject.RemoveOwnership();
     }

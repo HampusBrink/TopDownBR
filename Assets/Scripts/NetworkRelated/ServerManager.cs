@@ -21,9 +21,8 @@ namespace NetworkRelated
         }
         
 
-        public override void OnStartServer()
+        public override void OnStartClient()
         {
-            base.OnStartServer();
             ServerManager.Objects.OnPreDestroyClientObjects += Objects_OnPreDestroyClientObjects;
         }
 
