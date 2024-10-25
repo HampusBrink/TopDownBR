@@ -14,8 +14,14 @@ namespace NetworkRelated
 
         private void Start()
         {
+            NetworkManager.ServerManager.Objects.OnPreDestroyClientObjects += ObjectsOnOnPreDestroyClientObjects;
             NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
             NetworkManager.ServerManager.OnRemoteConnectionState += OnServerRemoteConnectionState;
+        }
+
+        private void ObjectsOnOnPreDestroyClientObjects(NetworkConnection obj)
+        {
+            print("Pre Destroy Objects");
         }
 
         private void OnServerRemoteConnectionState(NetworkConnection arg1, RemoteConnectionStateArgs arg2)
