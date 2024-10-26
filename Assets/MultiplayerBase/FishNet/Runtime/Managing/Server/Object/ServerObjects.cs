@@ -207,6 +207,8 @@ namespace FishNet.Managing.Server
             RemoveFromObserversWithoutSynchronization(connection);
 
             OnPreDestroyClientObjects?.Invoke(connection);
+            
+            Debug.Log(NetworkManager.ClientManager.Connection.Objects.Count + "Objcsts");
 
             /* A cache is made because the Objects
              * collection would end up modified during
