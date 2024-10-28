@@ -1,4 +1,5 @@
  using System;
+ using FishNet.Connection;
  using FishNet.Object;
  using MultiplayerBase.Scripts;
  using Player;
@@ -51,6 +52,8 @@ public class PlayerMovement : NetworkBehaviour
     private PlayerStatus _playerStatus;
     private Vector2 _moveVector;
     private Rigidbody2D _rb;
+
+    private bool _ownerInitialized;
     
     public enum TurnDirection
     {
@@ -67,6 +70,8 @@ public class PlayerMovement : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+
+        _ownerInitialized = IsOwner;
         
         _rb = GetComponent<Rigidbody2D>();
         _playerStatus = GetComponent<PlayerStatus>();
@@ -89,6 +94,13 @@ public class PlayerMovement : NetworkBehaviour
         _stamina = maxStamina;
         
         _desiredSpeed = _multipliedSpeed = walkSpeed;
+        
+        NetworkRelated.ServerManager.Instance.ConnectedToServer += InstanceOnConnectedToServer;
+    }
+
+    private void InstanceOnConnectedToServer()
+    {
+        if(_ownerInitialized && !IsOwner) GiveOwnership(LocalConnection);
     }
 
     private void AssignComponents()

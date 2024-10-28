@@ -1,3 +1,4 @@
+using System;
 using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Object;
@@ -11,6 +12,21 @@ namespace NetworkRelated
 {
     public class ServerManager : NetworkBehaviour
     {
+        public static ServerManager Instance;
+
+        public event Action ConnectedToServer;
+
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void Start()
         {
@@ -37,6 +53,10 @@ namespace NetworkRelated
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
+            if (obj.ConnectionState == LocalConnectionState.Started)
+            {
+                ConnectedToServer?.Invoke();
+            }
             //if(obj.ConnectionState != LocalConnectionState.Stopped) return;
             print("Client Left");
             print(NetworkManager.ClientManager.Connection.Objects.Count);
