@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private float walkSpeed = 5f;
@@ -36,8 +36,8 @@ public class PlayerMovement : NetworkBehaviour
     private Camera _camera;
 
     private PlayerStatus _playerStatus;
-    private Vector2 _moveVector;
-    private Rigidbody2D _rb;
+    private Vector3 _moveVector;
+    private Rigidbody _rb;
     
     public enum TurnDirection
     {
@@ -55,7 +55,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         base.OnStartClient();
         
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
@@ -72,7 +72,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(!IsOffline) return;
         
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
@@ -149,7 +149,7 @@ public class PlayerMovement : NetworkBehaviour
         staminaBarFill.fillAmount = targetFillAmount;
     }
 
-    private Vector2 _input;
+    private Vector3 _input;
     [HideInInspector] public TurnDirection lastMovedirection;
     [HideInInspector] public bool isMoving = false;
     [HideInInspector] public TurnDirection currentTurnDirection = TurnDirection.Down;
@@ -166,7 +166,7 @@ public class PlayerMovement : NetworkBehaviour
         new(-1f, 0f), // Left
         new(-1f, -1f) // DownLeft
     };
-    public Vector2 TurnDirectionToVector2(TurnDirection turnDirection)
+    public Vector3 TurnDirectionToVector2(TurnDirection turnDirection)
     {
         return _vector2TurnDirections[(int)turnDirection];
     }
@@ -178,9 +178,9 @@ public class PlayerMovement : NetworkBehaviour
         for (int i = 0; i < _vector2TurnDirections.Length; i++)
         {
             // Normalize the stored direction vector to ensure diagonal movement is detected
-            Vector2 direction = _vector2TurnDirections[i].normalized;
+            Vector3 direction = _vector2TurnDirections[i].normalized;
 
-            if (Vector2.Distance(vector, direction) < 0.1f) // Adjust tolerance as needed
+            if (Vector3.Distance(vector, direction) < 0.1f) // Adjust tolerance as needed
             {
                 return (TurnDirection)i;
             }
@@ -202,10 +202,10 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isMoving)
         {
-            if (_input != Vector2.zero)
+            if (_input != Vector3.zero)
             {
                 lastMovedirection = Vector2ToTurnDirection(_input);
-                _input = Vector2.zero;
+                _input = Vector3.zero;
             }
         }
         else
@@ -223,7 +223,7 @@ public class PlayerMovement : NetworkBehaviour
         if (!IsOwner && !IsOffline) return;
         if (!GameManager.Instance.GameStarted) return;
 
-        _moveVector = context.ReadValue<Vector2>();
+        _moveVector = context.ReadValue<Vector3>();
 
         if (context.canceled)
         {
@@ -250,17 +250,17 @@ public class PlayerMovement : NetworkBehaviour
     private void ApplyMovement()
     {
         UpdateMovementSpeed();
-        //print(_moveVector);
-        if (_moveVector != Vector2.zero)
+        print(_moveVector);
+        if (_moveVector != Vector3.zero)
         {
-            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector3.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
         }
         else
         {
-            _velocity = Vector2.MoveTowards(_velocity, Vector2.zero, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector3.MoveTowards(_velocity, Vector3.zero, acceleration * Time.fixedDeltaTime);
         }
 
-        _rb.velocity = _velocity;
+        _rb.velocity = new Vector3(_moveVector.x, 0, _moveVector.z) * _multipliedSpeed;
     }
 
     
