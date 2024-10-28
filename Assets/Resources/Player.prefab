@@ -1126,6 +1126,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 3560203185535188127}
   healthBarFill: {fileID: 7377175790934219997}
   hitBox: {fileID: 6650829245086280536}
+  playerCombat: {fileID: 0}
   playerStatMultipliers:
     maxHealth: 100
   movementStatMultipliers:
@@ -1134,6 +1135,9 @@ MonoBehaviour:
     attackDamageMultiplier: 1
     attackRangeMultiplier: 1
     attackSpeedMultiplier: 4
+  weaponUpgrades:
+    spinningBlades: 0
+    bonusArrows: 0
 --- !u!114 &3560203185535188127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,7 +1157,7 @@ MonoBehaviour:
   NetworkBehaviours:
   - {fileID: 4192950349405535469}
   - {fileID: -8871992485847606398}
-  - {fileID: 2312113109336434810}
+  - {fileID: 0}
   - {fileID: 1503768175238242283}
   - {fileID: 6828795145749420725}
   <InitializedParentNetworkBehaviour>k__BackingField: {fileID: 0}

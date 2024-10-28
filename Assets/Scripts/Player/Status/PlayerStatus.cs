@@ -8,13 +8,16 @@ namespace Player
 {
     public class PlayerStatus : NetworkBehaviour, IDamagable
     {
+        
         [SerializeField] private Image healthBarFill;
         public CapsuleCollider2D hitBox;
+        [SerializeField] private PlayerCombat playerCombat;
         
         [Header("Stats")] 
         public PlayerStatMultipliers playerStatMultipliers;
         public MovementStatMultipliers movementStatMultipliers;
         public WeaponStatMultipliers weaponStatMultipliers;
+        public WeaponSpecificUpgrades weaponUpgrades;
 
         [System.Serializable]
         public class PlayerStatMultipliers
@@ -34,6 +37,16 @@ namespace Player
             public float attackDamageMultiplier = 1.0f;
             public float attackRangeMultiplier = 1.0f;
             public float attackSpeedMultiplier = 1.0f;
+        }
+        
+        [System.Serializable]
+        public class WeaponSpecificUpgrades
+        {
+            [Header("Sword Specific Upgrades")]
+            public int spinningBlades = 0; // Example for Sword, each stack increases effect
+            
+            [Header("Bow Specific Upgrades")]
+            public int bonusArrows = 0;
         }
 
         private float _currentHealth;
