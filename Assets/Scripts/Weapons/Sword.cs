@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
+using Player;
 using UnityEngine;
 using TurnDirection = PlayerMovement.TurnDirection;
 
@@ -28,6 +29,17 @@ public class Sword : BaseWeapon
         weaponCol = weaponColObject.GetComponent<BoxCollider2D>();
     }
     
+    public override void UpdateSpecificWeaponStats(PlayerStatus playerStatus)
+    {
+        if (playerStatus is SwordPlayerStatus swordPlayerStatus)
+        {
+            
+        }
+        else
+        {
+            Debug.LogWarning("PlayerStatus is not a SwordPlayerStatus.");
+        }
+    }
     
     public void UpdateWeaponLength(float multiplier)
     {

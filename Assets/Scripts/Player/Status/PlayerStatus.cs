@@ -8,6 +8,13 @@ namespace Player
 {
     public class PlayerStatus : NetworkBehaviour, IDamagable
     {
+        // Levels
+        private int _playerLevel = 0;
+        public int PlayerLevel => _playerLevel;
+        private float _playerExp = 0;
+        public float baseExpCap = 1000f;
+        
+        
         
         [SerializeField] private Image healthBarFill;
         public CapsuleCollider2D hitBox;
@@ -17,7 +24,6 @@ namespace Player
         public PlayerStatMultipliers playerStatMultipliers;
         public MovementStatMultipliers movementStatMultipliers;
         public WeaponStatMultipliers weaponStatMultipliers;
-        public WeaponSpecificUpgrades weaponUpgrades;
 
         [System.Serializable]
         public class PlayerStatMultipliers
@@ -39,15 +45,7 @@ namespace Player
             public float attackSpeedMultiplier = 1.0f;
         }
         
-        [System.Serializable]
-        public class WeaponSpecificUpgrades
-        {
-            [Header("Sword Specific Upgrades")]
-            public int spinningBlades = 0; // Example for Sword, each stack increases effect
-            
-            [Header("Bow Specific Upgrades")]
-            public int bonusArrows = 0;
-        }
+        
 
         private float _currentHealth;
 
@@ -71,6 +69,46 @@ namespace Player
             }
         }
 
+        private void LevelUp()
+        {
+            _playerLevel++;
+            if (_playerLevel % 5 == 0)
+            {
+                // weapon specific
+            }
+            else
+            {
+                // generic
+                GameManager.Instance.powerupPopup.gameObject.SetActive(true);
+            }
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                AddExp(1000f);
+                Debug.Log("Current Level:" + _playerLevel);
+                Debug.Log("Current Exp:" + _playerExp);
+            }
+        }
+
+        public void AddExp(float amount)
+        {
+            _playerExp += amount;
+            
+            while (_playerExp >= GetExpCapForLevel(_playerLevel + 1))
+            {
+                _playerExp -= GetExpCapForLevel(_playerLevel + 1); 
+                LevelUp();
+            }
+        }
+
+        private float GetExpCapForLevel(int level)
+        {
+            return baseExpCap * Mathf.Pow(1.1f, level);
+        }
+        
 
         [ServerRpc(RequireOwnership = false)]
         public void TakeDamage(float damage)

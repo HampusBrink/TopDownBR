@@ -42,6 +42,11 @@ public abstract class BaseWeapon : MonoBehaviour
         UpdateAttackRange(genericStats.attackRangeMultiplier);
         UpdateAttackSpeed(genericStats.attackSpeedMultiplier);
     }
+
+    public virtual void UpdateSpecificWeaponStats(PlayerStatus playerStatus)
+    {
+        
+    }
     
     
     public virtual void UpdateWeaponTurnDir(TurnDirection turnDir)

@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
 public class Bow : BaseWeapon
@@ -17,11 +19,12 @@ public class Bow : BaseWeapon
     [SerializeField] private float maxShootForce = 20f;
     [SerializeField] private float damageToArrowSizeScale = 1.1f;
     
+    [FormerlySerializedAs("bonusArrows")]
     [Header("Bonus arrow settings")]
-    [SerializeField] private int bonusArrows = 1;
+    [SerializeField] private int baseBonusArrows = 0;
     [SerializeField] private float angleBetweenBonusArrows = 15;
     
-
+    private int _bonusArrows;
     private float _playerDamageMultiplier = 1f;
     private float _windUpTimeElapsed = 0f;
     private Quaternion _initialBowRotation;
@@ -59,7 +62,7 @@ public class Bow : BaseWeapon
 
                 // Automatically fire the arrow when fully charged
                 float shootForce = maxShootForce;
-                SpawnArrow(shootForce, bonusArrows);
+                SpawnArrow(shootForce, _bonusArrows);
                 Debug.Log($"Arrow shot with max force: {shootForce}");
 
                 // Reset charging and particles after shooting
@@ -146,6 +149,18 @@ public class Bow : BaseWeapon
 
         // Apply the rotation to the bow
         transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
+    }
+
+    public override void UpdateSpecificWeaponStats(PlayerStatus playerStatus)
+    {
+        if (playerStatus is BowPlayerStatus bowPlayerStatus)
+        {
+            _bonusArrows = baseBonusArrows + bowPlayerStatus.bowSpecificUpgrades.bonusArrows;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerStatus is not a BowPlayerStatus.");
+        }
     }
 
     protected override void UpdateAttackDamage(float multiplier)

@@ -84,18 +84,9 @@ namespace Player
     
         private void UpdateCombatStats()
         {
-            UpdateAttackSpeed();
             equippedWeapon.UpdateWeaponStats(_playerStatus.weaponStatMultipliers);
+            equippedWeapon.UpdateSpecificWeaponStats(_playerStatus);
         }
-
-    
-
-        private void UpdateAttackSpeed()
-        {
-            //attackSpeed = _playerStatus.attackSpeedMultiplier * equippedWeapon.baseAttackSpeed;
-        }
-    
-    
     
         private TurnDirection GetTurnDirectionFromMouse()
         {

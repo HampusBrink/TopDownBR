@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FishNet.Object;
 using NetworkRelated;
 using Player;
@@ -35,6 +36,8 @@ namespace MultiplayerBase.Scripts
         private float _timer;
 
         public float Timer => Mathf.Abs(_timer - _countDownTime);
+        
+        public PlayerStatus localPlayer;
 
         void Awake()
         {
@@ -49,6 +52,11 @@ namespace MultiplayerBase.Scripts
             else
             {
                 Destroy(gameObject);
+            }
+
+            if (IsOffline)
+            {
+                localPlayer = FindFirstObjectByType<PlayerStatus>();
             }
         }
 
@@ -143,6 +151,13 @@ namespace MultiplayerBase.Scripts
         {
             _timerStarted = true;
             _UI.timerDisplay.gameObject.SetActive(true);
+        }
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+
+            localPlayer = NetworkManager.ClientManager.Connection.Objects.FirstOrDefault().GetComponent<PlayerStatus>();
         }
     }
 }
