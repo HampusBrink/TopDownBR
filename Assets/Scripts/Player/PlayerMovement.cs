@@ -87,7 +87,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Start()
     {
-        if(!IsOffline) return;
         
         AssignComponents();
         
@@ -100,7 +99,12 @@ public class PlayerMovement : NetworkBehaviour
 
     private void InstanceOnConnectedToServer()
     {
-        if(_ownerInitialized && !IsOwner) GiveOwnership(LocalConnection);
+        if (_ownerInitialized && !IsOwner)
+        {
+            HostMigration.instance.InitializeOnServer(NetworkObject);
+            NetworkObject.GiveOwnership(LocalConnection);
+            gameObject.SetActive(true);
+        }
     }
 
     private void AssignComponents()
@@ -113,6 +117,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
+        print(IsOwner);
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
         

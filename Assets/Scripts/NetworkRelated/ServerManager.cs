@@ -22,10 +22,6 @@ namespace NetworkRelated
             {
                 Instance = this;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
         }
 
         private void Start()
@@ -34,6 +30,27 @@ namespace NetworkRelated
             NetworkManager.ClientManager.OnClientTimeOut += ClientManagerOnOnClientTimeOut;
             NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
             NetworkManager.ServerManager.OnRemoteConnectionState += OnServerRemoteConnectionState;
+
+            NetworkManager.ClientManager.OnClientConnectionState += OnClientConnectionState;
+            NetworkManager.ServerManager.OnServerConnectionState += OnServerConnectionState;
+        }
+
+        private void OnServerConnectionState(ServerConnectionStateArgs obj)
+        {
+            if (obj.ConnectionState == LocalConnectionState.Started)
+            {
+                ConnectedToServer?.Invoke();
+                print("Connected To Master");
+            }
+        }
+
+        private void OnClientConnectionState(ClientConnectionStateArgs obj)
+        {
+            if (obj.ConnectionState == LocalConnectionState.Starting)
+            {
+                ConnectedToServer?.Invoke();
+                print("Connected To Master");
+            }
         }
 
         private void ClientManagerOnOnClientTimeOut()
@@ -53,10 +70,7 @@ namespace NetworkRelated
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            if (obj.ConnectionState == LocalConnectionState.Started)
-            {
-                ConnectedToServer?.Invoke();
-            }
+            
             //if(obj.ConnectionState != LocalConnectionState.Stopped) return;
             print("Client Left");
             print(NetworkManager.ClientManager.Connection.Objects.Count);

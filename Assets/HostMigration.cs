@@ -1,20 +1,34 @@
+using System;
 using FishNet.Connection;
+using FishNet.Managing;
 using FishNet.Managing.Server;
 using FishNet.Object;
 using UnityEngine;
 
 public class HostMigration : MonoBehaviour
 {
-    private void Start()
+    public static HostMigration instance;
+
+    private void Awake()
     {
-        ServerManager sm = GetComponent<ServerManager>();
-        sm.Objects.OnPreDestroyClientObjects += Objects_OnPreDestroyClientObjects;
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
-    private void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
+    private void Update()
     {
-        print("YEEPERS");
-        foreach (NetworkObject networkObject in conn.Objects)
-            networkObject.RemoveOwnership();
+        print(GetComponent<NetworkManager>());
+        print(GetComponent<ServerManager>());
+    }
+
+    public void InitializeOnServer(NetworkObject obj)
+    {
+        GetComponent<ServerManager>().Spawn(obj, obj.LocalConnection);
     }
 }
