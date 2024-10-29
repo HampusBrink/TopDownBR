@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ItemButton : MonoBehaviour
 {
-    public PowerupSO powerUp;
+    public GenericUpgradeSO powerUp;
     [SerializeField] private Image _display;
     [SerializeField] private TMP_Text _displayText;
     private void Start()
@@ -28,29 +28,29 @@ public class ItemButton : MonoBehaviour
         AddNewBuffs(playerStatus,powerUp);
     }
 
-    void AddNewBuffs(PlayerStatus playerStatus, PowerupSO powerUpSO)
+    void AddNewBuffs(PlayerStatus playerStatus, GenericUpgradeSO genericUpgrade)
     {
-        playerStatus.playerStatMultipliers.maxHealth += powerUp.bonusMaxHealthFlat;
-        playerStatus.weaponStatMultipliers.attackDamageMultiplier += powerUp.bonusDamagePercent;
-        playerStatus.movementStatMultipliers.movementSpeedMultiplier += powerUp.bonusMovementSpeedPercent;
-        playerStatus.weaponStatMultipliers.attackSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
-        playerStatus.weaponStatMultipliers.attackRangeMultiplier += powerUp.bonusWeaponLengthPercent; // change name of this later
+        playerStatus.vitalUpgrades.maxHealth += powerUp.bonusMaxHealthFlat;
+        playerStatus.combatUpgrades.attackDamageMultiplier += powerUp.bonusDamagePercent;
+        playerStatus.movementUpgrades.movementSpeedMultiplier += powerUp.bonusMovementSpeedPercent;
+        playerStatus.combatUpgrades.attackSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
+        playerStatus.combatUpgrades.attackRangeMultiplier += powerUp.bonusWeaponLengthPercent; // change name of this later
         if (powerUp.instantHealth > 0)
         {
-            playerStatus.Heal(powerUpSO.instantHealth);
+            playerStatus.Heal(genericUpgrade.instantHealth);
         }
     }
 
-    void AddSpecificBuffs(PlayerStatus playerStatus, LevelUpSO levelUpSO)
+    void AddSpecificBuffs(PlayerStatus playerStatus, WeaponSpecificUpgradeSO weaponSpecificUpgrade)
     {
         switch (playerStatus)
         {
             case SwordPlayerStatus swordPlayerStatus:
-                swordPlayerStatus.swordSpecificUpgrades.spinningBlades = levelUpSO.spinningBlades;
+                swordPlayerStatus.swordSpecificUpgrades.spinningBlades = weaponSpecificUpgrade.spinningBlades;
                 break;
 
             case BowPlayerStatus bowPlayerStatus:
-                bowPlayerStatus.bowSpecificUpgrades.bonusArrows = levelUpSO.bonusArrows;
+                bowPlayerStatus.bowSpecificUpgrades.bonusArrows = weaponSpecificUpgrade.bonusArrows;
                 break;
 
             default:

@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Item", menuName = "ItemSOs/Item")]
-public class PowerupSO : ScriptableObject
+[CreateAssetMenu(fileName = "GenericUpgradeSO", menuName = "ItemSOs/GenericUpgradeSO")]
+public class GenericUpgradeSO : ScriptableObject
 {
     public Sprite display;
     public string description = "this is an item";

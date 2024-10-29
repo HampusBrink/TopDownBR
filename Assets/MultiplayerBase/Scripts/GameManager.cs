@@ -8,6 +8,7 @@ using Source.Scripts.UI;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static System.String;
 
 namespace MultiplayerBase.Scripts
@@ -16,7 +17,7 @@ namespace MultiplayerBase.Scripts
     {
         [SerializeField] private UIScript _UI;
         [SerializeField] private TMP_Text _victoryRoyaleUI;
-        public PowerupPopup powerupPopup;
+        public UpgradePopup upgradePopup;
 
         [SerializeField] private int _countDownTime = 20;
 

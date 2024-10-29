@@ -1,5 +1,6 @@
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BowPlayerStatus : PlayerStatus
 {

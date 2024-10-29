@@ -53,7 +53,7 @@ namespace Player
             GetNeededComponents();
             if (!IsOwner)
                 return;
-            UpdateCombatStats();
+            UpdateCombatUpgrades();
         }
 
         private void Start()
@@ -66,7 +66,7 @@ namespace Player
             GetNeededComponents();
             if (!IsOffline)
                 return;
-            UpdateCombatStats();
+            UpdateCombatUpgrades();
         }
 
         private void GetNeededComponents()
@@ -82,10 +82,10 @@ namespace Player
             PlayAttackAnimation();
         }
     
-        private void UpdateCombatStats()
+        private void UpdateCombatUpgrades()
         {
-            equippedWeapon.UpdateWeaponStats(_playerStatus.weaponStatMultipliers);
-            equippedWeapon.UpdateSpecificWeaponStats(_playerStatus);
+            equippedWeapon.UpdateWeaponUpgrades(_playerStatus.combatUpgrades);
+            equippedWeapon.UpdateWeaponSpecificUpgrades(_playerStatus);
         }
     
         private TurnDirection GetTurnDirectionFromMouse()
@@ -148,7 +148,7 @@ namespace Player
                 equippedWeapon.WeaponReleaseAttack();
             }
             
-            UpdateCombatStats();
+            UpdateCombatUpgrades();
             //UpdateAttackDurations();
         }
         

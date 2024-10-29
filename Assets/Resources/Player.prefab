@@ -1124,20 +1124,18 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 3560203185535188127}
   _networkObjectCache: {fileID: 3560203185535188127}
+  baseExpCap: 1000
   healthBarFill: {fileID: 7377175790934219997}
   hitBox: {fileID: 6650829245086280536}
   playerCombat: {fileID: 0}
-  playerStatMultipliers:
+  vitalStatBoosts:
     maxHealth: 100
-  movementStatMultipliers:
+  movementStatBoosts:
     movementSpeedMultiplier: 1
-  weaponStatMultipliers:
+  combatStatBoosts:
     attackDamageMultiplier: 1
     attackRangeMultiplier: 1
-    attackSpeedMultiplier: 4
-  weaponUpgrades:
-    spinningBlades: 0
-    bonusArrows: 0
+    attackSpeedMultiplier: 1
 --- !u!114 &3560203185535188127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1521,6 +1519,46 @@ PrefabInstance:
       propertyPath: _networkObjectCache
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: <PrefabId>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: NetworkBehaviours.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: 'NetworkBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7458282850911692414}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: 'NetworkBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2615866440819630043}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: SerializedTransformProperties.LocalScale.z
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1538,9 +1576,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1574ad62dd52c6047ad98730ac11aea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2615866440819630043 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 888806544179433192, guid: dc629888421f5a340a9cb24765a662eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2889270803578278195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7007433085832339411 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5271365779486133984, guid: dc629888421f5a340a9cb24765a662eb,
     type: 3}
   m_PrefabInstance: {fileID: 2889270803578278195}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7458282850911692414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5735867115224332109, guid: dc629888421f5a340a9cb24765a662eb,
+    type: 3}
+  m_PrefabInstance: {fileID: 2889270803578278195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

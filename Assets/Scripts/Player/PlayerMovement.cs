@@ -122,7 +122,7 @@ public class PlayerMovement : NetworkBehaviour
 
         HandleRollMovement();
         
-        if (!GameManager.Instance.powerupPopup.gameObject.activeInHierarchy && !_isRolling)
+        if (!GameManager.Instance.upgradePopup.gameObject.activeInHierarchy && !_isRolling)
         {
             ApplyMovement();
         }
@@ -131,7 +131,7 @@ public class PlayerMovement : NetworkBehaviour
     private void UpdateMovementSpeed()
     {
         _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
-        _multipliedSpeed = _playerStatus.movementStatMultipliers.movementSpeedMultiplier * _desiredSpeed;
+        _multipliedSpeed = _playerStatus.movementUpgrades.movementSpeedMultiplier * _desiredSpeed;
     }
     
     public void OnSprint(InputAction.CallbackContext context)

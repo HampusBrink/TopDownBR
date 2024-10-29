@@ -2,6 +2,7 @@ using System;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Player
@@ -20,25 +21,25 @@ namespace Player
         public CapsuleCollider2D hitBox;
         [SerializeField] private PlayerCombat playerCombat;
         
-        [Header("Stats")] 
-        public PlayerStatMultipliers playerStatMultipliers;
-        public MovementStatMultipliers movementStatMultipliers;
-        public WeaponStatMultipliers weaponStatMultipliers;
+        [Header("Generic Upgrades")] 
+        public VitalUpgrades vitalUpgrades;
+        public MovementUpgrades movementUpgrades;
+        public CombatUpgrades combatUpgrades;
 
         [System.Serializable]
-        public class PlayerStatMultipliers
+        public class VitalUpgrades
         {
             public float maxHealth = 100f;
         }
 
         [System.Serializable]
-        public class MovementStatMultipliers
+        public class MovementUpgrades
         {
             public float movementSpeedMultiplier = 1.0f;
         }
     
         [System.Serializable]
-        public class WeaponStatMultipliers
+        public class CombatUpgrades
         {
             public float attackDamageMultiplier = 1.0f;
             public float attackRangeMultiplier = 1.0f;
@@ -53,15 +54,15 @@ namespace Player
 
         public float CurrentHealth
         {
-            get => _currentHealth > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : _currentHealth;
-            set => _currentHealth = value > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : value;
+            get => _currentHealth > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : _currentHealth;
+            set => _currentHealth = value > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : value;
         }
         
         public override void OnStartClient()
         {
             base.OnStartClient();
 
-            CurrentHealth = playerStatMultipliers.maxHealth;
+            CurrentHealth = vitalUpgrades.maxHealth;
             if (IsOwner)
             {
                 GameManager.Instance.SRPC_PlayerJoined(this);
@@ -79,7 +80,7 @@ namespace Player
             else
             {
                 // generic
-                GameManager.Instance.powerupPopup.gameObject.SetActive(true);
+                GameManager.Instance.upgradePopup.gameObject.SetActive(true);
             }
         }
 
@@ -135,7 +136,7 @@ namespace Player
 
         private void UpdateHealthBar()
         {
-            float targetFillAmount = CurrentHealth / playerStatMultipliers.maxHealth;
+            float targetFillAmount = CurrentHealth / vitalUpgrades.maxHealth;
             healthBarFill.fillAmount = targetFillAmount;
         }
 

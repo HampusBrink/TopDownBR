@@ -13,8 +13,6 @@ public class Bow : BaseWeapon
     [SerializeField] private Transform arrowSpawnPoint;
     [SerializeField] private ParticleSystem chargeParticle;
     [SerializeField] private ParticleSystem fullChargeParticle;
-    //[SerializeField] private float maxWindUpTime = 2f;
-    //[SerializeField] private float minWindUpTimeForShot = 0.5f;
     [SerializeField] private float maxBowPivotAngle = 30f;
     [SerializeField] private float maxShootForce = 20f;
     [SerializeField] private float damageToArrowSizeScale = 1.1f;
@@ -151,7 +149,7 @@ public class Bow : BaseWeapon
         transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
     }
 
-    public override void UpdateSpecificWeaponStats(PlayerStatus playerStatus)
+    public override void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)
     {
         if (playerStatus is BowPlayerStatus bowPlayerStatus)
         {
@@ -187,7 +185,6 @@ public class Bow : BaseWeapon
     
     private void SpawnArrow(float shootForce, int bonusArrows)
     {
-        int totalArrows = 1 + (2 * bonusArrows);
         float angleIncrement = 15f; // Angle between arrows, can be adjusted
 
         for (int i = -Mathf.FloorToInt(bonusArrows); i <= Mathf.FloorToInt(bonusArrows); i++)

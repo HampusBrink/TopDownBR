@@ -29,7 +29,7 @@ public class Sword : BaseWeapon
         weaponCol = weaponColObject.GetComponent<BoxCollider2D>();
     }
     
-    public override void UpdateSpecificWeaponStats(PlayerStatus playerStatus)
+    public override void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)
     {
         if (playerStatus is SwordPlayerStatus swordPlayerStatus)
         {

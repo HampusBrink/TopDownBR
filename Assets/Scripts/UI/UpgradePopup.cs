@@ -3,12 +3,12 @@ using Random = UnityEngine.Random;
 
 namespace UI
 {
-    public class PowerupPopup : MonoBehaviour
+    public class UpgradePopup : MonoBehaviour
     {
         private bool _closeMenu;
         public float popupSpeed = 0.1f;
 
-        public PowerupSO[] powerUps;
+        public GenericUpgradeSO[] powerUps;
     
         private void OnEnable()
         {

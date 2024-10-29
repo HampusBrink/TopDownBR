@@ -181,18 +181,19 @@ MonoBehaviour:
   _componentIndexCache: 255
   _addedNetworkObject: {fileID: 8230893771294328146}
   _networkObjectCache: {fileID: 0}
+  baseExpCap: 1000
   healthBarFill: {fileID: 2680378323968615696}
   hitBox: {fileID: 2242263046319051413}
   playerCombat: {fileID: 5166256038087680591}
-  playerStatMultipliers:
+  vitalStatBoosts:
     maxHealth: 100
-  movementStatMultipliers:
+  movementStatBoosts:
     movementSpeedMultiplier: 1
-  weaponStatMultipliers:
+  combatStatBoosts:
     attackDamageMultiplier: 1
     attackRangeMultiplier: 1
     attackSpeedMultiplier: 1
-  swordSpecificUpgrades:
+  swordSpecificStatBoosts:
     spinningBlades: 0
 --- !u!114 &5166256038087680591 stripped
 MonoBehaviour:
