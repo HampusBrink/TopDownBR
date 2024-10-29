@@ -1,4 +1,4 @@
-Shader "Sprites/OctoPiss"
+Shader "Sprites/Custom/SpriteShadows"
 {
     Properties
     {
