@@ -35,6 +35,11 @@ PrefabInstance:
       objectReference: {fileID: 8230893771294328146}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
+      propertyPath: _isNetworked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
       propertyPath: <PrefabId>k__BackingField
       value: 9
       objectReference: {fileID: 0}
@@ -118,22 +123,97 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordGuy
       objectReference: {fileID: 0}
+    - target: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3489096302756513090, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
     - {fileID: 4116022475497400661, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
     - {fileID: 1473522938793555802, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
     - {fileID: 1390891574631425394, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
+    - {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 3964754778297041999}
   m_SourcePrefab: {fileID: 100100000, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
+--- !u!70 &2242263046319051413 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 6650829245086280536, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4851049328949639629}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2680378323968615696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7377175790934219997, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4851049328949639629}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &3835672101227045272 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4851049328949639629}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3964754778297041999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3835672101227045272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87ae0a2d734ab104d93c93a4642138a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 8230893771294328146}
+  _networkObjectCache: {fileID: 0}
+  baseExpCap: 1000
+  healthBarFill: {fileID: 2680378323968615696}
+  hitBox: {fileID: 2242263046319051413}
+  playerCombat: {fileID: 5166256038087680591}
+  vitalStatBoosts:
+    maxHealth: 100
+  movementStatBoosts:
+    movementSpeedMultiplier: 1
+  combatStatBoosts:
+    attackDamageMultiplier: 1
+    attackRangeMultiplier: 1
+    attackSpeedMultiplier: 1
+  swordSpecificStatBoosts:
+    spinningBlades: 0
+--- !u!114 &5166256038087680591 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -8871992485847606398, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4851049328949639629}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3835672101227045272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4e48eee064fa504cafa560e2acdf9b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8230893771294328146 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
     type: 3}
   m_PrefabInstance: {fileID: 4851049328949639629}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 3835672101227045272}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}

@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
-public class BaseWeapon : MonoBehaviour
+public abstract class BaseWeapon : MonoBehaviour
 {
 
     // Components
@@ -36,11 +36,16 @@ public class BaseWeapon : MonoBehaviour
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
     }
 
-    public void UpdateWeaponStats(PlayerStatus.WeaponStatMultipliers stats)
+    public void UpdateWeaponUpgrades(PlayerStatus.CombatUpgrades genericStats)
     {
-        UpdateAttackDamage(stats.attackDamageMultiplier);
-        UpdateAttackRange(stats.attackRangeMultiplier);
-        UpdateAttackSpeed(stats.attackSpeedMultiplier);
+        UpdateAttackDamage(genericStats.attackDamageMultiplier);
+        UpdateAttackRange(genericStats.attackRangeMultiplier);
+        UpdateAttackSpeed(genericStats.attackSpeedMultiplier);
+    }
+
+    public virtual void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)
+    {
+        
     }
     
     
@@ -63,14 +68,14 @@ public class BaseWeapon : MonoBehaviour
         
     }
 
-    private void UpdateAttackDamage(float multiplier)
+    protected virtual void UpdateAttackDamage(float multiplier)
     {
         MultipliedDamage = baseDamage * multiplier;
     }
 
     private void UpdateAttackRange(float multiplier)
     {
-        MultipliedDamage = baseAttackRange * multiplier;
+        MultipliedRange = baseAttackRange * multiplier;
     }
 
     private void UpdateAttackSpeed(float multiplier)

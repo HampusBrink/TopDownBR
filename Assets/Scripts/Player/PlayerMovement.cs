@@ -1,5 +1,4 @@
  using System;
- using FishNet.Connection;
  using FishNet.Object;
  using MultiplayerBase.Scripts;
  using Player;
@@ -10,7 +9,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : NetworkBehaviour
 {
     [Header("Movement")]
@@ -50,8 +49,8 @@ public class PlayerMovement : NetworkBehaviour
     // Components
     private Camera _camera;
     private PlayerStatus _playerStatus;
-    private Vector3 _moveVector;
-    private Rigidbody _rb;
+    private Vector2 _moveVector;
+    private Rigidbody2D _rb;
     
     public enum TurnDirection
     {
@@ -69,7 +68,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         base.OnStartClient();
         
-        _rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody2D>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
@@ -85,7 +84,16 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(!IsOffline) return;
         
-        _rb = GetComponent<Rigidbody>();
+        AssignComponents();
+        
+        _stamina = maxStamina;
+        
+        _desiredSpeed = _multipliedSpeed = walkSpeed;
+    }
+
+    private void AssignComponents()
+    {
+        _rb = GetComponent<Rigidbody2D>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         if (_camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
@@ -114,7 +122,7 @@ public class PlayerMovement : NetworkBehaviour
 
         HandleRollMovement();
         
-        if (!GameManager.Instance.powerupPopup.gameObject.activeInHierarchy && !_isRolling)
+        if (!GameManager.Instance.upgradePopup.gameObject.activeInHierarchy && !_isRolling)
         {
             ApplyMovement();
         }
@@ -123,7 +131,7 @@ public class PlayerMovement : NetworkBehaviour
     private void UpdateMovementSpeed()
     {
         _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
-        _multipliedSpeed = _playerStatus.movementStatMultipliers.movementSpeedMultiplier * _desiredSpeed;
+        _multipliedSpeed = _playerStatus.movementUpgrades.movementSpeedMultiplier * _desiredSpeed;
     }
     
     public void OnSprint(InputAction.CallbackContext context)
@@ -162,7 +170,7 @@ public class PlayerMovement : NetworkBehaviour
         staminaBarFill.fillAmount = targetFillAmount;
     }
 
-    private Vector3 _input;
+    private Vector2 _input;
     [HideInInspector] public TurnDirection lastMovedirection;
     [HideInInspector] public bool isMoving = false;
     [HideInInspector] public TurnDirection currentTurnDirection = TurnDirection.Down;
@@ -179,7 +187,7 @@ public class PlayerMovement : NetworkBehaviour
         new(-1f, 0f), // Left
         new(-1f, -1f) // DownLeft
     };
-    public Vector3 TurnDirectionToVector2(TurnDirection turnDirection)
+    public Vector2 TurnDirectionToVector2(TurnDirection turnDirection)
     {
         return _vector2TurnDirections[(int)turnDirection];
     }
@@ -191,9 +199,9 @@ public class PlayerMovement : NetworkBehaviour
         for (int i = 0; i < _vector2TurnDirections.Length; i++)
         {
             // Normalize the stored direction vector to ensure diagonal movement is detected
-            Vector3 direction = _vector2TurnDirections[i].normalized;
+            Vector2 direction = _vector2TurnDirections[i].normalized;
 
-            if (Vector3.Distance(vector, direction) < 0.1f) // Adjust tolerance as needed
+            if (Vector2.Distance(vector, direction) < 0.1f) // Adjust tolerance as needed
             {
                 return (TurnDirection)i;
             }
@@ -215,10 +223,10 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isMoving)
         {
-            if (_input != Vector3.zero)
+            if (_input != Vector2.zero)
             {
                 lastMovedirection = Vector2ToTurnDirection(_input);
-                _input = Vector3.zero;
+                _input = Vector2.zero;
             }
         }
         else
@@ -236,7 +244,8 @@ public class PlayerMovement : NetworkBehaviour
         if (!IsOwner && !IsOffline) return;
         if (!GameManager.Instance.GameStarted) return;
 
-        _moveVector = context.ReadValue<Vector3>();
+        isMoving = true;
+        _moveVector = context.ReadValue<Vector2>();
 
         if (context.canceled)
         {
@@ -263,17 +272,17 @@ public class PlayerMovement : NetworkBehaviour
     private void ApplyMovement()
     {
         UpdateMovementSpeed();
-        print(_moveVector);
-        if (_moveVector != Vector3.zero)
+        //print(_moveVector);
+        if (_moveVector != Vector2.zero)
         {
-            _velocity = Vector3.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
         }
         else
         {
-            _velocity = Vector3.MoveTowards(_velocity, Vector3.zero, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector2.MoveTowards(_velocity, Vector2.zero, acceleration * Time.fixedDeltaTime);
         }
 
-        _rb.linearVelocity = new Vector3(_moveVector.x, 0, _moveVector.z) * _multipliedSpeed;
+        _rb.linearVelocity = _velocity;
     }
 
     #region Dodge Roll
@@ -283,7 +292,7 @@ public class PlayerMovement : NetworkBehaviour
         if (!IsOwner && !IsOffline) return;
         if (!GameManager.Instance.GameStarted) return;
         
-        if (context.performed && _moveVector != Vector3.zero && _canRoll && !_isRolling)
+        if (context.performed && _moveVector != Vector2.zero && _canRoll && !_isRolling)
         {
             StartRoll();
         }
