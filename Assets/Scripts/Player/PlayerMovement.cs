@@ -49,8 +49,9 @@ public class PlayerMovement : NetworkBehaviour
     // Components
     private Camera _camera;
     private PlayerStatus _playerStatus;
-    private Vector2 _moveVector;
+    //private Vector2 _moveVector;
     private Rigidbody2D _rb;
+    private PlayerInputHandler _inputHandler;
     
     public enum TurnDirection
     {
@@ -97,23 +98,32 @@ public class PlayerMovement : NetworkBehaviour
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         if (_camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
+        _inputHandler = PlayerInputHandler.Instance;
     }
 
     private void Update()
     {
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
+        GetInputs();
+        
+        if (_inputHandler.DodgeTriggered && _moveInput != Vector2.zero && _canRoll && !_isRolling)
+        {
+            StartRoll();
+        }
         
         if(!_isRolling)
             UpdateMoveDirection();
         
         HandleRollUpdate();
         
-        UpdateStamina();
         Animate();
-        
     }
-    
+
+    private void GetInputs()
+    {
+        _moveInput = _inputHandler.MoveInput;
+    }
 
     void FixedUpdate()
     {
@@ -121,35 +131,14 @@ public class PlayerMovement : NetworkBehaviour
         if(!_camera) return;
 
         HandleRollMovement();
+        UpdateStamina();
         
         if (!GameManager.Instance.upgradePopup.gameObject.activeInHierarchy && !_isRolling)
         {
             ApplyMovement();
         }
     }
-
-    private void UpdateMovementSpeed()
-    {
-        _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
-        _multipliedSpeed = _playerStatus.movementUpgrades.movementSpeedMultiplier * _desiredSpeed;
-    }
     
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        if(!IsOwner && !IsOffline) return;
-
-        UpdateMovementSpeed();
-        
-        if (context.performed)
-        {
-            _isSprinting = true;
-        }
-        else if (context.canceled)
-        {
-            _isSprinting = false;
-        }
-    }
-
     private void UpdateStamina()
     {
         if(!IsOwner && !IsOffline) return;
@@ -170,7 +159,7 @@ public class PlayerMovement : NetworkBehaviour
         staminaBarFill.fillAmount = targetFillAmount;
     }
 
-    private Vector2 _input;
+    private Vector2 _moveInput;
     [HideInInspector] public TurnDirection lastMovedirection;
     [HideInInspector] public bool isMoving = false;
     [HideInInspector] public TurnDirection currentTurnDirection = TurnDirection.Down;
@@ -221,61 +210,59 @@ public class PlayerMovement : NetworkBehaviour
     
     private void UpdateMoveDirection()
     {
-        if (!isMoving)
+        if (_moveInput != Vector2.zero)
         {
-            if (_input != Vector2.zero)
-            {
-                lastMovedirection = Vector2ToTurnDirection(_input);
-                _input = Vector2.zero;
-            }
+            lastMovedirection = Vector2ToTurnDirection(_moveInput);
+            isMoving = true;
         }
         else
-        {
-            _input = _moveVector;
-            _input.Normalize();
-        }
-
-        currentMoveDirection = Vector2ToTurnDirection(_input);
+            isMoving = false;
+    
+        currentMoveDirection = Vector2ToTurnDirection(_moveInput);
     }
     
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        // moved isMoving = true from here
-        if (!IsOwner && !IsOffline) return;
-        if (!GameManager.Instance.GameStarted) return;
-
-        isMoving = true;
-        _moveVector = context.ReadValue<Vector2>();
-
-        if (context.canceled)
-        {
-            isMoving = false;
-        }
-        
-    }
     void Animate()
     {
-        bodyAnim.SetFloat("MoveX", _input.x);
-        bodyAnim.SetFloat("MoveY", _input.y);
-        bodyAnim.SetFloat("MoveMagnitude", _input.magnitude);
+        bodyAnim.SetFloat("MoveX", _moveInput.x);
+        bodyAnim.SetFloat("MoveY", _moveInput.y);
+        bodyAnim.SetFloat("MoveMagnitude", _moveInput.magnitude);
         bodyAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
         bodyAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
         
         
-        legsAnim.SetFloat("MoveX", _input.x);
-        legsAnim.SetFloat("MoveY", _input.y);
-        legsAnim.SetFloat("MoveMagnitude", _input.magnitude);
+        legsAnim.SetFloat("MoveX", _moveInput.x);
+        legsAnim.SetFloat("MoveY", _moveInput.y);
+        legsAnim.SetFloat("MoveMagnitude", _moveInput.magnitude);
         legsAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
         legsAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
     }
 
+    private void CheckSprint()
+    {
+        if (_inputHandler.SprintValue > 0)
+        {
+            _isSprinting = true;
+        }
+        else
+        {
+            _isSprinting = false;
+        }
+    }
+    
+    private void UpdateMovementSpeed()
+    {
+        _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
+        _multipliedSpeed = _playerStatus.movementUpgrades.movementSpeedMultiplier * _desiredSpeed;
+    }
+    
     private void ApplyMovement()
     {
+        CheckSprint();
         UpdateMovementSpeed();
         //print(_moveVector);
-        if (_moveVector != Vector2.zero)
+        if (_moveInput != Vector2.zero)
         {
-            _velocity = Vector2.MoveTowards(_velocity, _moveVector * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
+            _velocity = Vector2.MoveTowards(_velocity, _moveInput * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
         }
         else
         {
@@ -286,24 +273,13 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     #region Dodge Roll
-
-    public void OnDodgeRoll(InputAction.CallbackContext context)
-    {
-        if (!IsOwner && !IsOffline) return;
-        if (!GameManager.Instance.GameStarted) return;
-        
-        if (context.performed && _moveVector != Vector2.zero && _canRoll && !_isRolling)
-        {
-            StartRoll();
-        }
-    }
     
     private void StartRoll()
     {
         _isRolling = true;
         _canRoll = false;
         _rollTime = 0f;
-        _rollDirection = _moveVector.normalized;
+        _rollDirection = _moveInput.normalized;
         _playerStatus.hitBox.enabled = false;
     
         // Make player invulnerable

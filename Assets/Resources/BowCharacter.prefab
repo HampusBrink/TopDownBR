@@ -214,15 +214,15 @@ MonoBehaviour:
   healthBarFill: {fileID: 9174326820218797204}
   hitBox: {fileID: 5007231051205020433}
   playerCombat: {fileID: 2148610915373317067}
-  vitalStatBoosts:
+  vitalUpgrades:
     maxHealth: 100
-  movementStatBoosts:
+  movementUpgrades:
     movementSpeedMultiplier: 1
-  combatStatBoosts:
+  combatUpgrades:
     attackDamageMultiplier: 1
     attackRangeMultiplier: 1
     attackSpeedMultiplier: 1
-  bowSpecificStatBoosts:
+  bowSpecificUpgrades:
     bonusArrows: 0
 --- !u!114 &9174326820218797204 stripped
 MonoBehaviour:
