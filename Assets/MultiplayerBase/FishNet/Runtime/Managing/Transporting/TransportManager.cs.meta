@@ -9,3 +9,10 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.5.2R
+  assetPath: Assets/MultiplayerBase/FishNet/Runtime/Managing/Transporting/TransportManager.cs
+  uploadId: 702413

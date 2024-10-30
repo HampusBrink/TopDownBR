@@ -58,6 +58,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -299,8 +302,10 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours: []
-  <InitializedParentNetworkBehaviour>k__BackingField: {fileID: 0}
-  <InitializedNestedNetworkObjects>k__BackingField: []
+  InitializedParentNetworkBehaviour: {fileID: 0}
+  InitializedNestedNetworkObjects: []
+  RuntimeParentNetworkBehaviour: {fileID: 0}
+  RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
   _isSpawnable: 1
   _isGlobal: 0
