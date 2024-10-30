@@ -27,6 +27,8 @@ namespace Player
         private Animator _swordAnimator;
         private PlayerMovement _playerMovement;
         
+        private PlayerInputHandler _inputHandler;
+        
         private float _attackDuration;
         private float _attackReturnDuration;
         private float _lastAttackTime;
@@ -50,7 +52,7 @@ namespace Player
                 //Debug.LogError("Sword Animator not found!");
             }
         
-            GetNeededComponents();
+            AssignComponents();
             if (!IsOwner)
                 return;
             UpdateCombatUpgrades();
@@ -63,21 +65,24 @@ namespace Player
                 //Debug.LogError("Sword Animator not found!");
             }
         
-            GetNeededComponents();
+            AssignComponents();
             if (!IsOffline)
                 return;
             UpdateCombatUpgrades();
         }
 
-        private void GetNeededComponents()
+        private void AssignComponents()
         {
             _playerStatus = GetComponent<PlayerStatus>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _inputHandler = PlayerInputHandler.Instance;
         }
     
         private void Update()
         {
             if(!IsOwner && !IsOffline) return;
+            if (_inputHandler.AttackTriggered)
+                HandleAttack();
             UpdateTurnDirection();
             PlayAttackAnimation();
         }
@@ -125,6 +130,19 @@ namespace Player
 
         private TurnDirection _hitDirection;
     
+        private void HandleAttack()
+        {
+            UpdateCombatUpgrades();
+            
+            if (!equippedWeapon.isAttacking)
+            {
+                _hitDirection = GetTurnDirectionFromMouse();
+                SetLastTurnDirectionFromMouse();
+                equippedWeapon.UpdateWeaponTurnDir(_hitDirection);
+                equippedWeapon.WeaponPerformAttack(_playerMovement.currentTurnDirection);
+            }
+        }
+        
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (!IsOwner && !IsOffline)
