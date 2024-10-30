@@ -1,3 +1,4 @@
+using System;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Player
     public class PlayerStatus : NetworkBehaviour, IDamagable
     {
         [SerializeField] private Image healthBarFill;
+        public CapsuleCollider2D hitBox;
         
         [Header("Stats")] 
         public PlayerStatMultipliers playerStatMultipliers;
@@ -43,7 +45,7 @@ namespace Player
             get => _currentHealth > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : _currentHealth;
             set => _currentHealth = value > playerStatMultipliers.maxHealth ? playerStatMultipliers.maxHealth : value;
         }
-
+        
         public override void OnStartClient()
         {
             base.OnStartClient();

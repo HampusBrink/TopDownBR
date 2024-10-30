@@ -1,35 +1,89 @@
-using System.Linq;
+using System;
+using FishNet.Connection;
+using FishNet.Managing;
 using FishNet.Object;
+using FishNet.Transporting;
+using LiteNetLib;
+using NetworkRelated.Steam;
+using Steamworks;
 using UnityEngine;
 
 namespace NetworkRelated
 {
     public class ServerManager : NetworkBehaviour
     {
-        public override void OnStopServer()
+        public static ServerManager Instance;
+
+        public event Action ConnectedToServer;
+
+        private void Awake()
         {
-            base.OnStopServer();
-            print("Client");
-
-            if(!IsServerInitialized) return;
-
-            InitializeHostMigration();
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
 
-        private void InitializeHostMigration()
+        private void Start()
         {
-            ORPC_AssignNewHost();
-            print("Server");
+            NetworkManager.ServerManager.Objects.OnPreDestroyClientObjects += ObjectsOnOnPreDestroyClientObjects;
+            NetworkManager.ClientManager.OnClientTimeOut += ClientManagerOnOnClientTimeOut;
+            NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
+            NetworkManager.ServerManager.OnRemoteConnectionState += OnServerRemoteConnectionState;
+        }
+
+        private void ClientManagerOnOnClientTimeOut()
+        {
+            print(NetworkManager.ClientManager.Connection.Objects.Count + "daddyadaddy");
+        }
+
+        private void ObjectsOnOnPreDestroyClientObjects(NetworkConnection obj)
+        {
+            print("Pre Destroy Objects");
+        }
+
+        private void OnServerRemoteConnectionState(NetworkConnection arg1, RemoteConnectionStateArgs arg2)
+        {
+            print("Client Left!!!");
+        }
+
+        private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
+        {
+            if (obj.ConnectionState == LocalConnectionState.Started)
+            {
+                ConnectedToServer?.Invoke();
+            }
+            //if(obj.ConnectionState != LocalConnectionState.Stopped) return;
+            print("Client Left");
+            print(NetworkManager.ClientManager.Connection.Objects.Count);
+            foreach (NetworkObject networkObject in NetworkManager.ClientManager.Connection.Objects)
+            {
+                print(networkObject.gameObject.name + "Got Destroyed");
+                networkObject.RemoveOwnership();
+            }
             
-            throw new System.NotImplementedException();
+            SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
+        }
+        
+        public override void OnStartServer()
+        {
+            ServerManager.Objects.OnPreDestroyClientObjects += Objects_OnPreDestroyClientObjects;
         }
 
-        [ObserversRpc]
-        void ORPC_AssignNewHost()
+        private void Objects_OnPreDestroyClientObjects(NetworkConnection conn)
         {
-            print("RPC");
-            NetworkManager.ServerManager.StartConnection();
-            NetworkManager.ClientManager.StartConnection();
+            print("YEEPERS");
+            foreach (NetworkObject networkObject in conn.Objects)
+                networkObject.RemoveOwnership();
+        }
+
+        public void LeaveGame()
+        {
+            ServerManager.StopConnection(true);
         }
     }
 }

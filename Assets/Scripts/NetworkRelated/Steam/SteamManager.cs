@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using FishNet.Managing;
 using HeathenEngineering.SteamworksIntegration;
 using MultiplayerBase.Scripts;
@@ -18,6 +20,7 @@ namespace NetworkRelated.Steam
         protected Callback<GameLobbyJoinRequested_t> JoinRequested;
         protected Callback<LobbyEnter_t> LobbyEnter;
         protected Callback<LobbyMatchList_t> Lobbies;
+        protected Callback<LobbyDataUpdate_t> LobbyDataUpdate;
         
         public ulong CurrentLobbyID { get; private set; }
 
@@ -41,6 +44,34 @@ namespace NetworkRelated.Steam
             JoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequested);
             LobbyEnter = Callback<LobbyEnter_t>.Create(OnLobbyEnter);
             Lobbies = Callback<LobbyMatchList_t>.Create(OnLobbyMatchList);
+            LobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdate);
+        }
+
+        private void Update()
+        {
+            //SteamMatchmaking.RequestLobbyData(new CSteamID(CurrentLobbyID));
+        }
+
+        private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
+        {
+            var lobbyOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID));
+            if(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress") != lobbyOwner.ToString())
+            {
+                if (SteamUser.GetSteamID() == lobbyOwner)
+                {
+                    SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
+                    _fishySteamworks.StartConnection(true);
+                    MainMenuManagerScript.LoadScene("GameScene");
+                }
+                else
+                {
+                    _fishySteamworks.StartConnection(false);
+                }
+                print("Host Migration!");
+            }
+            
+            var playerID = SpawnPointHandler.FetchClientID();
+            var host = _networkManager.ClientManager.Clients.FirstOrDefault(c => c.Value.IsHost);
         }
 
         private void OnLobbyCreated(LobbyCreated_t callback)
@@ -68,7 +99,7 @@ namespace NetworkRelated.Steam
             
             _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
             _fishySteamworks.StartConnection(false);
-            MainMenuManagerScript.LoadScene("GameScene");
+            //MainMenuManagerScript.LoadScene("GameScene");
         }
         
         private void OnLobbyMatchList(LobbyMatchList_t callback)
