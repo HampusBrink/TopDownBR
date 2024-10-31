@@ -1,4 +1,5 @@
 using System;
+using FishNet.Managing;
 using FishNet.Object;
 
 namespace NetworkRelated
@@ -12,24 +13,37 @@ namespace NetworkRelated
         /// True for client that initialized this object.
         /// </summary>
         protected bool ClientInitialized;
+
+        protected NetworkManager NetworkManagerRef;
         public override void OnStartClient()
         {
             base.OnStartClient();
-            
+
+            NetworkManagerRef = NetworkManager;
             NetworkManager.ClientManager.OnAuthenticated += OnClientAuth;
             if (IsOwner) ClientInitialized = true;
         }
         
         private void OnClientAuth()
         {
-            print("Client Auth" + ClientInitialized);
+            RespawnObject();
+        }
+
+        /// <summary>
+        /// Respawns this object when a new connection has been established.
+        /// </summary>
+        private void RespawnObject()
+        {
             if(!ClientInitialized) return;
             
-            
-            print(ServerManager + "Server manager");
-            
-            HostMigration.instance.InitializeOnServer(NetworkObject);
+            SRPC_SpawnObject();
             gameObject.SetActive(true);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void SRPC_SpawnObject()
+        {
+            NetworkManagerRef.ServerManager.Spawn(NetworkObject,LocalConnection);
         }
     }
 }

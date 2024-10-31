@@ -1115,8 +1115,8 @@ namespace FishNet.Object
                 NetworkObserver.Deinitialize(false);
 
             //QOL references.
-            //NetworkManager = null;
-            //ServerManager = null;
+            NetworkManager = null;
+            ServerManager = null;
             ClientManager = null;
             ObserverManager = null;
             TransportManager = null;
