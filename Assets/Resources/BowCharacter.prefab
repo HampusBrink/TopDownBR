@@ -17,7 +17,7 @@ PrefabInstance:
         type: 3}
       propertyPath: hitBox
       value: 
-      objectReference: {fileID: 5007231051205020433}
+      objectReference: {fileID: 0}
     - target: {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: playerCombat
@@ -41,13 +41,18 @@ PrefabInstance:
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: <PrefabId>k__BackingField
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 3644468925288299515
       objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: 'NetworkBehaviours.Array.data[2]'
+      value: 
+      objectReference: {fileID: 480388597484941022}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: 'NetworkBehaviours.Array.data[5]'
@@ -177,12 +182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!70 &5007231051205020433 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 6650829245086280536, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1815302396449136713}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7286489483471542867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8948635404500007450, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
@@ -207,12 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9550fcb3bddcf64468740b60b75c56a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 2907458415889341654}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 2907458415889341654}
   baseExpCap: 1000
   healthBarFill: {fileID: 9174326820218797204}
-  hitBox: {fileID: 5007231051205020433}
+  hitBox: {fileID: 0}
   playerCombat: {fileID: 2148610915373317067}
   vitalUpgrades:
     maxHealth: 100

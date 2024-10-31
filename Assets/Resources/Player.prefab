@@ -475,7 +475,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7220834413782198776}
-  - component: {fileID: 6722764997790319995}
+  - component: {fileID: 7661300475667089449}
   m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
@@ -498,16 +498,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5619369209906095554}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!70 &6722764997790319995
-CapsuleCollider2D:
+--- !u!136 &7661300475667089449
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4471656840657093082}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -516,25 +513,14 @@ CapsuleCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.01, y: 0.52}
-  m_Direction: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.22
+  m_Height: 0.99
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5090793441019631827
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,13 +776,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5619369209906095554}
-  - component: {fileID: 1282701248269279347}
+  - component: {fileID: 9022078279249969238}
   - component: {fileID: 4192950349405535469}
   - component: {fileID: -8871992485847606398}
   - component: {fileID: 2312113109336434810}
   - component: {fileID: 3560203185535188127}
   - component: {fileID: 1503768175238242283}
-  - component: {fileID: 6650829245086280536}
+  - component: {fileID: 7448919542875706237}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -813,8 +799,8 @@ Transform:
   m_GameObject: {fileID: 8532466269766752341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.498517, y: 2.2327805, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
+  m_LocalPosition: {x: 9.005, y: 2.2327805, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7220834413782198776}
@@ -823,33 +809,31 @@ Transform:
   - {fileID: 8206848253169567289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &1282701248269279347
-Rigidbody2D:
-  serializedVersion: 5
+--- !u!143 &9022078279249969238
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8532466269766752341}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 100
-  m_AngularDamping: 0.05
-  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 1
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1.27
+  m_Radius: 0.24
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: -0.09, z: 0}
 --- !u!114 &4192950349405535469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +852,10 @@ MonoBehaviour:
   walkSpeed: 10
   sprintSpeed: 15
   acceleration: 100
+  gravityMultiplier: 0.4
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   maxStamina: 100
   staminaDrain: 20
   rollSpeed: 25
@@ -914,7 +902,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 3560203185535188127}
   baseExpCap: 1000
   healthBarFill: {fileID: 7377175790934219997}
-  hitBox: {fileID: 6650829245086280536}
+  hitBox: {fileID: 0}
   playerCombat: {fileID: 0}
   vitalUpgrades:
     maxHealth: 100
@@ -1019,16 +1007,13 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
---- !u!70 &6650829245086280536
-CapsuleCollider2D:
+--- !u!136 &7448919542875706237
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8532466269766752341}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1037,25 +1022,14 @@ CapsuleCollider2D:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0.026918054, y: -0.09299114}
-  m_Size: {x: 0.7104552, y: 1.4013314}
-  m_Direction: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.24
+  m_Height: 1.27
+  m_Direction: 1
+  m_Center: {x: 0, y: -0.09, z: 0}
 --- !u!1 &9029678495629030138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1212,36 +1186,6 @@ PrefabInstance:
       propertyPath: _addedNetworkObject
       value: 
       objectReference: {fileID: 3560203185535188127}
-    - target: {fileID: 888806544179433192, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: _networkObjectCache
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4497346365940324632, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: <IsNested>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4497346365940324632, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: <PrefabId>k__BackingField
-      value: 65535
-      objectReference: {fileID: 0}
-    - target: {fileID: 4497346365940324632, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: <AssetPathHash>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4497346365940324632, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: <ComponentIndex>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4497346365940324632, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: <InitializedParentNetworkBehaviour>k__BackingField
-      value: 
-      objectReference: {fileID: 6828795145749420725}
     - target: {fileID: 4858955795063051469, guid: dc629888421f5a340a9cb24765a662eb,
         type: 3}
       propertyPath: m_Name
@@ -1302,51 +1246,6 @@ PrefabInstance:
       propertyPath: _addedNetworkObject
       value: 
       objectReference: {fileID: 3560203185535188127}
-    - target: {fileID: 5735867115224332109, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: _networkObjectCache
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: <PrefabId>k__BackingField
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: NetworkBehaviours.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: 'NetworkBehaviours.Array.data[0]'
-      value: 
-      objectReference: {fileID: 7458282850911692414}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: 'NetworkBehaviours.Array.data[1]'
-      value: 
-      objectReference: {fileID: 2615866440819630043}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: SerializedTransformProperties.Rotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: SerializedTransformProperties.LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: SerializedTransformProperties.LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
-        type: 3}
-      propertyPath: SerializedTransformProperties.LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1364,33 +1263,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1574ad62dd52c6047ad98730ac11aea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2615866440819630043 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 888806544179433192, guid: dc629888421f5a340a9cb24765a662eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 2889270803578278195}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7007433085832339411 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5271365779486133984, guid: dc629888421f5a340a9cb24765a662eb,
     type: 3}
   m_PrefabInstance: {fileID: 2889270803578278195}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7458282850911692414 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5735867115224332109, guid: dc629888421f5a340a9cb24765a662eb,
-    type: 3}
-  m_PrefabInstance: {fileID: 2889270803578278195}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
