@@ -9,13 +9,14 @@ using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : NetworkBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 22f;
     [SerializeField] private float acceleration = 5f;
+    [SerializeField] private float gravityMultiplier = 0.4f;
+    [SerializeField] private LayerMask groundLayer;
     
     [Header("Stamina")]
     [SerializeField] public float maxStamina = 100f;
@@ -31,7 +32,8 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] private Image staminaBarFill;
 
     // Movement private fields
-    private Vector2 _velocity = Vector2.zero;
+    private bool _grounded = true;
+    private Vector3 _velocity = Vector3.zero;
     private float _desiredSpeed;
     private float _multipliedSpeed;
     private bool _isSprinting = false;
@@ -50,7 +52,7 @@ public class PlayerMovement : NetworkBehaviour
     private Camera _camera;
     private PlayerStatus _playerStatus;
     //private Vector2 _moveVector;
-    private Rigidbody2D _rb;
+    private CharacterController _characterController;
     private PlayerInputHandler _inputHandler;
     
     public enum TurnDirection
@@ -69,7 +71,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         base.OnStartClient();
         
-        _rb = GetComponent<Rigidbody2D>();
+        _characterController = GetComponent<CharacterController>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
@@ -94,7 +96,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void AssignComponents()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _characterController = GetComponent<CharacterController>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         if (_camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
@@ -254,22 +256,70 @@ public class PlayerMovement : NetworkBehaviour
         _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
         _multipliedSpeed = _playerStatus.movementUpgrades.movementSpeedMultiplier * _desiredSpeed;
     }
-    
-    private void ApplyMovement()
+
+    private Vector3 Gravity()
     {
-        CheckSprint();
-        UpdateMovementSpeed();
-        //print(_moveVector);
-        if (_moveInput != Vector2.zero)
+        return Physics.gravity * gravityMultiplier;
+    }
+    
+    Vector3 GetMoveOnNormal(Vector3 move, Vector3 worldNormal)
+    {
+        Vector3 cross = Vector3.Cross(move, Vector3.up); // Cross product magic to get the vector we want to move on the normal.
+        return Vector3.Cross(worldNormal, cross); // The move-input vector we'll use for moving on surfaces.
+    }
+
+    private void AdjustToGround()
+    {
+        Vector3 origin = transform.position - Vector3.up  * (_characterController.height / 2f) + _rayPadding * Vector3.up;
+        if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, _rayPadding * 2f, groundLayer))
         {
-            _velocity = Vector2.MoveTowards(_velocity, _moveInput * _multipliedSpeed, acceleration * Time.fixedDeltaTime);
+            float angle = Vector3.Angle(Vector3.up, hit.normal);
+
+            float groundDistance = (hit.distance - _rayPadding) * Mathf.Cos(angle);
+            transform.position -= Vector3.up * groundDistance;
+        }
+    }
+
+    private Vector3 _groundNormal = Vector3.up;
+
+    private readonly float _rayPadding = 0.1f;
+    private void RayCastGroundCheck()
+    {
+        Vector3 origin = transform.position - Vector3.up  * (_characterController.height / 2f) + _rayPadding * Vector3.up;
+        if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, _rayPadding * 2f, groundLayer))
+        {
+            _grounded = true;
+            _groundNormal = hit.normal;
         }
         else
         {
-            _velocity = Vector2.MoveTowards(_velocity, Vector2.zero, acceleration * Time.fixedDeltaTime);
+            _grounded = false;
+            _groundNormal = Vector3.up;
+        }
+        //Debug.DrawRay(origin, Vector3.down * (_rayPadding * 2), Color.magenta);
+        //Debug.DrawRay(origin, _groundNormal, Color.green);
+    }
+
+    
+    private void ApplyMovement()
+    {
+        RayCastGroundCheck();
+        AdjustToGround();
+        CheckSprint();
+        UpdateMovementSpeed();
+        
+        Vector3 input = new Vector3(_moveInput.x, 0, _moveInput.y);
+        Vector3 planeMove = GetMoveOnNormal(input, _groundNormal);
+        _velocity = Vector3.MoveTowards(_velocity, planeMove * (_multipliedSpeed), acceleration);
+        
+        //Debug.DrawRay(transform.position, _velocity, Color.cyan);
+
+        if (!_grounded)
+        {
+            _velocity += Gravity() + _characterController.velocity.y * Vector3.up;
         }
 
-        _rb.linearVelocity = _velocity;
+        _characterController.Move(_velocity * Time.fixedDeltaTime);
     }
 
     #region Dodge Roll
@@ -319,7 +369,8 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (_isRolling)
         {
-            _rb.linearVelocity = _rollDirection * rollSpeed;
+            Vector3 rollMovement = new Vector3(_rollDirection.x, 0, _rollDirection.y) * (rollSpeed * Time.fixedDeltaTime);
+            _characterController.Move(rollMovement);
         }
     }
 

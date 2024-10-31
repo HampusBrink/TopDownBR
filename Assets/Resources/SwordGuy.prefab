@@ -142,12 +142,6 @@ PrefabInstance:
       insertIndex: 4
       addedObject: {fileID: 3964754778297041999}
   m_SourcePrefab: {fileID: 100100000, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
---- !u!70 &2242263046319051413 stripped
-CapsuleCollider2D:
-  m_CorrespondingSourceObject: {fileID: 6650829245086280536, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-    type: 3}
-  m_PrefabInstance: {fileID: 4851049328949639629}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2680378323968615696 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7377175790934219997, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
@@ -183,7 +177,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 0}
   baseExpCap: 1000
   healthBarFill: {fileID: 2680378323968615696}
-  hitBox: {fileID: 2242263046319051413}
+  hitBox: {fileID: 0}
   playerCombat: {fileID: 5166256038087680591}
   vitalUpgrades:
     maxHealth: 100
