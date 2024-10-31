@@ -41,13 +41,18 @@ PrefabInstance:
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: <PrefabId>k__BackingField
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: <AssetPathHash>k__BackingField
       value: 3336145762032320229
       objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: 'NetworkBehaviours.Array.data[2]'
+      value: 
+      objectReference: {fileID: 3964754778297041999}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: SerializedTransformProperties.Position.x
@@ -172,9 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ae0a2d734ab104d93c93a4642138a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 8230893771294328146}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 8230893771294328146}
   baseExpCap: 1000
   healthBarFill: {fileID: 2680378323968615696}
   hitBox: {fileID: 0}
