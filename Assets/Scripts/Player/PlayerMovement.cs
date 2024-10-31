@@ -93,8 +93,6 @@ public class PlayerMovement : NetworkBehaviour
         _stamina = maxStamina;
         
         _desiredSpeed = _multipliedSpeed = walkSpeed;
-        
-        NetworkRelated.ServerManager.Instance.ConnectedToServer += InstanceOnConnectedToServer;
     }
 
     private void InstanceOnConnectedToServer()

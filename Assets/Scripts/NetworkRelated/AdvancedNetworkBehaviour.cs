@@ -22,12 +22,9 @@ namespace NetworkRelated
         
         private void OnClientAuth()
         {
-            print("Client Auth" + ClientInitialized);
             if(!ClientInitialized) return;
             
-            print(ServerManager + "Server manager");
-            
-            HostMigration.instance.InitializeOnServer(NetworkObject);
+            ServerManager.Spawn(NetworkObject,LocalConnection);
             gameObject.SetActive(true);
         }
     }
