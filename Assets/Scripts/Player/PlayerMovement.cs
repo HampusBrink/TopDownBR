@@ -326,14 +326,13 @@ public class PlayerMovement : NetworkBehaviour
     
     private void StartRoll()
     {
+        Debug.Log("StartRoll");
         _isRolling = true;
         _canRoll = false;
         _rollTime = 0f;
         _rollDirection = _moveInput.normalized;
         _playerStatus.hitBox.enabled = false;
     
-        // Make player invulnerable
-        //_playerStatus.isInvulnerable = true;
     
         // Optionally play roll animation
         // bodyAnim.SetTrigger("Roll");
@@ -345,7 +344,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         _isRolling = false;
         _playerStatus.hitBox.enabled = true;
-        //_playerStatus.isInvulnerable = false;
     }
     
     private void ResetRollCooldown()

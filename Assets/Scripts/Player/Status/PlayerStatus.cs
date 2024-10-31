@@ -18,7 +18,7 @@ namespace Player
         
         
         [SerializeField] private Image healthBarFill;
-        public CapsuleCollider2D hitBox;
+        public CapsuleCollider hitBox;
         [SerializeField] private PlayerCombat playerCombat;
         
         [Header("Generic Upgrades")] 

@@ -12,33 +12,30 @@ using UnityEngine.Serialization;
 public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private float mouseFollowStrength = 3f;          // How strongly the camera should adjust after the mouse
-    
-    [SerializeField] private float cameraMaxOffsetDistance = 3f;      // How far away the camera can possibly go from the FollowTarget
-    [SerializeField] private float cameraFocusMaxOffsetDistance = 6f; // How far away the camera can possibly go from the FollowTarget while focusing
-    
     [SerializeField] private float targetFollowStrength = 9f;         // How strongly the camera should follow the FollowTarget
-    [SerializeField] private float maxMouseOffsetDistance = 5f;       // How far away the mouse can be from the target until the target to camera distance stops
+    public bool shouldFocus;
+    public float focusMouseOffsetMultiplier = 2f;
     [SerializeField] private Vector3 offset;
     [SerializeField] private AnimationCurve mouseOffsetCurve;
     
     public Transform FollowTarget;
-
-    private float _desiredMaxCameraOffsetDistance;
     
     private Camera _mainCamera;
-    private Vector3 _desiredCamPos = Vector2.zero;
+    private PlayerInputHandler _inputHandler;
     private bool _isZooming = false;
     private GameObject spectatedPlayer;
     private int spectatePlayerIndex;
+    private float mouseOffsetMultiplier = 1.0f;
 
     private List<PlayerStatus> _alivePlayers;
 
     void Start()
     {
         _mainCamera = Camera.main;
+        _inputHandler = PlayerInputHandler.Instance;
+        _currentPos = transform.position;
         
         GameManager.Instance.OnAlivePlayersChanged += UpdateAlivePlayerList;
-        _desiredMaxCameraOffsetDistance = _isZooming ? cameraFocusMaxOffsetDistance : cameraMaxOffsetDistance;
 
     }
 
@@ -52,6 +49,16 @@ public class CameraMovement : MonoBehaviour
         _alivePlayers = alivePlayers;
     }
 
+    private void Update()
+    {
+        if (_inputHandler.AltSkillValue > 0)
+            shouldFocus = true;
+        else
+            shouldFocus = false;
+        CheckFocus();
+        MoveCamera4();
+    }
+
     void LateUpdate()
     {
         if(GameManager.Instance is not null && GameManager.Instance.isDead)
@@ -62,79 +69,53 @@ public class CameraMovement : MonoBehaviour
         if(!FollowTarget) return;
 
         //transform.position = new Vector3(FollowTarget.position.x,FollowTarget.position.y,transform.position.z);
-        MoveCamera4();
+        
+        
     }
 
-    public void OnZoomIn(InputAction.CallbackContext context)
+    private void CheckFocus()
     {
-        if (context.performed)
+        if (shouldFocus)
         {
             _isZooming = true;
+            mouseOffsetMultiplier = focusMouseOffsetMultiplier;
         }
-        else if (context.canceled)
+        else
         {
             _isZooming = false;
+            mouseOffsetMultiplier = 1.0f;
         }
-        
-        _desiredMaxCameraOffsetDistance = _isZooming ? cameraFocusMaxOffsetDistance : cameraMaxOffsetDistance;
     }
 
     public Vector3 forwardOffsetVector = Vector3.down;
     public Vector3 upOffsetVector = Vector3.forward;
     
     private Vector3 _currentMouseOffset = Vector3.zero;
+    private Vector3 _currentPos = Vector3.zero;
     private void MoveCamera4()
     {
         Vector2 mousePos = ((Vector2)_mainCamera.ScreenToViewportPoint(Input.mousePosition) - 0.5f * Vector2.one) * 2; // origin is bottom left
     
         //Vector3 mouseOffset = mousePos - FollowTarget.position;
         //mouseOffset.z = 0; // Lock the Z-axis movement
+        //mouseOffset.z = 0; // Lock the Z-axis movement
         
         Vector3 targetPos = FollowTarget.position + offset;
-        Vector3 mouseVector = mousePos.normalized * mouseOffsetCurve.Evaluate(mousePos.magnitude);
+        Vector3 mouseVector = mousePos.normalized * (mouseOffsetCurve.Evaluate(mousePos.magnitude) * mouseOffsetMultiplier);
         _currentMouseOffset = Vector3.Lerp(_currentMouseOffset, Quaternion.LookRotation(forwardOffsetVector, upOffsetVector) * mouseVector, Time.deltaTime * mouseFollowStrength);
             
-        Vector3 camPos = _mainCamera.transform.position;
         
         
-        camPos = _currentMouseOffset + Vector3.Lerp(camPos, targetPos, Time.deltaTime * targetFollowStrength);
+        _currentPos = Vector3.Lerp(_currentPos, targetPos, Time.deltaTime * targetFollowStrength);
 
-        _mainCamera.transform.position = camPos;
+        _mainCamera.transform.position = _currentPos + _currentMouseOffset;
         
-        Debug.Log(mousePos);
+        //Debug.Log(mousePos);
         
         
     }
     
-    private void MoveCamera3()
-    {
-        Vector3 mousePos = ((Vector2)_mainCamera.ScreenToViewportPoint(Input.mousePosition) - 0.5f * Vector2.one) * 2; // origin is bottom left
     
-        Vector3 mouseOffset = mousePos - FollowTarget.position;
-        mouseOffset.z = 0; // Lock the Z-axis movement
-
-        float mouseOffsetMagnitude = mouseOffset.magnitude;
-
-        if (mouseOffsetMagnitude <= maxMouseOffsetDistance)
-        {
-            float t = mouseOffsetMagnitude / maxMouseOffsetDistance;
-
-            Vector3 desiredOffset = mouseOffset.normalized * Mathf.Min(mouseOffsetMagnitude, _desiredMaxCameraOffsetDistance);
-            _desiredCamPos = Vector3.Lerp(FollowTarget.position, FollowTarget.position + desiredOffset, t);
-        }
-        else
-        {
-            Vector3 clampedOffset = mouseOffset.normalized * _desiredMaxCameraOffsetDistance;
-            _desiredCamPos = FollowTarget.position + clampedOffset;
-        }
-
-        Vector3 targetFollowPos = Vector3.Lerp(_mainCamera.transform.position, FollowTarget.position + offset, targetFollowStrength * Time.deltaTime);
-    
-        Vector3 cameraLerp = Vector3.Lerp(targetFollowPos, _desiredCamPos, mouseFollowStrength * Time.deltaTime);
-
-
-        _mainCamera.transform.position = cameraLerp;
-    }
 
     private void SpectateCamera()
     {
