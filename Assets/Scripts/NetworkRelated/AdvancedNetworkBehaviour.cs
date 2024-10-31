@@ -1,4 +1,3 @@
-using System;
 using FishNet.Managing;
 using FishNet.Object;
 
@@ -23,7 +22,14 @@ namespace NetworkRelated
             NetworkManager.ClientManager.OnAuthenticated += OnClientAuth;
             if (IsOwner) ClientInitialized = true;
         }
-        
+
+        public override void OnStopClient()
+        {
+            base.OnStopClient();
+            
+            NetworkManager.ClientManager.OnAuthenticated -= OnClientAuth;
+        }
+
         private void OnClientAuth()
         {
             RespawnObject();
