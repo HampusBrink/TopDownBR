@@ -1007,6 +1007,7 @@ GameObject:
   - component: {fileID: 3560203185535188127}
   - component: {fileID: 1503768175238242283}
   - component: {fileID: 6650829245086280536}
+  - component: {fileID: 786605344946365951}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1157,7 +1158,8 @@ MonoBehaviour:
   - {fileID: 1503768175238242283}
   - {fileID: 6828795145749420725}
   InitializedParentNetworkBehaviour: {fileID: 0}
-  InitializedNestedNetworkObjects: []
+  InitializedNestedNetworkObjects:
+  - {fileID: 5580956202373544779}
   RuntimeParentNetworkBehaviour: {fileID: 0}
   RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
@@ -1267,6 +1269,21 @@ CapsuleCollider2D:
   m_Offset: {x: 0.026918054, y: -0.09299114}
   m_Size: {x: 0.7104552, y: 1.4013314}
   m_Direction: 0
+--- !u!114 &786605344946365951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8532466269766752341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452b2714e6346f8409c5d1885397b85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 3560203185535188127}
+  _networkObjectCache: {fileID: 0}
 --- !u!1 &9029678495629030138
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1565,11 @@ PrefabInstance:
       propertyPath: 'NetworkBehaviours.Array.data[1]'
       value: 
       objectReference: {fileID: 2615866440819630043}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: InitializedParentNetworkBehaviour
+      value: 
+      objectReference: {fileID: 6828795145749420725}
     - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
         type: 3}
       propertyPath: SerializedTransformProperties.Rotation.w

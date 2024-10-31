@@ -12,16 +12,9 @@ namespace NetworkRelated
         /// True for client that initialized this object.
         /// </summary>
         protected bool ClientInitialized;
-        private void OnEnable()
-        {
-            NetworkRelated.ServerManager.Instance.ConnectedToServer += OnClientAuth;
-        }
-        
         public override void OnStartClient()
         {
             base.OnStartClient();
-            
-            NetworkRelated.ServerManager.Instance.ConnectedToServer += OnClientAuth;
             
             NetworkManager.ClientManager.OnAuthenticated += OnClientAuth;
             if (IsOwner) ClientInitialized = true;
@@ -29,7 +22,7 @@ namespace NetworkRelated
         
         private void OnClientAuth()
         {
-            print("Client Auth");
+            print("Client Auth" + ClientInitialized);
             if(!ClientInitialized) return;
             
             print(ServerManager + "Server manager");
