@@ -1156,9 +1156,10 @@ MonoBehaviour:
   - {fileID: 2312113109336434810}
   - {fileID: 1503768175238242283}
   - {fileID: 6828795145749420725}
-  <InitializedParentNetworkBehaviour>k__BackingField: {fileID: 0}
-  <InitializedNestedNetworkObjects>k__BackingField:
-  - {fileID: 5580956202373544779}
+  InitializedParentNetworkBehaviour: {fileID: 0}
+  InitializedNestedNetworkObjects: []
+  RuntimeParentNetworkBehaviour: {fileID: 0}
+  RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
   _isSpawnable: 1
   _isGlobal: 0

@@ -61,12 +61,14 @@ namespace NetworkRelated.Steam
                 {
                     SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
                     _fishySteamworks.StartConnection(true);
+                    _fishySteamworks.StartConnection(false);
                     MainMenuManagerScript.LoadScene("GameScene");
                 }
                 else
                 {
                     _fishySteamworks.StartConnection(false);
                 }
+                
                 print("Host Migration!");
             }
             
@@ -80,7 +82,7 @@ namespace NetworkRelated.Steam
             {
                 Debug.LogError("Could not create lobby!");
             }
-
+            
             CurrentLobbyID = callback.m_ulSteamIDLobby;
             SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
             _fishySteamworks.SetClientAddress(SteamUser.GetSteamID().ToString());

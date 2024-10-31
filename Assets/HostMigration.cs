@@ -14,19 +14,14 @@ public class HostMigration : MonoBehaviour
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(this);
         }
         else
         {
             Destroy(gameObject);
         }
     }
-
-    private void Update()
-    {
-        print(GetComponent<NetworkManager>());
-        print(GetComponent<ServerManager>());
-    }
-
+    
     public void InitializeOnServer(NetworkObject obj)
     {
         GetComponent<ServerManager>().Spawn(obj, obj.LocalConnection);

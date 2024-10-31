@@ -33,6 +33,12 @@ namespace NetworkRelated
 
             NetworkManager.ClientManager.OnClientConnectionState += OnClientConnectionState;
             NetworkManager.ServerManager.OnServerConnectionState += OnServerConnectionState;
+            NetworkManager.ClientManager.OnAuthenticated += ClientManagerOnOnAuthenticated;
+        }
+
+        private void ClientManagerOnOnAuthenticated()
+        {
+            ConnectedToServer?.Invoke();
         }
 
         private void OnServerConnectionState(ServerConnectionStateArgs obj)
@@ -46,7 +52,7 @@ namespace NetworkRelated
 
         private void OnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            if (obj.ConnectionState == LocalConnectionState.Starting)
+            if (obj.ConnectionState == LocalConnectionState.Started)
             {
                 ConnectedToServer?.Invoke();
                 print("Connected To Master");
@@ -65,7 +71,11 @@ namespace NetworkRelated
 
         private void OnServerRemoteConnectionState(NetworkConnection arg1, RemoteConnectionStateArgs arg2)
         {
-            print("Client Left!!!");
+            if (arg2.ConnectionState == RemoteConnectionState.Started)
+            {
+                ConnectedToServer?.Invoke();
+                print("Connected To Master");
+            }
         }
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)

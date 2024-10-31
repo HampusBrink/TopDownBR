@@ -101,6 +101,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (_ownerInitialized && !IsOwner)
         {
+            print("bomba");
             HostMigration.instance.InitializeOnServer(NetworkObject);
             NetworkObject.GiveOwnership(LocalConnection);
             gameObject.SetActive(true);
