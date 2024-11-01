@@ -4,7 +4,6 @@
  using Player;
  using UnityEngine;
 using Unity.Mathematics;
-using UnityEditor.Timeline;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
