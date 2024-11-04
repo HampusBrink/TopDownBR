@@ -35,13 +35,15 @@ public class CameraMovement : MonoBehaviour
         _inputHandler = PlayerInputHandler.Instance;
         _currentPos = transform.position;
         
-        GameManager.Instance.OnAlivePlayersChanged += UpdateAlivePlayerList;
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnAlivePlayersChanged += UpdateAlivePlayerList;
 
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.OnAlivePlayersChanged -= UpdateAlivePlayerList;
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnAlivePlayersChanged -= UpdateAlivePlayerList;
     }
     
     private void UpdateAlivePlayerList(List<PlayerStatus> alivePlayers)
@@ -91,7 +93,7 @@ public class CameraMovement : MonoBehaviour
     private Vector3 _currentPos = Vector3.zero;
     private void MoveCamera4()
     {
-        Vector2 mousePos = ((Vector2)_mainCamera.ScreenToViewportPoint(Input.mousePosition) - 0.5f * Vector2.one) * 2; // origin is bottom left
+        Vector2 mousePos = ((Vector2)_mainCamera.ScreenToViewportPoint(_inputHandler.MousePos) - 0.5f * Vector2.one) * 2; // origin is bottom left
     
         //Vector3 mouseOffset = mousePos - FollowTarget.position;
         //mouseOffset.z = 0; // Lock the Z-axis movement
