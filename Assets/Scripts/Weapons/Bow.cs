@@ -123,7 +123,7 @@ public class Bow : BaseWeapon
     private void PivotBowRotation()
     {
         // Convert screen mouse position to world position
-        Vector3 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouseWorldPosition = _camera.ScreenToWorldPoint(InputHandler.MousePos);
         mouseWorldPosition.z = 0f; // Make sure the z-axis is 0 for 2D
 
         // Calculate direction from character to the mouse
