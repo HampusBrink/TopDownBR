@@ -76,7 +76,7 @@ namespace NetworkRelated.Steam
                 }
                 else
                 {
-                    print(_fishySteamworks.StopConnection(false));
+                    _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
                     var result = _fishySteamworks.StartConnection(false);
                     print("Start Connection Success: " + result);
                     startingConnection = true;
