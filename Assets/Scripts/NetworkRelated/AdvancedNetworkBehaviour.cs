@@ -21,17 +21,20 @@ namespace NetworkRelated
             NetworkManagerRef = NetworkManager;
             NetworkManager.ClientManager.OnAuthenticated += OnClientAuth;
             if (IsOwner) ClientInitialized = true;
+            print("Start Client");
         }
 
-        public override void OnStopClient()
-        {
-            base.OnStopClient();
-            
-            NetworkManager.ClientManager.OnAuthenticated -= OnClientAuth;
-        }
+        // public override void OnStopClient()
+        // {
+        //     base.OnStopClient();
+        //     
+        //     print("Stop Client");
+        //     NetworkManager.ClientManager.OnAuthenticated -= OnClientAuth;
+        // }
 
         private void OnClientAuth()
         {
+            print("Client Auth");
             RespawnObject();
         }
 
@@ -42,6 +45,7 @@ namespace NetworkRelated
         {
             if(!ClientInitialized) return;
             
+            print("Respawn Object");
             SRPC_SpawnObject();
             gameObject.SetActive(true);
         }
@@ -49,6 +53,7 @@ namespace NetworkRelated
         [ServerRpc(RequireOwnership = false)]
         private void SRPC_SpawnObject()
         {
+            print("Spawn Object");
             NetworkManagerRef.ServerManager.Spawn(NetworkObject,LocalConnection);
         }
     }

@@ -80,16 +80,7 @@ namespace NetworkRelated
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            
-            //if(obj.ConnectionState != LocalConnectionState.Stopped) return;
-            print("Client Left");
-            print(NetworkManager.ClientManager.Connection.Objects.Count);
-            foreach (NetworkObject networkObject in NetworkManager.ClientManager.Connection.Objects)
-            {
-                print(networkObject.gameObject.name + "Got Destroyed");
-                networkObject.RemoveOwnership();
-            }
-            
+            SteamManager.Instance.InitHostMigration();
             SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
         }
         

@@ -127,6 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1574ad62dd52c6047ad98730ac11aea5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: 7308016614472690296}
+  _networkObjectCache: {fileID: 0}
   animator: {fileID: 5349251508801725223}
   baseDamage: 10
   baseAttackRange: 1

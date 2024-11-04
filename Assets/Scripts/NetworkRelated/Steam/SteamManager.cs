@@ -54,6 +54,11 @@ namespace NetworkRelated.Steam
 
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
         {
+            
+        }
+
+        public void InitHostMigration()
+        {
             var lobbyOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID));
             if(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress") != lobbyOwner.ToString())
             {
@@ -66,7 +71,9 @@ namespace NetworkRelated.Steam
                 }
                 else
                 {
-                    _fishySteamworks.StartConnection(false);
+                    print(_fishySteamworks.StopConnection(false));
+                    var result = _fishySteamworks.StartConnection(false);
+                    print("Start Connection Success: " + result);
                 }
                 
                 print("Host Migration!");
