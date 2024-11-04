@@ -24,6 +24,8 @@ namespace NetworkRelated.Steam
         
         public ulong CurrentLobbyID { get; private set; }
 
+        private bool startingConnection;
+
 
         private void Awake()
         {
@@ -54,11 +56,13 @@ namespace NetworkRelated.Steam
 
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
         {
-            
+            InitHostMigration();
         }
 
         public void InitHostMigration()
         {
+            if(startingConnection) return;
+            
             var lobbyOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID));
             if(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress") != lobbyOwner.ToString())
             {
@@ -68,17 +72,19 @@ namespace NetworkRelated.Steam
                     _fishySteamworks.StartConnection(true);
                     _fishySteamworks.StartConnection(false);
                     MainMenuManagerScript.LoadScene("GameScene");
+                    startingConnection = true;
                 }
                 else
                 {
                     print(_fishySteamworks.StopConnection(false));
                     var result = _fishySteamworks.StartConnection(false);
                     print("Start Connection Success: " + result);
+                    startingConnection = true;
                 }
                 
                 print("Host Migration!");
             }
-            
+            print("eatin ass");
             var playerID = SpawnPointHandler.FetchClientID();
             var host = _networkManager.ClientManager.Clients.FirstOrDefault(c => c.Value.IsHost);
         }
@@ -108,6 +114,7 @@ namespace NetworkRelated.Steam
             
             _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
             _fishySteamworks.StartConnection(false);
+            startingConnection = false;
             //MainMenuManagerScript.LoadScene("GameScene");
         }
         

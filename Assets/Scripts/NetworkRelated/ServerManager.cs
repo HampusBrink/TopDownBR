@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Object;
@@ -80,7 +81,6 @@ namespace NetworkRelated
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            SteamManager.Instance.InitHostMigration();
             SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
         }
         
