@@ -51,12 +51,9 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_inputHandler.AltSkillValue > 0)
-            shouldFocus = true;
-        else
-            shouldFocus = false;
+        if (_inputHandler is not null)
+            shouldFocus = _inputHandler.AltSkillValue > 0;
         CheckFocus();
-        MoveCamera4();
     }
 
     void LateUpdate()
@@ -70,7 +67,7 @@ public class CameraMovement : MonoBehaviour
 
         //transform.position = new Vector3(FollowTarget.position.x,FollowTarget.position.y,transform.position.z);
         
-        
+        MoveCamera4();
     }
 
     private void CheckFocus()

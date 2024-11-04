@@ -33,31 +33,6 @@ PrefabInstance:
       propertyPath: weaponStatMultipliers.attackSpeedMultiplier
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3448734946157475345, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9869402
-      objectReference: {fileID: 0}
-    - target: {fileID: 3448734946157475345, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.16108704
-      objectReference: {fileID: 0}
-    - target: {fileID: 3448734946157475345, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3448734946157475345, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3448734946157475345, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 18.54
-      objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: _isNetworked
@@ -91,12 +66,17 @@ PrefabInstance:
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: SerializedTransformProperties.Position.x
-      value: 0
+      value: 0.248
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: SerializedTransformProperties.Position.y
-      value: 0
+      value: 0.706
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: -0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
@@ -180,28 +160,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8532466269766752341, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
       propertyPath: m_IsActive
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8948635404500007450, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9869402
-      objectReference: {fileID: 0}
-    - target: {fileID: 8948635404500007450, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.16108704
-      objectReference: {fileID: 0}
-    - target: {fileID: 8948635404500007450, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 18.54
-      objectReference: {fileID: 0}
-    - target: {fileID: 9022078279249969238, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
@@ -218,6 +183,12 @@ PrefabInstance:
       insertIndex: 4
       addedObject: {fileID: 480388597484941022}
   m_SourcePrefab: {fileID: 100100000, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
+--- !u!136 &795704012799748559 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 1313880644170549638, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1815302396449136713}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2148610915373317067 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -8871992485847606398, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
@@ -271,7 +242,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 2907458415889341654}
   baseExpCap: 1000
   healthBarFill: {fileID: 9174326820218797204}
-  hitBox: {fileID: 0}
+  hitBox: {fileID: 795704012799748559}
   playerCombat: {fileID: 2148610915373317067}
   vitalUpgrades:
     maxHealth: 100
