@@ -91,12 +91,17 @@ PrefabInstance:
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: SerializedTransformProperties.Position.x
-      value: 0
+      value: 0.248
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: SerializedTransformProperties.Position.y
-      value: 0
+      value: 0.706
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: -0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
