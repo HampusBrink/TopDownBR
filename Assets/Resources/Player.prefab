@@ -1018,7 +1018,7 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 5532731245525678771
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 9.005, y: 2.2327805, z: 0}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &1503768175238242283
