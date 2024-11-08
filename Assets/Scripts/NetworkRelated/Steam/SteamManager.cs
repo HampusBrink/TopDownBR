@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using FishNet.Managing;
 using HeathenEngineering.SteamworksIntegration;
@@ -76,9 +77,7 @@ namespace NetworkRelated.Steam
                 }
                 else
                 {
-                    _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
-                    var result = _fishySteamworks.StartConnection(false);
-                    print("Start Connection Success: " + result);
+                    StartCoroutine(CO_StartConnectionDelayed(10));
                     startingConnection = true;
                 }
                 
@@ -87,6 +86,14 @@ namespace NetworkRelated.Steam
             print("eatin ass");
             var playerID = SpawnPointHandler.FetchClientID();
             var host = _networkManager.ClientManager.Clients.FirstOrDefault(c => c.Value.IsHost);
+        }
+
+        private IEnumerator CO_StartConnectionDelayed(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            
+            var result = _fishySteamworks.StartConnection(false);
+            print("Start Connection Success: " + result);
         }
 
         private void OnLobbyCreated(LobbyCreated_t callback)
