@@ -77,7 +77,7 @@ namespace NetworkRelated.Steam
                 }
                 else
                 {
-                    StartCoroutine(CO_StartConnectionDelayed(10));
+                    SteamMatchmaking.JoinLobby(new CSteamID(CurrentLobbyID));
                     startingConnection = true;
                 }
                 
@@ -91,9 +91,10 @@ namespace NetworkRelated.Steam
         private IEnumerator CO_StartConnectionDelayed(float delay)
         {
             yield return new WaitForSeconds(delay);
-            
-            var result = _fishySteamworks.StartConnection(false);
-            print("Start Connection Success: " + result);
+
+            SteamMatchmaking.JoinLobby(new CSteamID(CurrentLobbyID));
+            // var result = _fishySteamworks.StartConnection(false);
+            // print("Start Connection Success: " + result);
         }
 
         private void OnLobbyCreated(LobbyCreated_t callback)
