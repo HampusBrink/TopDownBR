@@ -182,7 +182,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 8230893771294328146}
   baseExpCap: 1000
   healthBarFill: {fileID: 2680378323968615696}
-  hitBox: {fileID: 0}
+  hitBox: {fileID: 5866418819617828939}
   playerCombat: {fileID: 5166256038087680591}
   vitalUpgrades:
     maxHealth: 100
@@ -206,6 +206,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e48eee064fa504cafa560e2acdf9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!136 &5866418819617828939 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 1313880644170549638, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 4851049328949639629}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8230893771294328146 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,

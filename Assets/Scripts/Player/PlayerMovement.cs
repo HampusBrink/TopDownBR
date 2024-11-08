@@ -50,8 +50,9 @@ public class PlayerMovement : NetworkBehaviour
     // Components
     private Camera _camera;
     private PlayerStatus _playerStatus;
-    //private Vector2 _moveVector;
-    private CharacterController _characterController;
+    //private CharacterController _characterController;
+    private Rigidbody _rb;
+    private CapsuleCollider _col;
     private PlayerInputHandler _inputHandler;
     
     public enum TurnDirection
@@ -70,7 +71,8 @@ public class PlayerMovement : NetworkBehaviour
     {
         base.OnStartClient();
         
-        _characterController = GetComponent<CharacterController>();
+        _rb = GetComponent<Rigidbody>();
+        _col = GetComponent<CapsuleCollider>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         _stamina = maxStamina;
@@ -95,7 +97,8 @@ public class PlayerMovement : NetworkBehaviour
 
     private void AssignComponents()
     {
-        _characterController = GetComponent<CharacterController>();
+        _rb = GetComponent<Rigidbody>();
+        _col = GetComponent<CapsuleCollider>();
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         if (_camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
@@ -269,7 +272,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void AdjustToGround()
     {
-        Vector3 origin = transform.position - Vector3.up  * (_characterController.height / 2f) + _rayPadding * Vector3.up;
+        Vector3 origin = transform.position - Vector3.up  * (_col.height / 2f) + _rayPadding * Vector3.up;
         if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, _rayPadding * 2f, groundLayer))
         {
             float angle = Vector3.Angle(Vector3.up, hit.normal);
@@ -284,7 +287,7 @@ public class PlayerMovement : NetworkBehaviour
     private readonly float _rayPadding = 0.1f;
     private void RayCastGroundCheck()
     {
-        Vector3 origin = transform.position - Vector3.up  * (_characterController.height / 2f) + _rayPadding * Vector3.up;
+        Vector3 origin = transform.position - Vector3.up  * (_col.height / 2f) + _rayPadding * Vector3.up;
         if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, _rayPadding * 2f, groundLayer))
         {
             _grounded = true;
@@ -315,10 +318,10 @@ public class PlayerMovement : NetworkBehaviour
 
         if (!_grounded)
         {
-            _velocity += Gravity() + _characterController.velocity.y * Vector3.up;
+            _velocity += Gravity() + _rb.linearVelocity.y * Vector3.up;
         }
 
-        _characterController.Move(_velocity * Time.fixedDeltaTime);
+        _rb.linearVelocity = _velocity;
     }
 
     #region Dodge Roll
@@ -330,7 +333,7 @@ public class PlayerMovement : NetworkBehaviour
         _canRoll = false;
         _rollTime = 0f;
         _rollDirection = _moveInput.normalized;
-        _playerStatus.hitBox.enabled = false;
+        _playerStatus.hitBox.gameObject.SetActive(false);
     
     
         // Optionally play roll animation
@@ -342,7 +345,7 @@ public class PlayerMovement : NetworkBehaviour
     private void EndRoll()
     {
         _isRolling = false;
-        _playerStatus.hitBox.enabled = true;
+        _playerStatus.hitBox.gameObject.SetActive(true);
     }
     
     private void ResetRollCooldown()
@@ -366,8 +369,8 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (_isRolling)
         {
-            Vector3 rollMovement = new Vector3(_rollDirection.x, 0, _rollDirection.y) * (rollSpeed * Time.fixedDeltaTime);
-            _characterController.Move(rollMovement);
+            Vector3 rollMovement = new Vector3(_rollDirection.x, 0, _rollDirection.y) * (rollSpeed);
+            _rb.linearVelocity = rollMovement;
         }
     }
 

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1501954421303485302}
   - component: {fileID: 8144345746848062322}
   - component: {fileID: 3803255035599315248}
-  - component: {fileID: 2710464916360331090}
+  - component: {fileID: 2936801807056370818}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -70,7 +70,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -107,12 +107,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f307ff7afa2fbb044960454b70c7af9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseFollowStrength: 2
-  cameraMaxOffsetDistance: 1.3
-  cameraFocusMaxOffsetDistance: 6
+  mouseFollowStrength: 3.29
   targetFollowStrength: 9
-  maxMouseOffsetDistance: 6
-  cameraZOffset: -10
+  shouldFocus: 0
+  focusMouseOffsetMultiplier: 2
+  offset: {x: 0, y: 9.04, z: -3.56}
+  mouseOffsetCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1.5
+      outSlope: 1.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.4
+      value: 0.6
+      inSlope: 1.5
+      outSlope: 1.5
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  FollowTarget: {fileID: 0}
+  forwardOffsetVector: {x: 0, y: -1, z: 0}
+  upOffsetVector: {x: 0, y: 0, z: 1}
 --- !u!114 &3803255035599315248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,42 +167,70 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 4bcc63cf-09fa-498c-8369-b9efe278c155
-    m_ActionName: 'Movement/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+    m_ActionId: 769f729b-886e-4e4c-b254-490b49e6e62d
+    m_ActionName: 'UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: ea5241f0-db4e-4152-ba1c-09068f599923
-    m_ActionName: 'Movement/Sprint[/Keyboard/leftShift]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8144345746848062322}
-        m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
-        m_MethodName: OnZoomIn
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: cfff1fc6-e3cb-4afb-b451-040d6400925a
-    m_ActionName: 'Camera/Focus[/Mouse/rightButton]'
+    m_ActionId: 91285b29-92c5-4405-b976-798f36fdade3
+    m_ActionName: 'UI/Submit[/Keyboard/enter]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: f8170310-52d5-407f-a6d0-ec870ada0824
-    m_ActionName: 'Combat/Attack[/Mouse/leftButton]'
+    m_ActionId: 60428966-6690-453f-9543-df490d3d74c8
+    m_ActionName: 'UI/Cancel[/Keyboard/escape]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 93166e8e-971e-48e1-af3d-2a66913f8f0e
-    m_ActionName: 'Movement/DodgeRoll[/Keyboard/space]'
+    m_ActionId: 6f5cd95d-fa0d-4f3c-8aca-f99bf3d4a839
+    m_ActionName: 'UI/Point[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 979f9c06-2319-4829-b1c8-1b647ba45143
+    m_ActionName: 'UI/Click[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15caf6d8-ed5b-4b3e-a41c-5ca9e73d0d21
+    m_ActionName: 'UI/ScrollWheel[/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 64ae600e-3cb6-43a4-8268-5ac9920bbb4d
+    m_ActionName: 'UI/MiddleClick[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d6372fba-7d53-47a9-8ca2-32703eca8490
+    m_ActionName: 'UI/RightClick[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f86c2a1a-d06e-4bbd-9300-d6a28b81ee32
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 92c37b63-12b7-43f3-a583-58ffc5596e3d
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 03f7472f-afea-490e-a95e-e93a8c823404
+    m_ActionName: 'PlayerActions/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ee65dd26-4f5f-4eb6-bad5-fd9b690c066b
+    m_ActionName: 'PlayerActions/Sprint[/Keyboard/leftShift]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c28d0a31-d7ea-4011-a44d-3a63e240b111
+    m_ActionName: 'PlayerActions/Dodge[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6b0c036a-6e7a-4e6a-94b1-88049d3af376
+    m_ActionName: 'PlayerActions/Attack[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eeecb0b2-0e0e-4ca9-9992-07d8c54a0fd1
+    m_ActionName: 'PlayerActions/AltSkill[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Camera
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 106633476716016222}
---- !u!114 &2710464916360331090
+--- !u!114 &2936801807056370818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,11 +243,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
+  m_RequiresDepthTextureOption: 1
+  m_RequiresOpaqueTextureOption: 1
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1

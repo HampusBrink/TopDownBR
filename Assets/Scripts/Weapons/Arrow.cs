@@ -7,9 +7,9 @@ using MultiplayerBase.Scripts;
 
 public class Arrow : NetworkBehaviour
 {
-    [SerializeField] private CapsuleCollider2D collider;
+    [SerializeField] private CapsuleCollider collider;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    public Rigidbody2D rb;
+    public Rigidbody rb;
     
     public Color _startColor = Color.white; // Start color (white)
     public Color _endColor = Color.black;
@@ -21,7 +21,7 @@ public class Arrow : NetworkBehaviour
 
     private void Start()
     {
-        Destroy(gameObject, _range);
+        //Destroy(gameObject, _range);
     }
     
     private void Update()

@@ -95,7 +95,7 @@ namespace Player
     
         private TurnDirection GetTurnDirectionFromMouse()
         {
-            Vector2 mouseScreenPosition = Input.mousePosition;
+            Vector2 mouseScreenPosition = _inputHandler.MousePos;
             Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
             Vector2 normalizedDirection = new Vector2(
                 (mouseScreenPosition.x - screenCenter.x) / Screen.width,

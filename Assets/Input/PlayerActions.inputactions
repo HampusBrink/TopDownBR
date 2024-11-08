@@ -531,6 +531,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "MousePos",
+                    "type": "Value",
+                    "id": "81e9e1a8-a41d-41ab-b64b-9d30d8e6a761",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Sprint",
                     "type": "Button",
                     "id": "ee65dd26-4f5f-4eb6-bad5-fd9b690c066b",
@@ -664,6 +673,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "30e6bbbb-99b3-4585-a9cc-5526abfa2118",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePos",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

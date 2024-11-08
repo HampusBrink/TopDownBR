@@ -60,7 +60,7 @@ public class Bow : BaseWeapon
 
                 // Automatically fire the arrow when fully charged
                 float shootForce = maxShootForce;
-                SpawnArrow(shootForce, _bonusArrows);
+                SpawnArrow(_bonusArrows);
                 Debug.Log($"Arrow shot with max force: {shootForce}");
 
                 // Reset charging and particles after shooting
@@ -120,17 +120,17 @@ public class Bow : BaseWeapon
         transform.rotation = Quaternion.Euler(0f, 0f, _initialBowAngle);
     }
 
+    private float GetBowToMouseAngle()
+    {
+        Vector2 characterScreenPos = _camera.WorldToScreenPoint(transform.position);
+        Vector2 mouseScreenPos = InputHandler.MousePos;
+        Vector2 direction = (mouseScreenPos - characterScreenPos).normalized * -1;
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    }
+
     private void PivotBowRotation()
     {
-        // Convert screen mouse position to world position
-        Vector3 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPosition.z = 0f; // Make sure the z-axis is 0 for 2D
-
-        // Calculate direction from character to the mouse
-        Vector2 directionToMouse = (mouseWorldPosition - transform.position).normalized * -1;
-
-        // Calculate target angle to mouse in degrees
-        float targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+        float targetAngle = GetBowToMouseAngle();
 
         // Adjust for the bow's default orientation (assuming it faces right by default)
         float bowOffset = -90f; // Adjust this if the bow points in a different direction
@@ -146,7 +146,7 @@ public class Bow : BaseWeapon
         float finalAngle = _initialBowAngle + clampedAngleDifference;
 
         // Apply the rotation to the bow
-        transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
+        transform.localRotation = Quaternion.Euler(65f, 0f, finalAngle);
     }
 
     public override void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)
@@ -172,9 +172,9 @@ public class Bow : BaseWeapon
         return (MultipliedAttackSpeed * maxShootForce) / 3f;
     }
 
-    private void PropellArrow(Rigidbody2D rb, Quaternion arrowRotation)
+    private void PropellArrow(Rigidbody rb, Quaternion arrowRotation)
     {
-        rb.AddForce(arrowRotation * Vector2.up * (-1 * GetShootForce()), ForceMode2D.Impulse);
+        rb.AddForce(arrowRotation * Vector3.up * (-1 * GetShootForce()), ForceMode.Impulse);
     }
 
     private Vector3 GetArrowSize()
@@ -183,7 +183,7 @@ public class Bow : BaseWeapon
         return new Vector3(multipliedSize, multipliedSize, multipliedSize);
     }
     
-    private void SpawnArrow(float shootForce, int bonusArrows)
+    private void SpawnArrow(int bonusArrows)
     {
         float angleIncrement = 15f; // Angle between arrows, can be adjusted
 
