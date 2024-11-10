@@ -77,7 +77,7 @@ namespace NetworkRelated.Steam
                 }
                 else
                 {
-                    SteamMatchmaking.JoinLobby(new CSteamID(CurrentLobbyID));
+                    StartCoroutine(CO_StartConnectionDelayed(4));
                     startingConnection = true;
                 }
                 
