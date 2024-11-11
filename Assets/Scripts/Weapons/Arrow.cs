@@ -31,7 +31,9 @@ public class Arrow : NetworkBehaviour
         float t = _elapsedLifeTime / _range; // Calculate how far we are through the arrow's range
 
         // Lerp between white and black based on how much time has passed
-        spriteRenderer.color = Color.Lerp(_startColor, _endColor, t * t);
+        //spriteRenderer.color = Color.Lerp(_startColor, _endColor, t * t);
+        
+        AdjustArrowRot();
     }
     
     public void SetArrowStats(float damage, float range)
@@ -39,7 +41,18 @@ public class Arrow : NetworkBehaviour
         _damage = damage;
         _range = range;
     }
-    
+
+    private void AdjustArrowRot()
+    {
+        if (rb.linearVelocity.magnitude > 0.1f)
+        {
+            // Make the arrow point in the direction of its velocity
+            Quaternion targetRotation = Quaternion.LookRotation(rb.linearVelocity);
+
+            // Apply the rotation offset
+            transform.rotation = targetRotation * Quaternion.Euler(new Vector3(270f, 0f, 0f));
+        }
+    }
     
     private void OnTriggerEnter2D(Collider2D col)
     {
