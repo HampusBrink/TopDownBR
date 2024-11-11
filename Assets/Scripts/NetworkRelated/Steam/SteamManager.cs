@@ -63,27 +63,25 @@ namespace NetworkRelated.Steam
         public void InitHostMigration()
         {
             if(startingConnection) return;
-            
+
             var lobbyOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID));
-            if(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress") != lobbyOwner.ToString())
+            
+            var hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress");
+            print(hostAddress);
+            bool newHost = hostAddress != lobbyOwner.ToString();
+            if(newHost)
             {
                 if (SteamUser.GetSteamID() == lobbyOwner)
                 {
-                    SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
                     _fishySteamworks.StartConnection(true);
                     _fishySteamworks.StartConnection(false);
                     MainMenuManagerScript.LoadScene("GameScene");
                     startingConnection = true;
                 }
-                else
-                {
-                    StartCoroutine(CO_StartConnectionDelayed(4));
-                    startingConnection = true;
-                }
                 
                 print("Host Migration!");
             }
-            print("eatin ass");
+            print("Hejsan toni");
             var playerID = SpawnPointHandler.FetchClientID();
             var host = _networkManager.ClientManager.Clients.FirstOrDefault(c => c.Value.IsHost);
         }
@@ -92,6 +90,7 @@ namespace NetworkRelated.Steam
         {
             yield return new WaitForSeconds(delay);
 
+            
             SteamMatchmaking.JoinLobby(new CSteamID(CurrentLobbyID));
             // var result = _fishySteamworks.StartConnection(false);
             // print("Start Connection Success: " + result);

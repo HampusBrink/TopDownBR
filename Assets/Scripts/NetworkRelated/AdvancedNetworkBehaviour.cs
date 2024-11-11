@@ -34,6 +34,7 @@ namespace NetworkRelated
 
         private void OnClientAuth()
         {
+            if(!IsOwner || !IsServerInitialized) return;
             print("Client Auth");
             RespawnObject();
         }

@@ -28,7 +28,6 @@ namespace NetworkRelated
         private void Start()
         {
             NetworkManager.ServerManager.Objects.OnPreDestroyClientObjects += ObjectsOnOnPreDestroyClientObjects;
-            NetworkManager.ClientManager.OnClientTimeOut += ClientManagerOnOnClientTimeOut;
             NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
             NetworkManager.ServerManager.OnRemoteConnectionState += OnServerRemoteConnectionState;
 
@@ -47,7 +46,7 @@ namespace NetworkRelated
             if (obj.ConnectionState == LocalConnectionState.Started)
             {
                 ConnectedToServer?.Invoke();
-                print("Connected To Master");
+                print("Connected To Server");
             }
         }
 
@@ -60,13 +59,8 @@ namespace NetworkRelated
             if (obj.ConnectionState == LocalConnectionState.Started)
             {
                 ConnectedToServer?.Invoke();
-                print("Connected To Master");
+                print("Connected To Client");
             }
-        }
-
-        private void ClientManagerOnOnClientTimeOut()
-        {
-            print(NetworkManager.ClientManager.Connection.Objects.Count + "daddyadaddy");
         }
 
         private void ObjectsOnOnPreDestroyClientObjects(NetworkConnection obj)
