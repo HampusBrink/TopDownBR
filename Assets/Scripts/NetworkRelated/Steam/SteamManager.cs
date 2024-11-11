@@ -78,6 +78,11 @@ namespace NetworkRelated.Steam
                     MainMenuManagerScript.LoadScene("GameScene");
                     startingConnection = true;
                 }
+                else
+                {
+                    StartCoroutine(CO_StartConnectionDelayed(4));
+                    startingConnection = true;
+                }
                 
                 print("Host Migration!");
             }
