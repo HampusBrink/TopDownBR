@@ -5,25 +5,26 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/StartScene.unity
     guid: 040759d80d0fc4441abb1f0269bfe760
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Real MainMenu.unity
     guid: bef28c5e93f83514993aedc95585fd17
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GameScene.unity
     guid: 60c5eb75080f46a44adec424713b4505
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/HostScene.unity
     guid: 41aec10e0e99fc0479d3b8c3ed00db5a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LobbyScene.unity
     guid: 3a298087f8806ab40a5cf676de2f8fe8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 92ee00f18e3f68941a8d51e936f3f017
   - enabled: 1
-    path: Assets/Scenes/3D Test.unity
+    path: Assets/Scenes/Rafa Scenes/3D Test.unity
     guid: 510da85255d8b0548a4384e829a84a14
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
