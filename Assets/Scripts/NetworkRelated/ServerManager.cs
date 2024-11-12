@@ -52,10 +52,6 @@ namespace NetworkRelated
 
         private void OnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            if (obj.ConnectionState == LocalConnectionState.Stopped)
-            {
-                SteamMatchmaking.JoinLobby(new CSteamID(SteamManager.Instance.CurrentLobbyID));
-            }
             if (obj.ConnectionState == LocalConnectionState.Started)
             {
                 ConnectedToServer?.Invoke();

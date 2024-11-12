@@ -65,11 +65,9 @@ namespace NetworkRelated.Steam
             if(startingConnection) return;
 
             var lobbyOwner = SteamMatchmaking.GetLobbyOwner(new CSteamID(CurrentLobbyID));
-            
             var hostAddress = SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress");
-            print(hostAddress);
-            bool newHost = hostAddress != lobbyOwner.ToString();
-            if(newHost)
+            
+            if(hostAddress != lobbyOwner.ToString())
             {
                 if (SteamUser.GetSteamID() == lobbyOwner)
                 {
@@ -78,13 +76,13 @@ namespace NetworkRelated.Steam
                     MainMenuManagerScript.LoadScene("GameScene");
                     startingConnection = true;
                 }
-                else
-                {
-                    StartCoroutine(CO_StartConnectionDelayed(4));
-                    startingConnection = true;
-                }
-                
-                print("Host Migration!");
+                // else
+                // {
+                //     StartCoroutine(CO_StartConnectionDelayed(4));
+                //     startingConnection = true;
+                // }
+                //
+                // print("Host Migration!");
             }
             print("Hejsan toni");
             var playerID = SpawnPointHandler.FetchClientID();
