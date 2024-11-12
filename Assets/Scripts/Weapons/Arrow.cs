@@ -13,6 +13,7 @@ public class Arrow : NetworkBehaviour
     
     public Color _startColor = Color.white; // Start color (white)
     public Color _endColor = Color.black;
+    
 
     private float _damage;
     private float _range;
@@ -54,16 +55,29 @@ public class Arrow : NetworkBehaviour
         }
     }
     
-    private void OnTriggerEnter2D(Collider2D col)
+    private void StickToObject(Collider col)
+    {
+        // Stop the arrow's movement
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.isKinematic = true;
+        }
+
+        // Attach the arrow to the object it collided with
+        //transform.parent = col.transform;
+    }
+    
+    private void OnTriggerEnter(Collider col)
     {
         //if (!GameManager.Instance.GameStarted) return;
 
-        if (col.gameObject.layer is 7 or 20 or 21) // Assuming PlayerHitbox is layer 7
+        if (col.gameObject.layer is 7) // Assuming PlayerHitbox is layer 7
         {
-            if (col.TryGetComponent(out NetworkObject no))
+            if (col.transform.parent.TryGetComponent(out NetworkObject no))
             {
                 if(no.IsOwner || IsOffline)
-                    return; // how do I do this???
+                    return;
                 if (no.TryGetComponent(out IDamagable damagable))
                 {
                     
@@ -71,7 +85,16 @@ public class Arrow : NetworkBehaviour
                     damagable.TakeDamage(_damage);
                 }
             }
+            Debug.Log("Collided with: " + col.gameObject);
             Destroy(gameObject);
+        }
+        else if (col.gameObject.layer is 8) // Assuming Damager is layer 8
+        {
+            return;
+        }
+        else 
+        {
+            StickToObject(col);
         }
     }
 }
