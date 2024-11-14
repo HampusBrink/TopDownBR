@@ -52,6 +52,7 @@ namespace NetworkRelated.Steam
 
         private void Update()
         {
+            print(SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)));
             //SteamMatchmaking.RequestLobbyData(new CSteamID(CurrentLobbyID));
         }
 
