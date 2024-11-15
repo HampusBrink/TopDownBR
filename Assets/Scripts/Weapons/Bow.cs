@@ -169,7 +169,7 @@ public class Bow : BaseWeapon
 
     private float GetShootForce()
     {
-        return (MultipliedAttackSpeed * maxShootForce) / 3f;
+        return (MultipliedRange * maxShootForce) / 3f;
     }
 
     private void PropellArrow(Rigidbody rb, Quaternion arrowRotation)
