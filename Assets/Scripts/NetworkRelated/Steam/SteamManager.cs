@@ -72,6 +72,7 @@ namespace NetworkRelated.Steam
             {
                 if (SteamUser.GetSteamID() == lobbyOwner)
                 {
+                    SteamMatchmaking.SetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress", SteamUser.GetSteamID().ToString());
                     _fishySteamworks.StartConnection(true);
                     _fishySteamworks.StartConnection(false);
                     MainMenuManagerScript.LoadScene("GameScene");
@@ -79,8 +80,7 @@ namespace NetworkRelated.Steam
                 }
                 else
                 {
-                    
-                    //StartCoroutine(CO_StartConnectionDelayed(4));
+                    StartCoroutine(CO_StartConnectionDelayed(4));
                     startingConnection = true;
                 }
                 
