@@ -44,6 +44,7 @@ namespace NetworkRelated.Steam
 
         private void Start()
         {
+            
             LobbyCreated = Callback<LobbyCreated_t>.Create(OnLobbyCreated);
             JoinRequested = Callback<GameLobbyJoinRequested_t>.Create(OnJoinRequested);
             LobbyEnter = Callback<LobbyEnter_t>.Create(OnLobbyEnter);

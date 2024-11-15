@@ -45,6 +45,7 @@ namespace NetworkRelated
         {
             if (obj.ConnectionState == LocalConnectionState.Started)
             {
+                SteamMatchmaking.SetLobbyGameServer(new CSteamID(SteamManager.Instance.CurrentLobbyID),0,0,new CSteamID(SteamManager.Instance.CurrentLobbyID));
                 ConnectedToServer?.Invoke();
                 print("Connected To Server");
             }
