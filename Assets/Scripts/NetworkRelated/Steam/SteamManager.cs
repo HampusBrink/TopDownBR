@@ -22,6 +22,7 @@ namespace NetworkRelated.Steam
         protected Callback<LobbyEnter_t> LobbyEnter;
         protected Callback<LobbyMatchList_t> Lobbies;
         protected Callback<LobbyDataUpdate_t> LobbyDataUpdate;
+        protected Callback<LobbyGameCreated_t> LobbyGameCreated;
         
         public ulong CurrentLobbyID { get; private set; }
 
@@ -48,12 +49,12 @@ namespace NetworkRelated.Steam
             LobbyEnter = Callback<LobbyEnter_t>.Create(OnLobbyEnter);
             Lobbies = Callback<LobbyMatchList_t>.Create(OnLobbyMatchList);
             LobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(OnLobbyDataUpdate);
+            LobbyGameCreated = Callback<LobbyGameCreated_t>.Create(OnLobbyGameCreated);
         }
 
-        private void Update()
+        private void OnLobbyGameCreated(LobbyGameCreated_t param)
         {
-            print(SteamMatchmaking.GetNumLobbyMembers(new CSteamID(CurrentLobbyID)));
-            //SteamMatchmaking.RequestLobbyData(new CSteamID(CurrentLobbyID));
+            print("Server Started");
         }
 
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
@@ -76,6 +77,7 @@ namespace NetworkRelated.Steam
                     _fishySteamworks.StartConnection(true);
                     _fishySteamworks.StartConnection(false);
                     MainMenuManagerScript.LoadScene("GameScene");
+                    
                     startingConnection = true;
                 }
                 else
@@ -95,14 +97,13 @@ namespace NetworkRelated.Steam
             yield return new WaitForSeconds(delay);
 
             
-            //SteamMatchmaking.JoinLobby(new CSteamID(CurrentLobbyID));
             _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
-            var result = _fishySteamworks.StartConnection(false);
-            print("Start Connection Success: " + result);
+            _fishySteamworks.StartConnection(false);
         }
 
         private void OnLobbyCreated(LobbyCreated_t callback)
         {
+            print("Lobby Created");
             if (callback.m_eResult != EResult.k_EResultOK)
             {
                 Debug.LogError("Could not create lobby!");
