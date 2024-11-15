@@ -56,6 +56,8 @@ namespace NetworkRelated.Steam
         private void OnLobbyGameCreated(LobbyGameCreated_t param)
         {
             print("Server Started");
+            _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
+            _fishySteamworks.StartConnection(false);
         }
 
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
@@ -79,11 +81,6 @@ namespace NetworkRelated.Steam
                     _fishySteamworks.StartConnection(false);
                     MainMenuManagerScript.LoadScene("GameScene");
                     
-                    startingConnection = true;
-                }
-                else
-                {
-                    StartCoroutine(CO_StartConnectionDelayed(4));
                     startingConnection = true;
                 }
                 
