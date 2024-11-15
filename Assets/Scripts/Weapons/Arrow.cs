@@ -10,10 +10,9 @@ public class Arrow : NetworkBehaviour
     [SerializeField] private CapsuleCollider collider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     public Rigidbody rb;
-    
-    public Color _startColor = Color.white; // Start color (white)
-    public Color _endColor = Color.black;
-    
+
+    [Range(0f, 1f)] 
+    [SerializeField] private float stuckRatio = 0.5f;
 
     private float _damage;
     private float _range;
@@ -58,11 +57,15 @@ public class Arrow : NetworkBehaviour
     private void StickToObject(Collider col)
     {
         // Stop the arrow's movement
-        if (rb != null)
+        if (rb == null) return;
+        Ray ray = new Ray(transform.position, rb.linearVelocity);
+        if (col.Raycast(ray, out RaycastHit hit, rb.linearVelocity.magnitude))
         {
-            rb.linearVelocity = Vector2.zero;
-            rb.isKinematic = true;
+            transform.position = hit.point + transform.localScale.y * stuckRatio  * (Quaternion.LookRotation(-transform.up, transform.forward) * Vector3.back);
         }
+        
+        rb.linearVelocity = Vector2.zero;
+        rb.isKinematic = true;
 
         // Attach the arrow to the object it collided with
         //transform.parent = col.transform;

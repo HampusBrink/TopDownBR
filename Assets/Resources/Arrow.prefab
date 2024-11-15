@@ -55,8 +55,7 @@ MonoBehaviour:
   collider: {fileID: 4253257105547673935}
   spriteRenderer: {fileID: 5914820731612100339}
   rb: {fileID: 949960389668832507}
-  _startColor: {r: 1, g: 1, b: 1, a: 1}
-  _endColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+  stuckRatio: 0.283
 --- !u!136 &4253257105547673935
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -89,8 +88,8 @@ Rigidbody:
   m_GameObject: {fileID: 2817257419962778432}
   serializedVersion: 4
   m_Mass: 0.23
-  m_Drag: 2.6
-  m_AngularDrag: 7.38
+  m_Drag: 1.47
+  m_AngularDrag: 5.04
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
