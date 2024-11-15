@@ -77,15 +77,15 @@ namespace NetworkRelated.Steam
                     MainMenuManagerScript.LoadScene("GameScene");
                     startingConnection = true;
                 }
-                // else
-                // {
-                //     StartCoroutine(CO_StartConnectionDelayed(4));
-                //     startingConnection = true;
-                // }
-                //
-                // print("Host Migration!");
+                else
+                {
+                    
+                    //StartCoroutine(CO_StartConnectionDelayed(4));
+                    startingConnection = true;
+                }
+                
+                print("Host Migration!");
             }
-            print("Hejsan toni");
             var playerID = SpawnPointHandler.FetchClientID();
             var host = _networkManager.ClientManager.Clients.FirstOrDefault(c => c.Value.IsHost);
         }
@@ -95,9 +95,10 @@ namespace NetworkRelated.Steam
             yield return new WaitForSeconds(delay);
 
             
-            SteamMatchmaking.JoinLobby(new CSteamID(CurrentLobbyID));
-            // var result = _fishySteamworks.StartConnection(false);
-            // print("Start Connection Success: " + result);
+            //SteamMatchmaking.JoinLobby(new CSteamID(CurrentLobbyID));
+            _fishySteamworks.SetClientAddress(SteamMatchmaking.GetLobbyData(new CSteamID(CurrentLobbyID), "HostAddress"));
+            var result = _fishySteamworks.StartConnection(false);
+            print("Start Connection Success: " + result);
         }
 
         private void OnLobbyCreated(LobbyCreated_t callback)
