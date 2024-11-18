@@ -9758,7 +9758,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9817,7 +9817,8 @@ MonoBehaviour:
   fullChargeParticle: {fileID: 2263637853440891806}
   maxBowPivotAngle: 30
   maxShootForce: 20
-  bonusArrows: 1
+  damageToArrowSizeScale: 1.2
+  baseBonusArrows: 1
   angleBetweenBonusArrows: 15
 --- !u!114 &6595045094234479654
 MonoBehaviour:

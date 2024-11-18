@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using FishNet.Object;
 using NetworkRelated;
 using Player;
@@ -7,6 +8,7 @@ using Source.Scripts.UI;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static System.String;
 
 namespace MultiplayerBase.Scripts
@@ -15,7 +17,7 @@ namespace MultiplayerBase.Scripts
     {
         [SerializeField] private UIScript _UI;
         [SerializeField] private TMP_Text _victoryRoyaleUI;
-        public PowerupPopup powerupPopup;
+        public UpgradePopup upgradePopup;
 
         [SerializeField] private int _countDownTime = 20;
 
@@ -35,6 +37,8 @@ namespace MultiplayerBase.Scripts
         private float _timer;
 
         public float Timer => Mathf.Abs(_timer - _countDownTime);
+        
+        public PlayerStatus localPlayer;
 
         void Awake()
         {
@@ -49,6 +53,11 @@ namespace MultiplayerBase.Scripts
             else
             {
                 Destroy(gameObject);
+            }
+
+            if (IsOffline)
+            {
+                localPlayer = FindFirstObjectByType<PlayerStatus>();
             }
         }
 
@@ -143,6 +152,13 @@ namespace MultiplayerBase.Scripts
         {
             _timerStarted = true;
             _UI.timerDisplay.gameObject.SetActive(true);
+        }
+
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+
+            localPlayer = NetworkManager.ClientManager.Connection.Objects.FirstOrDefault().GetComponent<PlayerStatus>();
         }
     }
 }

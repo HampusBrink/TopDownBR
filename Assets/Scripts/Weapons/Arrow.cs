@@ -5,45 +5,99 @@ using UnityEngine;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
 
-public class Arrow : MonoBehaviour
+public class Arrow : NetworkBehaviour
 {
-    [SerializeField] private CapsuleCollider2D collider;
-    
+    [SerializeField] private CapsuleCollider collider;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    public Rigidbody rb;
+
+    [Range(0f, 1f)] 
+    [SerializeField] private float stuckRatio = 0.5f;
+
     private float _damage;
+    private float _range;
+    
+    private float _elapsedLifeTime;
 
     private void Start()
     {
-        StartCoroutine(EnableColliderAfterDelay(0.05f));
+        //Destroy(gameObject, _range);
     }
     
-    private IEnumerator EnableColliderAfterDelay(float delay)
+    private void Update()
     {
-        yield return new WaitForSeconds(delay); // Wait for the specified delay
-        collider.enabled = true; // Enable the collider after the delay
+        // Track the elapsed time and normalize it based on the arrow's range
+        _elapsedLifeTime += Time.deltaTime;
+        float t = _elapsedLifeTime / _range; // Calculate how far we are through the arrow's range
+
+        // Lerp between white and black based on how much time has passed
+        //spriteRenderer.color = Color.Lerp(_startColor, _endColor, t * t);
+        
+        AdjustArrowRot();
+    }
+    
+    public void SetArrowStats(float damage, float range)
+    {
+        _damage = damage;
+        _range = range;
     }
 
-    public void SetDamage(float damageFromBow)
+    private void AdjustArrowRot()
     {
-       _damage = damageFromBow;
+        if (rb.linearVelocity.magnitude > 0.1f)
+        {
+            // Make the arrow point in the direction of its velocity
+            Quaternion targetRotation = Quaternion.LookRotation(rb.linearVelocity);
+
+            // Apply the rotation offset
+            transform.rotation = targetRotation * Quaternion.Euler(new Vector3(270f, 0f, 0f));
+        }
     }
     
+    private void StickToObject(Collider col)
+    {
+        // Stop the arrow's movement
+        if (rb == null) return;
+        Ray ray = new Ray(transform.position, rb.linearVelocity);
+        if (col.Raycast(ray, out RaycastHit hit, rb.linearVelocity.magnitude))
+        {
+            transform.position = hit.point + transform.localScale.y * stuckRatio  * (Quaternion.LookRotation(-transform.up, transform.forward) * Vector3.back);
+        }
+        
+        rb.linearVelocity = Vector2.zero;
+        rb.isKinematic = true;
+
+        // Attach the arrow to the object it collided with
+        //transform.parent = col.transform;
+    }
     
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter(Collider col)
     {
         //if (!GameManager.Instance.GameStarted) return;
 
-        if (col.gameObject.layer is 7 or 20 or 21) // Assuming PlayerHitbox is layer 7
+        if (col.gameObject.layer is 7) // Assuming PlayerHitbox is layer 7
         {
-            if (col.TryGetComponent(out NetworkObject no))
+            if (col.transform.parent.TryGetComponent(out NetworkObject no))
             {
+                if(no.IsOwner || IsOffline)
+                    return;
                 if (no.TryGetComponent(out IDamagable damagable))
                 {
-                    //if (!GetComponentInParent<NetworkObject>().IsOwner) return;
+                    
 
                     damagable.TakeDamage(_damage);
                 }
             }
+            Debug.Log("Collided with: " + col.gameObject);
             Destroy(gameObject);
+        }
+        else if (col.gameObject.layer is 8) // Assuming Damager is layer 8
+        {
+            return;
+        }
+        else 
+        {
+            StickToObject(col);
         }
     }
 }

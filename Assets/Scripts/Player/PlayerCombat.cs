@@ -27,6 +27,8 @@ namespace Player
         private Animator _swordAnimator;
         private PlayerMovement _playerMovement;
         
+        private PlayerInputHandler _inputHandler;
+        
         private float _attackDuration;
         private float _attackReturnDuration;
         private float _lastAttackTime;
@@ -50,10 +52,10 @@ namespace Player
                 //Debug.LogError("Sword Animator not found!");
             }
         
-            GetNeededComponents();
+            AssignComponents();
             if (!IsOwner)
                 return;
-            UpdateCombatStats();
+            UpdateCombatUpgrades();
         }
 
         private void Start()
@@ -63,43 +65,37 @@ namespace Player
                 //Debug.LogError("Sword Animator not found!");
             }
         
-            GetNeededComponents();
+            AssignComponents();
             if (!IsOffline)
                 return;
-            UpdateCombatStats();
+            UpdateCombatUpgrades();
         }
 
-        private void GetNeededComponents()
+        private void AssignComponents()
         {
             _playerStatus = GetComponent<PlayerStatus>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _inputHandler = PlayerInputHandler.Instance;
         }
     
         private void Update()
         {
             if(!IsOwner && !IsOffline) return;
+            if (_inputHandler.AttackTriggered)
+                HandleAttack();
             UpdateTurnDirection();
             PlayAttackAnimation();
         }
     
-        private void UpdateCombatStats()
+        private void UpdateCombatUpgrades()
         {
-            UpdateAttackSpeed();
-            equippedWeapon.UpdateWeaponStats(_playerStatus.weaponStatMultipliers);
+            equippedWeapon.UpdateWeaponUpgrades(_playerStatus.combatUpgrades);
+            equippedWeapon.UpdateWeaponSpecificUpgrades(_playerStatus);
         }
-
-    
-
-        private void UpdateAttackSpeed()
-        {
-            //attackSpeed = _playerStatus.attackSpeedMultiplier * equippedWeapon.baseAttackSpeed;
-        }
-    
-    
     
         private TurnDirection GetTurnDirectionFromMouse()
         {
-            Vector2 mouseScreenPosition = Input.mousePosition;
+            Vector2 mouseScreenPosition = _inputHandler.MousePos;
             Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
             Vector2 normalizedDirection = new Vector2(
                 (mouseScreenPosition.x - screenCenter.x) / Screen.width,
@@ -134,6 +130,19 @@ namespace Player
 
         private TurnDirection _hitDirection;
     
+        private void HandleAttack()
+        {
+            UpdateCombatUpgrades();
+            
+            if (!equippedWeapon.isAttacking)
+            {
+                _hitDirection = GetTurnDirectionFromMouse();
+                SetLastTurnDirectionFromMouse();
+                equippedWeapon.UpdateWeaponTurnDir(_hitDirection);
+                equippedWeapon.WeaponPerformAttack(_playerMovement.currentTurnDirection);
+            }
+        }
+        
         public void OnAttack(InputAction.CallbackContext context)
         {
             if (!IsOwner && !IsOffline)
@@ -157,7 +166,7 @@ namespace Player
                 equippedWeapon.WeaponReleaseAttack();
             }
             
-            UpdateCombatStats();
+            UpdateCombatUpgrades();
             //UpdateAttackDurations();
         }
         

@@ -1,17 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using NetworkRelated;
 using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
-public class BaseWeapon : AdvancedNetworkBehaviour
+public abstract class BaseWeapon : MonoBehaviour
 {
 
     // Components
     public Animator animator;
+    protected PlayerInputHandler InputHandler;
     //public SpriteRenderer weaponGFX;
     
     [Header("Weapon Stats")]
@@ -35,13 +35,19 @@ public class BaseWeapon : AdvancedNetworkBehaviour
     private void BaseWeaponGetComponents()
     {
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
+        InputHandler = PlayerInputHandler.Instance;
     }
 
-    public void UpdateWeaponStats(PlayerStatus.WeaponStatMultipliers stats)
+    public void UpdateWeaponUpgrades(PlayerStatus.CombatUpgrades genericStats)
     {
-        UpdateAttackDamage(stats.attackDamageMultiplier);
-        UpdateAttackRange(stats.attackRangeMultiplier);
-        UpdateAttackSpeed(stats.attackSpeedMultiplier);
+        UpdateAttackDamage(genericStats.attackDamageMultiplier);
+        UpdateAttackRange(genericStats.attackRangeMultiplier);
+        UpdateAttackSpeed(genericStats.attackSpeedMultiplier);
+    }
+
+    public virtual void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)
+    {
+        
     }
     
     
@@ -64,14 +70,14 @@ public class BaseWeapon : AdvancedNetworkBehaviour
         
     }
 
-    private void UpdateAttackDamage(float multiplier)
+    protected virtual void UpdateAttackDamage(float multiplier)
     {
         MultipliedDamage = baseDamage * multiplier;
     }
 
     private void UpdateAttackRange(float multiplier)
     {
-        MultipliedDamage = baseAttackRange * multiplier;
+        MultipliedRange = baseAttackRange * multiplier;
     }
 
     private void UpdateAttackSpeed(float multiplier)

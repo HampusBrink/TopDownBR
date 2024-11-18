@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
 public class Bow : BaseWeapon
@@ -11,16 +13,17 @@ public class Bow : BaseWeapon
     [SerializeField] private Transform arrowSpawnPoint;
     [SerializeField] private ParticleSystem chargeParticle;
     [SerializeField] private ParticleSystem fullChargeParticle;
-    //[SerializeField] private float maxWindUpTime = 2f;
-    //[SerializeField] private float minWindUpTimeForShot = 0.5f;
     [SerializeField] private float maxBowPivotAngle = 30f;
     [SerializeField] private float maxShootForce = 20f;
+    [SerializeField] private float damageToArrowSizeScale = 1.1f;
     
+    [FormerlySerializedAs("bonusArrows")]
     [Header("Bonus arrow settings")]
-    [SerializeField] private int bonusArrows = 1;
+    [SerializeField] private int baseBonusArrows = 0;
     [SerializeField] private float angleBetweenBonusArrows = 15;
     
-
+    private int _bonusArrows;
+    private float _playerDamageMultiplier = 1f;
     private float _windUpTimeElapsed = 0f;
     private Quaternion _initialBowRotation;
     private bool _isCharging = false;
@@ -29,7 +32,13 @@ public class Bow : BaseWeapon
     private float _maxWindUpTime = 1.0f;
     private ParticleSystem.MainModule _chargeParticleMain;
 
-    private void Start()
+    protected override void Start()
+    {
+        base.Start();
+        BowGetComponents();
+    }
+    
+    private void BowGetComponents()
     {
         _camera = Camera.main;
         _chargeParticleMain = chargeParticle.main;
@@ -37,6 +46,32 @@ public class Bow : BaseWeapon
 
     private void Update()
     {
+        if (_isCharging)
+        {
+            _windUpTimeElapsed += Time.deltaTime;
+
+            float chargePercentage = Mathf.Clamp01(_windUpTimeElapsed / _maxWindUpTime);
+            _chargeParticleMain.simulationSpeed = Mathf.Lerp(0.3f, 1.5f, chargePercentage);
+
+            if (chargePercentage == 1.0f && !_fullChargeParticlePlayed)
+            {
+                fullChargeParticle.Play();
+                _fullChargeParticlePlayed = true;
+
+                // Automatically fire the arrow when fully charged
+                float shootForce = maxShootForce;
+                SpawnArrow(_bonusArrows);
+                Debug.Log($"Arrow shot with max force: {shootForce}");
+
+                // Reset charging and particles after shooting
+                ResetBowAfterShot();
+            }
+
+            PivotBowRotation();
+        }
+        
+        // Old logic: 
+        /*
         if (_isCharging)
         {
             _windUpTimeElapsed += Time.deltaTime;
@@ -51,6 +86,7 @@ public class Bow : BaseWeapon
             
             PivotBowRotation();
         }
+        */
     }
 
     private float GetBowRotationFromTurnDirection(TurnDirection turnDirection)
@@ -84,17 +120,17 @@ public class Bow : BaseWeapon
         transform.rotation = Quaternion.Euler(0f, 0f, _initialBowAngle);
     }
 
+    private float GetBowToMouseAngle()
+    {
+        Vector2 characterScreenPos = _camera.WorldToScreenPoint(transform.position);
+        Vector2 mouseScreenPos = InputHandler.MousePos;
+        Vector2 direction = (mouseScreenPos - characterScreenPos).normalized * -1;
+        return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+    }
+
     private void PivotBowRotation()
     {
-        // Convert screen mouse position to world position
-        Vector3 mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPosition.z = 0f; // Make sure the z-axis is 0 for 2D
-
-        // Calculate direction from character to the mouse
-        Vector2 directionToMouse = (mouseWorldPosition - transform.position).normalized * -1;
-
-        // Calculate target angle to mouse in degrees
-        float targetAngle = Mathf.Atan2(directionToMouse.y, directionToMouse.x) * Mathf.Rad2Deg;
+        float targetAngle = GetBowToMouseAngle();
 
         // Adjust for the bow's default orientation (assuming it faces right by default)
         float bowOffset = -90f; // Adjust this if the bow points in a different direction
@@ -110,28 +146,57 @@ public class Bow : BaseWeapon
         float finalAngle = _initialBowAngle + clampedAngleDifference;
 
         // Apply the rotation to the bow
-        transform.rotation = Quaternion.Euler(0f, 0f, finalAngle);
+        transform.localRotation = Quaternion.Euler(65f, 0f, finalAngle);
     }
 
-
-
-    
-    private void SpawnArrow(float shootForce, int bonusArrows)
+    public override void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)
     {
-        int totalArrows = 1 + (2 * bonusArrows);
+        if (playerStatus is BowPlayerStatus bowPlayerStatus)
+        {
+            _bonusArrows = baseBonusArrows + bowPlayerStatus.bowSpecificUpgrades.bonusArrows;
+        }
+        else
+        {
+            Debug.LogWarning("PlayerStatus is not a BowPlayerStatus.");
+        }
+    }
+
+    protected override void UpdateAttackDamage(float multiplier)
+    {
+        base.UpdateAttackDamage(multiplier);
+        _playerDamageMultiplier = multiplier;
+    }
+
+    private float GetShootForce()
+    {
+        return (MultipliedRange * maxShootForce) / 3f;
+    }
+
+    private void PropellArrow(Rigidbody rb, Quaternion arrowRotation)
+    {
+        rb.AddForce(arrowRotation * Vector3.up * (-1 * GetShootForce()), ForceMode.Impulse);
+    }
+
+    private Vector3 GetArrowSize()
+    {
+        float multipliedSize = _playerDamageMultiplier * damageToArrowSizeScale;
+        return new Vector3(multipliedSize, multipliedSize, multipliedSize);
+    }
+    
+    private void SpawnArrow(int bonusArrows)
+    {
         float angleIncrement = 15f; // Angle between arrows, can be adjusted
 
         for (int i = -Mathf.FloorToInt(bonusArrows); i <= Mathf.FloorToInt(bonusArrows); i++)
         {
             Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
             GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
+            arrow.transform.localScale = GetArrowSize();
+            
             if (arrow.TryGetComponent(out Arrow arrowComponent))
-                arrowComponent.SetDamage(MultipliedDamage);
-            Rigidbody2D arrowRb = arrow.GetComponent<Rigidbody2D>();
-            if (arrowRb != null)
-            {
-                arrowRb.AddForce(arrowRotation * Vector2.up * -1 * shootForce, ForceMode2D.Impulse);
-            }
+                arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
+            
+            PropellArrow(arrowComponent.rb, arrowRotation);
         }
     }
 
@@ -150,6 +215,16 @@ public class Bow : BaseWeapon
         chargeParticle.Play();
     }
 
+    private void ResetBowAfterShot()
+    {
+        chargeParticle.Stop();
+        _isCharging = false;
+        isAttacking = false;
+        _fullChargeParticlePlayed = false;
+        _windUpTimeElapsed = 0f; // Reset charge timer
+    }
+    
+    /*
     public override void WeaponReleaseAttack()
     {
         chargeParticle.Stop();
@@ -173,5 +248,6 @@ public class Bow : BaseWeapon
 
         _windUpTimeElapsed = 0f;
     }
+    */
 }
 

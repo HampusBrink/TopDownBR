@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -15,10 +15,10 @@ TagManager:
   - PlayerHitbox
   - Damager
   - Environment
+  - Ground
   - 
   - 
-  - 
-  - 
+  - Pixel
   - 
   - 
   - 
@@ -53,3 +53,5 @@ TagManager:
   - name: Layer 4
     uniqueID: 3047807341
     locked: 0
+  m_RenderingLayers:
+  - Default
