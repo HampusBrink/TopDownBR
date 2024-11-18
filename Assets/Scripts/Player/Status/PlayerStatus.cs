@@ -1,28 +1,33 @@
 using System;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Player
 {
     public class PlayerStatus : NetworkBehaviour, IDamagable
     {
         // Levels
-        private int _playerLevel = 0;
-        public int PlayerLevel => _playerLevel;
-        private float _playerExp = 0;
-        public float baseExpCap = 1000f;
-        
-        
-        
-        [SerializeField] private Image healthBarFill;
+        [Header("Experience / Levels")] [SerializeField]
+        AnimationCurve experienceCurve;
+
+        [SerializeField] TextMeshProUGUI levelText;
+        [SerializeField] TextMeshProUGUI experienceText;
+        [SerializeField] Image experienceBarFill;
+        [SerializeField] private int debugExpAddAmount = 10;
+
+        int _currentLevel = 1, _totalExperience;
+        int _previousLevelsExperience, _nextLevelsExperience;
+
+        [Header("Other")] [SerializeField] private Image healthBarFill;
         public CapsuleCollider hitBox;
         [SerializeField] private PlayerCombat playerCombat;
-        
-        [Header("Generic Upgrades")] 
-        public VitalUpgrades vitalUpgrades;
+
+        [Header("Generic Upgrades")] public VitalUpgrades vitalUpgrades;
         public MovementUpgrades movementUpgrades;
         public CombatUpgrades combatUpgrades;
 
@@ -37,7 +42,7 @@ namespace Player
         {
             public float movementSpeedMultiplier = 1.0f;
         }
-    
+
         [System.Serializable]
         public class CombatUpgrades
         {
@@ -45,8 +50,7 @@ namespace Player
             public float attackRangeMultiplier = 1.0f;
             public float attackSpeedMultiplier = 1.0f;
         }
-        
-        
+
 
         private float _currentHealth;
 
@@ -57,10 +61,11 @@ namespace Player
             get => _currentHealth > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : _currentHealth;
             set => _currentHealth = value > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : value;
         }
-        
+
         public override void OnStartClient()
         {
             base.OnStartClient();
+
 
             CurrentHealth = vitalUpgrades.maxHealth;
             if (IsOwner)
@@ -70,52 +75,117 @@ namespace Player
             }
         }
 
-        private void LevelUp()
+        private void Start()
         {
-            _playerLevel++;
-            if (_playerLevel % 5 == 0)
-            {
-                // weapon specific
-            }
-            else
-            {
-                // generic
-                GameManager.Instance.upgradePopup.gameObject.SetActive(true);
-            }
+            InitializeLevel();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.L))
+            if (Input.GetKeyDown(KeyCode.L)) // add exp
             {
-                AddExp(1000f);
-                Debug.Log("Current Level:" + _playerLevel);
-                Debug.Log("Current Exp:" + _playerExp);
+                AddExperience(debugExpAddAmount);
             }
         }
 
-        public void AddExp(float amount)
+        // Experience / Levels
+        private void InitializeLevel()
         {
-            _playerExp += amount;
-            
-            while (_playerExp >= GetExpCapForLevel(_playerLevel + 1))
+            _currentLevel = 1;
+            _totalExperience = 0;
+            UpdateLevel();
+            UpdateLevelUI();
+        }
+
+        public void AddExperience(int amount)
+        {
+            if (_currentLevel >= experienceCurve.keys[experienceCurve.length - 1].time)
+                return; // Stop adding experience if already at max level
+
+            _totalExperience += amount;
+            CheckForLevelUp();
+            UpdateLevelUI();
+        }
+
+        private void CheckForLevelUp()
+        {
+            // Get the max level from the curve
+            int maxLevel = (int)experienceCurve.keys[experienceCurve.length - 1].time;
+
+            // Check if we're already at the max level
+            if (_currentLevel >= maxLevel)
             {
-                _playerExp -= GetExpCapForLevel(_playerLevel + 1); 
-                LevelUp();
+                _currentLevel = maxLevel;
+                _totalExperience = _nextLevelsExperience;
+                UpdateLevel();
+                UpdateLevelUI();
+                return;
+            }
+
+            // Level up if experience exceeds the threshold for the current level
+            while (_totalExperience >= _nextLevelsExperience)
+            {
+                _currentLevel++;
+
+                // Stop leveling up if we've reached max level
+                if (_currentLevel >= maxLevel)
+                {
+                    _currentLevel = maxLevel;
+                    _totalExperience = _nextLevelsExperience;
+                    UpdateLevel();
+                    UpdateLevelUI();
+                    return;
+                }
+
+                UpdateLevel();
             }
         }
 
-        private float GetExpCapForLevel(int level)
+        private void UpdateLevel()
         {
-            return baseExpCap * Mathf.Pow(1.1f, level);
+            _previousLevelsExperience = (int)experienceCurve.Evaluate(_currentLevel);
+
+            // Get the max level from the curve
+            int maxLevel = (int)experienceCurve.keys[experienceCurve.length - 1].time;
+
+            // Check if we are at the max level
+            if (_currentLevel < maxLevel)
+            {
+                _nextLevelsExperience = (int)experienceCurve.Evaluate(_currentLevel + 1);
+            }
+            else
+            {
+                // Cap experience at max level
+                _nextLevelsExperience = _previousLevelsExperience;
+            }
         }
-        
+
+        private void UpdateLevelUI()
+        {
+            // Get the max level from the curve
+            int maxLevel = (int)experienceCurve.keys[experienceCurve.length - 1].time;
+
+            // Check if we're at max level
+            if (_currentLevel >= maxLevel)
+            {
+                levelText.text = _currentLevel.ToString();
+                experienceText.text = "Max Level";
+                experienceBarFill.fillAmount = 1f;
+                return;
+            }
+
+            int start = _totalExperience - _previousLevelsExperience;
+            int end = _nextLevelsExperience - _previousLevelsExperience;
+            levelText.text = _currentLevel.ToString();
+            experienceText.text = $"{start} / {end} exp";
+            experienceBarFill.fillAmount = (float)start / end;
+        }
+
 
         [ServerRpc(RequireOwnership = false)]
         public void TakeDamage(float damage)
         {
             RPC_TakeDamage(damage);
-
         }
 
         [ObserversRpc]
@@ -123,7 +193,7 @@ namespace Player
         {
             CurrentHealth -= damage;
             UpdateHealthBar();
-            
+
             if (CurrentHealth <= 0 && IsOwner) GameManager.Instance.isDead = true;
             if (CurrentHealth <= 0 && IsServerInitialized) Die();
         }
@@ -144,7 +214,7 @@ namespace Player
         {
             GameManager.Instance.SRPC_PlayerDied(this);
             Despawn();
-            
+
             // GameManager.Instance.players.Remove(gameObject.GetPhotonView());
             GameManager.Instance.CheckForWinner();
         }

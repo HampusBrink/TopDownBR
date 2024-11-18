@@ -957,7 +957,16 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 3560203185535188127}
   _networkObjectCache: {fileID: 3560203185535188127}
-  baseExpCap: 1000
+  experienceCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  levelText: {fileID: 0}
+  experienceText: {fileID: 0}
+  experienceBarFill: {fileID: 0}
+  debugExpAddAmount: 10
   healthBarFill: {fileID: 7377175790934219997}
   hitBox: {fileID: 1313880644170549638}
   playerCombat: {fileID: -8871992485847606398}
