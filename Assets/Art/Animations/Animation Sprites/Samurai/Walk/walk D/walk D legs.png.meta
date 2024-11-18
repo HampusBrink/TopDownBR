@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 1e89a35011719c346a56b3c33200e21b
+guid: 5c53cba2969d5b748a3e9ff798aaa680
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle R legs_0
+      name: walk D legs_0
       rect:
         serializedVersion: 2
         x: 0
@@ -120,18 +120,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 545da6e77acefdd42a23598b820cc132
-      internalID: -568835212
+      spriteID: 903d90fdf1b47c04d8ed37d4bb78a21a
+      internalID: 598574232
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle R legs_1
+      name: walk D legs_1
       rect:
         serializedVersion: 2
         x: 64
@@ -141,18 +142,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0c60faad4905364eaf9be4f29e37307
-      internalID: 519749339
+      spriteID: 75b0c4a535e0eaf4cb35e9899d7c3adc
+      internalID: -1719958707
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle R legs_2
+      name: walk D legs_2
       rect:
         serializedVersion: 2
         x: 128
@@ -162,18 +164,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80ac1ca57637f244e9baad16708876ad
-      internalID: 1361558974
+      spriteID: ce3d044c093b7774fa0168440d809353
+      internalID: 436054503
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle R legs_3
+      name: walk D legs_3
       rect:
         serializedVersion: 2
         x: 192
@@ -183,18 +186,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c34f166682dc8724db6bf27ff3bacfd8
-      internalID: -916199190
+      spriteID: 551dbd02d18e14f418f6ef6816aea8d5
+      internalID: -1835659304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle R legs_4
+      name: walk D legs_4
       rect:
         serializedVersion: 2
         x: 256
@@ -204,18 +208,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad242622d4d82294ba62c8d4b3d2d07e
-      internalID: -1962343517
+      spriteID: cb1058be9a23baf4e9c10692f253d549
+      internalID: -1046299812
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle R legs_5
+      name: walk D legs_5
       rect:
         serializedVersion: 2
         x: 320
@@ -225,18 +230,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8151174313525b64694f17387c7047db
-      internalID: 928632384
+      spriteID: 8f02f09a69e63e548a9143ff26bac3fa
+      internalID: -1560366108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle R legs_6
+      name: walk D legs_6
       rect:
         serializedVersion: 2
         x: 384
@@ -246,164 +252,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b06f79816dd965948b84f8c2c89c3dec
-      internalID: 1461641493
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle R legs_7
-      rect:
-        serializedVersion: 2
-        x: 448
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 88263627bf880464a83df352e06fae2c
-      internalID: -781970345
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle R legs_8
-      rect:
-        serializedVersion: 2
-        x: 512
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6049ced368d6de4e9b1654da0b1996e
-      internalID: 1817413008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle R legs_9
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 34c19f2b0333d474fb4df0dde9585d6f
-      internalID: -627349414
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle R legs_10
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d97a6108f6c05674d8b74d386fd20829
-      internalID: 1899311873
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle R legs_11
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 14f51dfa4e37f9240bab1ffb2755983d
-      internalID: -255329517
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle R legs_12
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e5a0984a59e7f814a92abf81b47c0db2
-      internalID: -1342033022
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle R legs_13
-      rect:
-        serializedVersion: 2
-        x: 832
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e49c11d4de9057498feaafaaeab8cb6
-      internalID: -795082549
+      spriteID: ccf11f172fba94843a7f2e9ff1c5c4ba
+      internalID: 16076654
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -415,21 +276,16 @@ TextureImporter:
     secondaryTextures:
     - texture: {fileID: 2800000, guid: 5f4c2f97ac68f6e4fad8b83a9001b870, type: 3}
       name: _NormalMap
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      idle R legs_0: -568835212
-      idle R legs_1: 519749339
-      idle R legs_10: 1899311873
-      idle R legs_11: -255329517
-      idle R legs_12: -1342033022
-      idle R legs_13: -795082549
-      idle R legs_2: 1361558974
-      idle R legs_3: -916199190
-      idle R legs_4: -1962343517
-      idle R legs_5: 928632384
-      idle R legs_6: 1461641493
-      idle R legs_7: -781970345
-      idle R legs_8: 1817413008
-      idle R legs_9: -627349414
+      walk D legs_0: 598574232
+      walk D legs_1: -1719958707
+      walk D legs_2: 436054503
+      walk D legs_3: -1835659304
+      walk D legs_4: -1046299812
+      walk D legs_5: -1560366108
+      walk D legs_6: 16076654
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
