@@ -17,6 +17,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string dodge = "Dodge";
     [SerializeField] private string attack = "Attack";
     [SerializeField] private string altSkill = "AltSkill";
+    [SerializeField] private string interact = "AltSkill";
 
     private InputAction _moveAction;
     private InputAction _mousePosAction;

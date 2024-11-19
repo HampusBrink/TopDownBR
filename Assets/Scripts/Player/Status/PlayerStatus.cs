@@ -23,11 +23,13 @@ namespace Player
         int _currentLevel = 1, _totalExperience;
         int _previousLevelsExperience, _nextLevelsExperience;
 
-        [Header("Other")] [SerializeField] private Image healthBarFill;
+        [Header("Other")] 
+        [SerializeField] private Image healthBarFill;
         public CapsuleCollider hitBox;
         [SerializeField] private PlayerCombat playerCombat;
 
-        [Header("Generic Upgrades")] public VitalUpgrades vitalUpgrades;
+        [Header("Generic Upgrades")] 
+        public VitalUpgrades vitalUpgrades;
         public MovementUpgrades movementUpgrades;
         public CombatUpgrades combatUpgrades;
 
