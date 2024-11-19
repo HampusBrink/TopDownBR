@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NetworkRelated;
 using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
-public abstract class BaseWeapon : MonoBehaviour
+public abstract class BaseWeapon : AdvancedNetworkBehaviour
 {
 
     // Components
