@@ -10,6 +10,7 @@ public class Arrow : NetworkBehaviour
     [SerializeField] private CapsuleCollider collider;
     [SerializeField] private SpriteRenderer spriteRenderer;
     public Rigidbody rb;
+    [SerializeField] private float arrowLength = 0.477f;
 
     [Range(0f, 1f)] 
     [SerializeField] private float stuckRatio = 0.5f;
@@ -61,7 +62,8 @@ public class Arrow : NetworkBehaviour
         Ray ray = new Ray(transform.position, rb.linearVelocity);
         if (col.Raycast(ray, out RaycastHit hit, rb.linearVelocity.magnitude))
         {
-            transform.position = hit.point + transform.localScale.y * stuckRatio  * (Quaternion.LookRotation(-transform.up, transform.forward) * Vector3.back);
+            Vector3 to = hit.point + (Quaternion.LookRotation(-transform.up, transform.forward) * Vector3.back) * stuckRatio * arrowLength * transform.localScale.y;
+            StartCoroutine(StuckAnimation(Vector3.Dot(rb.linearVelocity, -transform.up), transform.position, to));
         }
         
         rb.linearVelocity = Vector2.zero;
@@ -69,6 +71,22 @@ public class Arrow : NetworkBehaviour
 
         // Attach the arrow to the object it collided with
         //transform.parent = col.transform;
+    }
+
+    private IEnumerator StuckAnimation(float speed, Vector3 from, Vector3 to)
+    {
+        float t = Vector3.Distance(from, to) / speed;
+        Debug.Log(Vector3.Distance(from, to) / speed);
+        float elapsedTime = 0;
+        while (elapsedTime < t)
+        {
+            elapsedTime += Time.deltaTime;
+            float elapsed01 = elapsedTime / t;
+            transform.position = Vector3.Lerp(from, to, elapsed01);
+            yield return null;
+        }
+
+        transform.position = to;
     }
     
     private void OnTriggerEnter(Collider col)
