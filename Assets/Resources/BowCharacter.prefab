@@ -315,6 +315,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
         type: 3}
+      propertyPath: mousePos
+      value: 
+      objectReference: {fileID: 1802953691318166159, guid: d46a68842be087e42ae23cb19279da41,
+        type: 3}
+    - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
       propertyPath: baseAttackRange
       value: 0.7
       objectReference: {fileID: 0}

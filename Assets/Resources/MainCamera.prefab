@@ -137,6 +137,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   FollowTarget: {fileID: 0}
+  altAttack: {fileID: -3674899297245400326, guid: d46a68842be087e42ae23cb19279da41,
+    type: 3}
+  mousePos: {fileID: 1802953691318166159, guid: d46a68842be087e42ae23cb19279da41,
+    type: 3}
   forwardOffsetVector: {x: 0, y: -1, z: 0}
   upOffsetVector: {x: 0, y: 0, z: 1}
 --- !u!114 &3803255035599315248
@@ -225,6 +229,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: eeecb0b2-0e0e-4ca9-9992-07d8c54a0fd1
     m_ActionName: 'PlayerActions/AltSkill[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81e9e1a8-a41d-41ab-b64b-9d30d8e6a761
+    m_ActionName: 'PlayerActions/MousePos[/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI

@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInteract : MonoBehaviour
 {
     private List<GameObject> objectsWithinRange;
-    private PlayerInputHandler _inputHandler;
+    public InputActionReference interact;
 
     private void Start()
     {
-        _inputHandler = PlayerInputHandler.Instance;
+        
     }
 
     private void Update()

@@ -21,7 +21,6 @@ public class CameraMovement : MonoBehaviour
     public Transform FollowTarget;
     
     private Camera _mainCamera;
-    private PlayerInputHandler _inputHandler;
     private bool _isZooming = false;
     private GameObject spectatedPlayer;
     private int spectatePlayerIndex;
@@ -29,15 +28,13 @@ public class CameraMovement : MonoBehaviour
 
     private List<PlayerStatus> _alivePlayers;
 
-    void Start()
+    public InputActionReference altAttack, mousePos;
+    
+    private void OnEnable()
     {
-        _mainCamera = Camera.main;
-        _inputHandler = PlayerInputHandler.Instance;
-        _currentPos = transform.position;
+        altAttack.action.performed += InputAltAttack;
+        altAttack.action.canceled += InputAltAttack;
         
-        if (GameManager.Instance != null)
-            GameManager.Instance.OnAlivePlayersChanged += UpdateAlivePlayerList;
-
     }
 
     private void OnDisable()
@@ -45,6 +42,23 @@ public class CameraMovement : MonoBehaviour
         if (GameManager.Instance != null)
             GameManager.Instance.OnAlivePlayersChanged -= UpdateAlivePlayerList;
     }
+
+    private void InputAltAttack(InputAction.CallbackContext context)
+    {
+        shouldFocus = context.ReadValueAsButton();
+    }
+
+    void Start()
+    {
+        _mainCamera = Camera.main;
+        _currentPos = transform.position;
+        
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnAlivePlayersChanged += UpdateAlivePlayerList;
+
+    }
+
+    
     
     private void UpdateAlivePlayerList(List<PlayerStatus> alivePlayers)
     {
@@ -53,8 +67,7 @@ public class CameraMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_inputHandler is not null)
-            shouldFocus = _inputHandler.AltSkillValue > 0;
+        
         CheckFocus();
     }
 
@@ -93,7 +106,7 @@ public class CameraMovement : MonoBehaviour
     private Vector3 _currentPos = Vector3.zero;
     private void MoveCamera4()
     {
-        Vector2 mousePos = ((Vector2)_mainCamera.ScreenToViewportPoint(_inputHandler.MousePos) - 0.5f * Vector2.one) * 2; // origin is bottom left
+        Vector2 mousePos = ((Vector2)_mainCamera.ScreenToViewportPoint(this.mousePos.action.ReadValue<Vector2>()) - 0.5f * Vector2.one) * 2; // origin is bottom left
     
         //Vector3 mouseOffset = mousePos - FollowTarget.position;
         //mouseOffset.z = 0; // Lock the Z-axis movement

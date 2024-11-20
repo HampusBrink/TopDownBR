@@ -732,6 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638b9bea9c46a0045898fb4c4cfa9a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interact: {fileID: 0}
 --- !u!135 &3160535624561338672
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1044,6 +1045,9 @@ MonoBehaviour:
   staminaBarFill: {fileID: 1487017763120518116}
   bodyAnim: {fileID: 6801425199344782826}
   legsAnim: {fileID: 5592145601530512864}
+  move: {fileID: -6108894351854371164, guid: d46a68842be087e42ae23cb19279da41, type: 3}
+  sprint: {fileID: 4236756320959939978, guid: d46a68842be087e42ae23cb19279da41, type: 3}
+  dodge: {fileID: -6514168559013670763, guid: d46a68842be087e42ae23cb19279da41, type: 3}
   lastMovedirection: 0
   isMoving: 0
   currentTurnDirection: 0
@@ -1064,6 +1068,9 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 3560203185535188127}
   _networkObjectCache: {fileID: 3560203185535188127}
   equippedWeapon: {fileID: 507036288722055478}
+  attack: {fileID: -7562829427939896765, guid: d46a68842be087e42ae23cb19279da41, type: 3}
+  mousePos: {fileID: 1802953691318166159, guid: d46a68842be087e42ae23cb19279da41,
+    type: 3}
 --- !u!114 &2312113109336434810
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
@@ -11,7 +12,6 @@ public abstract class BaseWeapon : MonoBehaviour
 
     // Components
     public Animator animator;
-    protected PlayerInputHandler InputHandler;
     //public SpriteRenderer weaponGFX;
     
     [Header("Weapon Stats")]
@@ -35,7 +35,6 @@ public abstract class BaseWeapon : MonoBehaviour
     private void BaseWeaponGetComponents()
     {
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
-        InputHandler = PlayerInputHandler.Instance;
     }
 
     public void UpdateWeaponUpgrades(PlayerStatus.CombatUpgrades genericStats)
