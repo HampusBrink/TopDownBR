@@ -85,7 +85,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(!IsOffline) return;
         
-        
         _stamina = maxStamina;
         
         _desiredSpeed = _multipliedSpeed = walkSpeed;
