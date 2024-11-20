@@ -153,12 +153,5 @@ namespace MultiplayerBase.Scripts
             _timerStarted = true;
             _UI.timerDisplay.gameObject.SetActive(true);
         }
-
-        public override void OnStartClient()
-        {
-            base.OnStartClient();
-
-            localPlayer = NetworkManager.ClientManager.Connection.Objects.FirstOrDefault().GetComponent<PlayerStatus>();
-        }
     }
 }

@@ -77,6 +77,7 @@ public class PlayerMovement : NetworkBehaviour
         if (!IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
 
         if(IsOwner) AssignComponents();
+        
 
         _desiredSpeed = _multipliedSpeed = walkSpeed;
     }

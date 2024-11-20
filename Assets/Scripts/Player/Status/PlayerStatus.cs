@@ -66,12 +66,13 @@ namespace Player
         {
             base.OnStartClient();
 
-
+            
             CurrentHealth = vitalUpgrades.maxHealth;
             if (IsOwner)
             {
                 GameManager.Instance.SRPC_PlayerJoined(this);
                 healthBarFill.color = Color.green;
+                GameManager.Instance.localPlayer = this;
             }
         }
 
