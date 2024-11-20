@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: equippedWeapon
       value: 
       objectReference: {fileID: 7399147350950944460}
+    - target: {fileID: 1503768175238242283, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: _componentConfiguration
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: hitBox
