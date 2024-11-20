@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 9bdc8d960d205234a9703c913e8ab4f4
+guid: acd28cb63eba89e40ab85559d6628f99
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle D legs Samurai_0
+      name: idle U R body_0
       rect:
         serializedVersion: 2
         x: 0
@@ -120,18 +120,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f3252643ef16701428baa7c69601765b
-      internalID: 1925228038
+      spriteID: ed4a156d3564e53469047a36b0db3984
+      internalID: 1349769680
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_1
+      name: idle U R body_1
       rect:
         serializedVersion: 2
         x: 64
@@ -141,18 +142,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: acc86a471c973974ebcdd18e348cf6ff
-      internalID: -1273609210
+      spriteID: 67d8487d600e757438add729d61f1980
+      internalID: -1528885326
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_2
+      name: idle U R body_2
       rect:
         serializedVersion: 2
         x: 128
@@ -162,18 +164,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0c2a30efce029c144aff581dd773e792
-      internalID: -1884120891
+      spriteID: a5da4ae5f74a2564d89bcec543dd66e6
+      internalID: -1909151488
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_3
+      name: idle U R body_3
       rect:
         serializedVersion: 2
         x: 192
@@ -183,18 +186,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35e598f7de2630048906cdfb567a8dfa
-      internalID: 25781735
+      spriteID: ca010d901cbcc914681035a6cbed3044
+      internalID: 1715501295
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_4
+      name: idle U R body_4
       rect:
         serializedVersion: 2
         x: 256
@@ -204,18 +208,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19ff6a6c3c5a6ad43865bb7708a6fd50
-      internalID: -1942826175
+      spriteID: e6f674c6bd3cdc84a9d6b002881b9849
+      internalID: 768739679
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_5
+      name: idle U R body_5
       rect:
         serializedVersion: 2
         x: 320
@@ -225,18 +230,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ab51851f7ae87247b132e95e8ca6dec
-      internalID: -1806371085
+      spriteID: 46d9f1422fbebdc4da3c80bf05e9dfc7
+      internalID: -1108175113
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_6
+      name: idle U R body_6
       rect:
         serializedVersion: 2
         x: 384
@@ -246,18 +252,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c24a444d4c5b7c40a5ab87e6552b7a0
-      internalID: 308420571
+      spriteID: 6d79c6b9e935504499a4c51ff7838f5c
+      internalID: 653836026
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_7
+      name: idle U R body_7
       rect:
         serializedVersion: 2
         x: 448
@@ -267,18 +274,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d5f421cd39162d140a7c78376fcfd2e8
-      internalID: -246620692
+      spriteID: b057774c999c04d4d8541ed2bdbb9780
+      internalID: 1196252332
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_8
+      name: idle U R body_8
       rect:
         serializedVersion: 2
         x: 512
@@ -288,18 +296,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 423667eb520d91941b9ee0eb66bc491c
-      internalID: -187807750
+      spriteID: c03e6a1953125e644b3a2b6afeb7663e
+      internalID: -1904170686
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_9
+      name: idle U R body_9
       rect:
         serializedVersion: 2
         x: 576
@@ -309,18 +318,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce14b89255311ca4cbdc06404ccc59ff
-      internalID: 1085253841
+      spriteID: 2d38cef99ab30b043bdabf6a27ec856c
+      internalID: 207599478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_10
+      name: idle U R body_10
       rect:
         serializedVersion: 2
         x: 640
@@ -330,18 +340,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ebd30f4a41827449ad2a9906e0c9737
-      internalID: -378807739
+      spriteID: 5f0fceb33e7edec45a3d002f34edeb3b
+      internalID: 1864077504
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_11
+      name: idle U R body_11
       rect:
         serializedVersion: 2
         x: 704
@@ -351,18 +362,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f7bd51cd4c78d4b46b0b6047f62407a1
-      internalID: -195113162
+      spriteID: e2a37fb8f75d30c4fb65c88aab9880ba
+      internalID: 493994904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_12
+      name: idle U R body_12
       rect:
         serializedVersion: 2
         x: 768
@@ -372,18 +384,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b7f102e7882ede42b3c59a2422206ca
-      internalID: -2035291051
+      spriteID: fc2164438468a3d4db3545fa76128a6d
+      internalID: 19115053
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle D legs Samurai_13
+      name: idle U R body_13
       rect:
         serializedVersion: 2
         x: 832
@@ -393,17 +406,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 50e60481ce98e3a40885d6f5b128a9f1
-      internalID: -775271378
+      spriteID: 55214fae14b1ae64697af5e278e7f71a
+      internalID: 1395858313
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -415,21 +430,23 @@ TextureImporter:
     secondaryTextures:
     - texture: {fileID: 2800000, guid: 5f4c2f97ac68f6e4fad8b83a9001b870, type: 3}
       name: _NormalMap
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      idle D legs Samurai_0: 1925228038
-      idle D legs Samurai_1: -1273609210
-      idle D legs Samurai_10: -378807739
-      idle D legs Samurai_11: -195113162
-      idle D legs Samurai_12: -2035291051
-      idle D legs Samurai_13: -775271378
-      idle D legs Samurai_2: -1884120891
-      idle D legs Samurai_3: 25781735
-      idle D legs Samurai_4: -1942826175
-      idle D legs Samurai_5: -1806371085
-      idle D legs Samurai_6: 308420571
-      idle D legs Samurai_7: -246620692
-      idle D legs Samurai_8: -187807750
-      idle D legs Samurai_9: 1085253841
+      idle U R body_0: 1349769680
+      idle U R body_1: -1528885326
+      idle U R body_10: 1864077504
+      idle U R body_11: 493994904
+      idle U R body_12: 19115053
+      idle U R body_13: 1395858313
+      idle U R body_2: -1909151488
+      idle U R body_3: 1715501295
+      idle U R body_4: 768739679
+      idle U R body_5: -1108175113
+      idle U R body_6: 653836026
+      idle U R body_7: 1196252332
+      idle U R body_8: -1904170686
+      idle U R body_9: 207599478
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
