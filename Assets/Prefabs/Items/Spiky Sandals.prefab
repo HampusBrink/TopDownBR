@@ -141,6 +141,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2109340687795810040, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109340687795810040, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109340687795810040, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109340687795810040, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[0].m_Value.z
+      value: 0.027979374
+      objectReference: {fileID: 0}
+    - target: {fileID: 2109340687795810040, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
       propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[0].m_Value
       value: 
       objectReference: {fileID: 2800000, guid: 633538d2c4530f14794720619e01e282, type: 3}
@@ -267,8 +287,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4677670701494469974, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
+      propertyPath: borderSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 633538d2c4530f14794720619e01e282,
+        type: 3}
+    - target: {fileID: 4677670701494469974, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
       propertyPath: highlightColor.b
-      value: 1
+      value: 0.029931068
       objectReference: {fileID: 0}
     - target: {fileID: 4677670701494469974, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
@@ -278,7 +304,7 @@ PrefabInstance:
     - target: {fileID: 4677670701494469974, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
       propertyPath: highlightColor.r
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4864121964995596601, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}

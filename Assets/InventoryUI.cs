@@ -44,6 +44,7 @@ public class InventoryUI : MonoBehaviour
         }
         DisplayItem displayItem = Instantiate(itemDisplayPrefab, inventoryContent);
         displayItem.SetImage(item.spriteRenderer.sprite);
+        displayItem.SetBorder(item.GetBorderSprite(), item.GetBorderColor());
         displayItem.gameObject.name = item.name;
     }
 }

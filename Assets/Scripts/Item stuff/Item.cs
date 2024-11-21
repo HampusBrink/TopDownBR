@@ -7,10 +7,17 @@ using UnityEngine.Serialization;
 public class Item : MonoBehaviour
 {
     public List<ItemParameter<object>> parameters;
-    
     public SpriteRenderer spriteRenderer;
 
-    
+    public Sprite GetBorderSprite()
+    {
+        return GetComponent<ItemVisuals>().borderSprite;
+    }
+
+    public Vector4 GetBorderColor()
+    {
+        return GetComponent<ItemVisuals>().defaultColor;
+    }
 
     public void TakeItem(PlayerStatus player)
     {

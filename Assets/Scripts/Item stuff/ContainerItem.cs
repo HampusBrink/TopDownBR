@@ -1,10 +1,12 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ContainerItem : MonoBehaviour
 {
     public Item item;
+    public TextMeshProUGUI nameText;
     public Action<Item> OnPick = delegate { };
     private Image _uiImage;
     
@@ -14,6 +16,7 @@ public class ContainerItem : MonoBehaviour
         item = i;
         _uiImage = GetComponent<Image>();
         SetUIImage();
+        nameText.text = item.name;
     }
 
     private void SetUIImage()

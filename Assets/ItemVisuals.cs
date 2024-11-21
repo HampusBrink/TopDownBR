@@ -8,13 +8,14 @@ public class ItemVisuals : MonoBehaviour
     public Color highlightColor;
     public float intensity = 1f;
     public float highlightFadeTime = 0.5f;
+    public Sprite borderSprite;
     private VisualEffect _borderVFX;
-    private Color _defaultColor;
+    [System.NonSerialized] public Color defaultColor;
 
     private void Awake()
     {
         _borderVFX = GetComponent<VisualEffect>();
-        _defaultColor = _borderVFX.GetVector4("Color");
+        defaultColor = _borderVFX.GetVector4("Color");
     }
 
     private Coroutine currentFadeHighlight;
@@ -48,6 +49,6 @@ public class ItemVisuals : MonoBehaviour
         if (currentFadeHighlight != null)
             StopCoroutine(currentFadeHighlight);
         
-        currentFadeHighlight = StartCoroutine(FadeHighlight(_defaultColor));
+        currentFadeHighlight = StartCoroutine(FadeHighlight(defaultColor));
     }
 }
