@@ -22,7 +22,7 @@ public class PlayerInteract : MonoBehaviour
         GameObject closestInteractable = GetClosestInteractable();
         if (!closestInteractable)
         {
-            
+            _currentInteractable?.CancelHighlight();
         }
         else if (closestInteractable.TryGetComponent(out IInteractable interactable))
         {
@@ -30,10 +30,16 @@ public class PlayerInteract : MonoBehaviour
             if (isSame)
             {
                 isSame = _currentInteractable.Equals(interactable);
-                
+                interactable?.Highlight();
             }
+
             if (!isSame)
+            {
+                _currentInteractable?.CancelHighlight();
                 _currentInteractable = interactable;
+                interactable?.Highlight();
+            }
+                
         }
 
         bool justPressed = isHolding && !_wasHolding;

@@ -1,18 +1,36 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
+    public InputActionReference showInventory;
     public ItemManager itemManager;
     public RectTransform inventoryContent;
+    public RectTransform inventoryMenu, statsMenu;
     public DisplayItem itemDisplayPrefab;
 
     private void OnEnable()
     {
         itemManager.OnItemAdded += AddItem;
+        showInventory.action.performed += InputShow;
+        showInventory.action.canceled += InputShow;
     }
 
+    private void OnDisable()
+    {
+        showInventory.action.performed -= InputShow;
+        showInventory.action.canceled -= InputShow;
+    }
+
+
+    private void InputShow(InputAction.CallbackContext context)
+    {
+        bool on = context.ReadValueAsButton();
+        inventoryMenu.gameObject.SetActive(on);
+        statsMenu.gameObject.SetActive(on);
+    }
 
     private void AddItem(Item item)
     {
@@ -25,7 +43,7 @@ public class InventoryUI : MonoBehaviour
             }
         }
         DisplayItem displayItem = Instantiate(itemDisplayPrefab, inventoryContent);
-        displayItem.SetImage(item.GetSprite());
+        displayItem.SetImage(item.spriteRenderer.sprite);
         displayItem.gameObject.name = item.name;
     }
 }

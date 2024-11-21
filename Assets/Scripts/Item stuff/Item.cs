@@ -2,22 +2,15 @@ using System;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Item : MonoBehaviour
 {
     public List<ItemParameter<object>> parameters;
     
-    private SpriteRenderer _spriteRenderer;
-    
-    private void Awake()
-    {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+    public SpriteRenderer spriteRenderer;
 
-    public Sprite GetSprite()
-    {
-        return _spriteRenderer.sprite;
-    }
+    
 
     public void TakeItem(PlayerStatus player)
     {
