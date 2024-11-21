@@ -32,7 +32,7 @@ public class ItemButton : MonoBehaviour
     {
         playerStatus.vitalUpgrades.maxHealth += powerUp.bonusMaxHealthFlat;
         playerStatus.combatUpgrades.attackDamageMultiplier += powerUp.bonusDamagePercent;
-        playerStatus.movementUpgrades.movementSpeedMultiplier += powerUp.bonusMovementSpeedPercent;
+        //playerStatus.movementUpgrades.movementSpeedMultiplier += powerUp.bonusMovementSpeedPercent;
         playerStatus.combatUpgrades.attackSpeedMultiplier += powerUp.bonusAttackSpeedPercent;
         playerStatus.combatUpgrades.attackRangeMultiplier += powerUp.bonusWeaponLengthPercent; // change name of this later
         if (powerUp.instantHealth > 0)

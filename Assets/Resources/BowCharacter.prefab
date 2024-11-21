@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: equippedWeapon
       value: 
       objectReference: {fileID: 7399147350950944460}
+    - target: {fileID: 898091766491722878, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 480388597484941022}
     - target: {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: hitBox
@@ -283,6 +288,7 @@ MonoBehaviour:
   healthBarFill: {fileID: 9174326820218797204}
   hitBox: {fileID: 795704012799748559}
   playerCombat: {fileID: 2148610915373317067}
+  itemManager: {fileID: 0}
   vitalUpgrades:
     maxHealth: 100
   movementUpgrades:
@@ -317,7 +323,7 @@ PrefabInstance:
         type: 3}
       propertyPath: mousePos
       value: 
-      objectReference: {fileID: 1802953691318166159, guid: d46a68842be087e42ae23cb19279da41,
+      objectReference: {fileID: 9096501553951641872, guid: 934800b5f55d7354694ffdfa51421f64,
         type: 3}
     - target: {fileID: 5560790582064176199, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
         type: 3}

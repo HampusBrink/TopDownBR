@@ -27,10 +27,12 @@ namespace Player
         [SerializeField] private Image healthBarFill;
         public CapsuleCollider hitBox;
         [SerializeField] private PlayerCombat playerCombat;
+        public ItemManager itemManager;
+        
 
         [Header("Generic Upgrades")] 
         public VitalUpgrades vitalUpgrades;
-        public MovementUpgrades movementUpgrades;
+        [SerializeField] private MovementUpgrades movementUpgrades;
         public CombatUpgrades combatUpgrades;
 
         [System.Serializable]
@@ -51,6 +53,13 @@ namespace Player
             public float attackDamageMultiplier = 1.0f;
             public float attackRangeMultiplier = 1.0f;
             public float attackSpeedMultiplier = 1.0f;
+        }
+        
+        
+
+        public float GetMovementSpeedMultiplier()
+        {
+            return Mathf.Clamp(movementUpgrades.movementSpeedMultiplier + itemManager.GetFloat("MovementSpeed"), 0.3f, 10f);
         }
 
 

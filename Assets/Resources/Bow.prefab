@@ -9816,3 +9816,4 @@ MonoBehaviour:
   damageToArrowSizeScale: 1.2
   baseBonusArrows: 1
   angleBetweenBonusArrows: 15
+  mousePos: {fileID: 0}

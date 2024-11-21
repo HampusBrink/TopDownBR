@@ -286,7 +286,7 @@ public class PlayerMovement : NetworkBehaviour
     private void UpdateMovementSpeed()
     {
         _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
-        _multipliedSpeed = _playerStatus.movementUpgrades.movementSpeedMultiplier * _desiredSpeed;
+        _multipliedSpeed = _playerStatus.GetMovementSpeedMultiplier() * _desiredSpeed;
     }
 
     private Vector3 Gravity()

@@ -63,7 +63,7 @@ namespace MultiplayerBase.Scripts
 
         private void OnEnable()
         {
-            RogueRoyaleNetworkManager.Instance.NetworkManager.TimeManager.OnTick += ServerTick;
+            //RogueRoyaleNetworkManager.Instance.NetworkManager.TimeManager.OnTick += ServerTick;
         }
 
         private void ServerTick()

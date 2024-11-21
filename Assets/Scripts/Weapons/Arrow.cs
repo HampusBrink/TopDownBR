@@ -59,7 +59,7 @@ public class Arrow : NetworkBehaviour
     {
         // Stop the arrow's movement
         if (rb == null) return;
-        Ray ray = new Ray(transform.position, rb.linearVelocity);
+        Ray ray = new Ray(transform.position, rb.linearVelocity.normalized);
         if (col.Raycast(ray, out RaycastHit hit, rb.linearVelocity.magnitude))
         {
             Vector3 to = hit.point + (Quaternion.LookRotation(-transform.up, transform.forward) * Vector3.back) * stuckRatio * arrowLength * transform.localScale.y;
