@@ -101,7 +101,7 @@ namespace Player
     
         private void UpdateCombatUpgrades()
         {
-            equippedWeapon.UpdateWeaponUpgrades(_playerStatus.combatUpgrades);
+            equippedWeapon.UpdateWeaponUpgrades(_playerStatus);
             equippedWeapon.UpdateWeaponSpecificUpgrades(_playerStatus);
         }
     

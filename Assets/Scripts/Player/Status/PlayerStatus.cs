@@ -54,12 +54,35 @@ namespace Player
             public float attackRangeMultiplier = 1.0f;
             public float attackSpeedMultiplier = 1.0f;
         }
-        
-        
+
+        public float GetFloatByString(string parameter)
+        {
+            return itemManager.GetFloat(parameter);
+        }
+
+        public float GetMaxHealth()
+        {
+            return Mathf.Max(vitalUpgrades.maxHealth + itemManager.GetFloat("MaxHealth"), 1f);
+        }
 
         public float GetMovementSpeedMultiplier()
         {
             return Mathf.Clamp(movementUpgrades.movementSpeedMultiplier + itemManager.GetFloat("MovementSpeed"), 0.3f, 10f);
+        }
+        
+        public float GetAttackDamageMultiplier()
+        {
+            return Mathf.Max(combatUpgrades.attackDamageMultiplier + itemManager.GetFloat("AttackDamage"), 0.1f);
+        }
+        
+        public float GetAttackRangeMultiplier()
+        {
+            return Mathf.Max(combatUpgrades.attackRangeMultiplier + itemManager.GetFloat("AttackRange"), 0.1f);
+        }
+        
+        public float GetAttackSpeedMultiplier()
+        {
+            return Mathf.Max(combatUpgrades.attackSpeedMultiplier + itemManager.GetFloat("AttackSpeed"), 0.1f);
         }
 
 
@@ -69,7 +92,7 @@ namespace Player
 
         public float CurrentHealth
         {
-            get => _currentHealth > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : _currentHealth;
+            get => _currentHealth > GetMaxHealth() ? GetMaxHealth() : _currentHealth;
             set => _currentHealth = value > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : value;
         }
 

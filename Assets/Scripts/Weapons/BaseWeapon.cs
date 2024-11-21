@@ -37,11 +37,11 @@ public abstract class BaseWeapon : MonoBehaviour
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
     }
 
-    public void UpdateWeaponUpgrades(PlayerStatus.CombatUpgrades genericStats)
+    public void UpdateWeaponUpgrades(PlayerStatus playerStatus)
     {
-        UpdateAttackDamage(genericStats.attackDamageMultiplier);
-        UpdateAttackRange(genericStats.attackRangeMultiplier);
-        UpdateAttackSpeed(genericStats.attackSpeedMultiplier);
+        UpdateAttackDamage(playerStatus.GetAttackDamageMultiplier());
+        UpdateAttackRange(playerStatus.GetAttackRangeMultiplier());
+        UpdateAttackSpeed(playerStatus.GetAttackSpeedMultiplier());
     }
 
     public virtual void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)
