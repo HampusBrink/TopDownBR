@@ -20,7 +20,7 @@ public class InventoryUI : MonoBehaviour
         {
             if (child.name.Equals(item.name))
             {
-                child.GetComponent<DisplayItem>().amount++;
+                child.GetComponent<DisplayItem>().UpdateAmount();
                 return;
             }
         }
