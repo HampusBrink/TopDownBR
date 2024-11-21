@@ -10,43 +10,104 @@ public class PlayerInteract : MonoBehaviour
     private IInteractable _currentInteractable = null;
     private List<GameObject> _objectsWithinRange = new List<GameObject>();
     public InputActionReference interact;
-
-    private void OnEnable()
-    {
-        interact.action.started += OnInteract;
-    }
-
-    private void OnDisable()
-    {
-        interact.action.started -= OnInteract;
-    }
     
+    private float _currentInteractTime = 0f;
+    private bool _wasHolding = false;
     private void Update()
     {
-        if (_objectsWithinRange.Count == 0) 
-            return;
-
+        bool isSame = false;
+        bool isHolding = interact.action.ReadValue<float>() != 0f;
+        
         CullObjects();
         GameObject closestInteractable = GetClosestInteractable();
         if (!closestInteractable)
+        {
+            
+        }
+        else if (closestInteractable.TryGetComponent(out IInteractable interactable))
+        {
+            isSame = !(interactable == null || _currentInteractable == null); //
+            if (isSame)
+            {
+                isSame = _currentInteractable.Equals(interactable);
+                
+            }
+            if (!isSame)
+                _currentInteractable = interactable;
+        }
+
+        bool justPressed = isHolding && !_wasHolding;
+
+        if (justPressed || _currentInteractTime > 0 && isHolding && isSame)
+        {
+            _currentInteractTime += Time.deltaTime;
+            _currentInteractable?.Interact(player, _currentInteractTime);
+        }
+        else
+        {
+            _currentInteractTime = 0;
+            
+        }
+        
+        _wasHolding = isHolding;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
+        if (_objectsWithinRange.Count == 0) 
             return;
-        if (closestInteractable.TryGetComponent(out IInteractable interactable))
+
+        bool isNewObject = false;
+        
+        
+        CullObjects();
+        //GameObject closestInteractable = GetClosestInteractable();
+        if (!closestInteractable)
+            return;
+        //if (closestInteractable.TryGetComponent(out IInteractable interactable))
         {
             if (_currentInteractable != null)
             {
                 if (_currentInteractable != interactable)
+                {
                     _currentInteractable.CancelHighlight();
+                    isNewObject = true;
+                }
+            }
+            else
+            {
+                isNewObject = true;
             }
             _currentInteractable = interactable;
             _currentInteractable.Highlight();
         }
-    }
 
-    private void OnInteract(InputAction.CallbackContext context)
-    {
-        _currentInteractable?.Interact(player);
-    }
+        bool holdingInteract = interact.action.ReadValue<float>() != 0f;
+        if (holdingInteract)
+            Debug.Log("Holding");
+        if (!holdingInteract)
+        {
+            _currentInteractTime = 0f;
+            _wasHolding = false;
+            return;
+        }
+        if (_currentInteractTime > 0 && !isNewObject || !_wasHolding && _currentInteractTime == 0)
+        {
+            Debug.Log(_currentInteractTime);
+            _currentInteractTime += Time.deltaTime;
+            _currentInteractable?.Interact(player, _currentInteractTime);
+        }
 
+        _wasHolding = true;
+        */
+    }
+    
     private GameObject GetClosestInteractable()
     {
         if (_objectsWithinRange == null || _objectsWithinRange.Count <= 0)

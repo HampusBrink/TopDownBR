@@ -1,9 +1,11 @@
 using Player;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerStatusInteract : MonoBehaviour, IInteractable
 {
+    public float interactTime = 0.2f;
     public UnityEvent<PlayerStatus> onInteract;
     public UnityEvent onHighlight;
     public UnityEvent onCancelHighlight;
@@ -18,8 +20,9 @@ public class PlayerStatusInteract : MonoBehaviour, IInteractable
         onCancelHighlight.Invoke();
     }
 
-    public void Interact(PlayerStatus interactingPlayer)
+    public void Interact(PlayerStatus interactingPlayer, float time = 0)
     {
-        onInteract.Invoke(interactingPlayer);
+        if (time >= interactTime)
+            onInteract.Invoke(interactingPlayer);
     }
 }
