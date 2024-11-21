@@ -9,12 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1395657025365427832}
-  - component: {fileID: 5531427045197461039}
   - component: {fileID: 2355685783959936341}
   - component: {fileID: 239222405389051657}
   - component: {fileID: 4000220935047099439}
   - component: {fileID: 4677670701494469974}
   - component: {fileID: 2109340687795810040}
+  - component: {fileID: 5531427045197461039}
   - component: {fileID: 3117137273439092222}
   m_Layer: 11
   m_Name: Base Item
@@ -33,26 +33,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.49882358, y: -0, z: -0, w: 0.86670357}
   m_LocalPosition: {x: 5.5472283, y: 0.6643404, z: -4}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 59.844, y: 0, z: 0}
---- !u!114 &5531427045197461039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4864121964995596601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fde063e7ae317944c88b35fc2f34a6ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameters:
-  - {fileID: 0}
-  spriteRenderer: {fileID: 4000220935047099439}
 --- !u!114 &2355685783959936341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,16 +50,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3c93dab86632eb41b94d66c3e723848, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactTime: 0.2
+  interactTime: 0
   onInteract:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5531427045197461039}
+        m_TargetAssemblyTypeName: Item, Assembly-CSharp
+        m_MethodName: TakeItem
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onHighlight:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4677670701494469974}
+        m_TargetAssemblyTypeName: ItemVisuals, Assembly-CSharp
+        m_MethodName: Highlight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onCancelHighlight:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4677670701494469974}
+        m_TargetAssemblyTypeName: ItemVisuals, Assembly-CSharp
+        m_MethodName: StopHighlight
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!135 &239222405389051657
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -164,8 +185,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highlightColor: {r: 1, g: 1, b: 1, a: 1}
-  intensity: 1
+  intensity: 20
   highlightFadeTime: 0.2
+  borderSprite: {fileID: 0}
 --- !u!2083052967 &2109340687795810040
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -193,7 +215,7 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 1, y: 1, z: 1, w: 0}
+      - m_Value: {x: 1, y: 1, z: 1, w: 1}
         m_Name: Color
         m_Overridden: 1
     m_Uint:
@@ -213,6 +235,21 @@ VisualEffect:
         m_Overridden: 1
     m_Bool:
       m_Array: []
+--- !u!114 &5531427045197461039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4864121964995596601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde063e7ae317944c88b35fc2f34a6ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameters:
+  - {fileID: 0}
+  spriteRenderer: {fileID: 4000220935047099439}
 --- !u!73398921 &3117137273439092222
 VFXRenderer:
   serializedVersion: 1

@@ -55,6 +55,8 @@ namespace Player
             public float attackSpeedMultiplier = 1.0f;
         }
 
+        
+        // Parameters
         public float GetFloatByString(string parameter)
         {
             return itemManager.GetFloat(parameter);
@@ -67,7 +69,7 @@ namespace Player
 
         public float GetMovementSpeedMultiplier()
         {
-            return Mathf.Clamp(movementUpgrades.movementSpeedMultiplier + itemManager.GetFloat("MovementSpeed"), 0.3f, 10f);
+            return Mathf.Clamp(movementUpgrades.movementSpeedMultiplier + itemManager.GetFloat("MovementSpeed"), 0.3f, 5f);
         }
         
         public float GetAttackDamageMultiplier()
