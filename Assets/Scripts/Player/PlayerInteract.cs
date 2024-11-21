@@ -50,62 +50,6 @@ public class PlayerInteract : MonoBehaviour
         }
         
         _wasHolding = isHolding;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /*
-        if (_objectsWithinRange.Count == 0) 
-            return;
-
-        bool isNewObject = false;
-        
-        
-        CullObjects();
-        //GameObject closestInteractable = GetClosestInteractable();
-        if (!closestInteractable)
-            return;
-        //if (closestInteractable.TryGetComponent(out IInteractable interactable))
-        {
-            if (_currentInteractable != null)
-            {
-                if (_currentInteractable != interactable)
-                {
-                    _currentInteractable.CancelHighlight();
-                    isNewObject = true;
-                }
-            }
-            else
-            {
-                isNewObject = true;
-            }
-            _currentInteractable = interactable;
-            _currentInteractable.Highlight();
-        }
-
-        bool holdingInteract = interact.action.ReadValue<float>() != 0f;
-        if (holdingInteract)
-            Debug.Log("Holding");
-        if (!holdingInteract)
-        {
-            _currentInteractTime = 0f;
-            _wasHolding = false;
-            return;
-        }
-        if (_currentInteractTime > 0 && !isNewObject || !_wasHolding && _currentInteractTime == 0)
-        {
-            Debug.Log(_currentInteractTime);
-            _currentInteractTime += Time.deltaTime;
-            _currentInteractable?.Interact(player, _currentInteractTime);
-        }
-
-        _wasHolding = true;
-        */
     }
     
     private GameObject GetClosestInteractable()

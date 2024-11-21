@@ -54,12 +54,18 @@ public class Arrow : NetworkBehaviour
             transform.rotation = targetRotation * Quaternion.Euler(new Vector3(270f, 0f, 0f));
         }
     }
+
+    private Vector3 ApproximatePastPosition()
+    {
+        Debug.Log(rb.linearVelocity);
+        return transform.position - rb.linearVelocity * Time.fixedDeltaTime * 5; // We approximate 5 time steps in the past to compensate for extreme speeds :)
+    }
     
     private void StickToObject(Collider col)
     {
         // Stop the arrow's movement
         if (rb == null) return;
-        Ray ray = new Ray(transform.position, rb.linearVelocity.normalized);
+        Ray ray = new Ray(ApproximatePastPosition(), rb.linearVelocity.normalized);
         if (col.Raycast(ray, out RaycastHit hit, rb.linearVelocity.magnitude))
         {
             Vector3 to = hit.point + (Quaternion.LookRotation(-transform.up, transform.forward) * Vector3.back) * stuckRatio * arrowLength * transform.localScale.y;
