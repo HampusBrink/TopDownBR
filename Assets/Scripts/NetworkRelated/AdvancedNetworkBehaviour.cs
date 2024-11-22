@@ -24,6 +24,13 @@ namespace NetworkRelated
             print("Start Client");
         }
 
+        public override void OnStartServer()
+        {
+            base.OnStartServer();
+            
+            print("SERVER IS STARTED");
+        }
+
         // public override void OnStopClient()
         // {
         //     base.OnStopClient();
@@ -46,7 +53,6 @@ namespace NetworkRelated
         {
             if(!ClientInitialized) return;
             
-            print("Respawn Object");
             SRPC_SpawnObject();
             gameObject.SetActive(true);
         }
@@ -54,7 +60,6 @@ namespace NetworkRelated
         [ServerRpc(RequireOwnership = false)]
         private void SRPC_SpawnObject()
         {
-            print("Spawn Object");
             NetworkManagerRef.ServerManager.Spawn(NetworkObject,LocalConnection);
         }
     }
