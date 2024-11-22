@@ -36,7 +36,7 @@ public class Gift : NetworkBehaviour
             }
             if(!networkObject.IsOwner) return;
 
-            GameManager.Instance.upgradePopup.gameObject.SetActive(true);
+            //GameManager.Instance.upgradePopup.gameObject.SetActive(true);
         }
     }
 }

@@ -175,7 +175,7 @@ public class PlayerMovement : NetworkBehaviour
         HandleRollMovement();
         UpdateStamina();
         
-        if (!GameManager.Instance.upgradePopup.gameObject.activeInHierarchy && !_isRolling)
+        if (/*!GameManager.Instance.upgradePopup.gameObject.activeInHierarchy &&*/ !_isRolling)
         {
             ApplyMovement();
         }

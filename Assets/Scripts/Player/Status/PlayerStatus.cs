@@ -104,18 +104,24 @@ namespace Player
             base.OnStartClient();
 
             
+            
             CurrentHealth = vitalUpgrades.maxHealth;
             if (IsOwner)
             {
                 GameManager.Instance.SRPC_PlayerJoined(this);
                 healthBarFill.color = Color.green;
                 GameManager.Instance.localPlayer = this;
+                GameManager.Instance.OnPlayerInit?.Invoke(this);
+                levelText = GameManager.Instance.levelText;
+                experienceText = GameManager.Instance.experienceText;
+                experienceBarFill = GameManager.Instance.experienceBarFill;
+                InitializeLevel();
             }
         }
 
         private void Start()
         {
-            InitializeLevel();
+            
         }
 
         private void Update()

@@ -1,4 +1,6 @@
 using System;
+using MultiplayerBase.Scripts;
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -10,12 +12,20 @@ public class InventoryUI : MonoBehaviour
     public RectTransform inventoryContent;
     public RectTransform inventoryMenu, statsMenu;
     public DisplayItem itemDisplayPrefab;
+    
 
     private void OnEnable()
     {
-        itemManager.OnItemAdded += AddItem;
+        
         showInventory.action.performed += InputShow;
         showInventory.action.canceled += InputShow;
+        GameManager.Instance.OnPlayerInit += Init;
+    }
+
+    private void Init(PlayerStatus playerStatus)
+    {
+        itemManager = playerStatus.itemManager;
+        itemManager.OnItemAdded += AddItem;
     }
 
     private void OnDisable()
