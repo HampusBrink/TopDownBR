@@ -57,10 +57,10 @@ public class Arrow : NetworkBehaviour
 
     private Vector3 ApproximatePastPosition()
     {
-        Debug.Log(rb.linearVelocity);
         return transform.position - rb.linearVelocity * Time.fixedDeltaTime * 5; // We approximate 5 time steps in the past to compensate for extreme speeds :)
     }
-    
+
+    private bool _hasStuckToObject = false;
     private void StickToObject(Collider col)
     {
         // Stop the arrow's movement
@@ -74,6 +74,7 @@ public class Arrow : NetworkBehaviour
         
         rb.linearVelocity = Vector2.zero;
         rb.isKinematic = true;
+        _hasStuckToObject = true;
 
         // Attach the arrow to the object it collided with
         //transform.parent = col.transform;
@@ -82,7 +83,6 @@ public class Arrow : NetworkBehaviour
     private IEnumerator StuckAnimation(float speed, Vector3 from, Vector3 to)
     {
         float t = Vector3.Distance(from, to) / speed;
-        Debug.Log(Vector3.Distance(from, to) / speed);
         float elapsedTime = 0;
         while (elapsedTime < t)
         {
@@ -107,19 +107,16 @@ public class Arrow : NetworkBehaviour
                     return;
                 if (no.TryGetComponent(out IDamagable damagable))
                 {
-                    
-
                     damagable.TakeDamage(_damage);
                 }
             }
-            Debug.Log("Collided with: " + col.gameObject);
             Destroy(gameObject);
         }
         else if (col.gameObject.layer is 8) // Assuming Damager is layer 8
         {
             return;
         }
-        else 
+        else if (!_hasStuckToObject)
         {
             StickToObject(col);
         }

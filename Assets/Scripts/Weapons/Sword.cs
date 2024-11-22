@@ -115,7 +115,7 @@ public class Sword : BaseWeapon
         isAttacking = false;
     }
     
-    private void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter(Collider col)
     {
         if (!GameManager.Instance.GameStarted) return;
 

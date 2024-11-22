@@ -64,7 +64,6 @@ public class Bow : BaseWeapon
                 // Automatically fire the arrow when fully charged
                 float shootForce = maxShootForce;
                 SpawnArrow(_bonusArrows);
-                Debug.Log($"Arrow shot with max force: {shootForce}");
 
                 // Reset charging and particles after shooting
                 ResetBowAfterShot();
