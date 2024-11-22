@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using FishNet.Connection;
 using FishNet.Managing;
 using FishNet.Object;
@@ -22,23 +23,41 @@ namespace NetworkRelated
             {
                 Instance = this;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
         }
 
         private void Start()
         {
             NetworkManager.ServerManager.Objects.OnPreDestroyClientObjects += ObjectsOnOnPreDestroyClientObjects;
-            NetworkManager.ClientManager.OnClientTimeOut += ClientManagerOnOnClientTimeOut;
             NetworkManager.TransportManager.Transport.OnClientConnectionState += Transport_OnClientConnectionState;
             NetworkManager.ServerManager.OnRemoteConnectionState += OnServerRemoteConnectionState;
+
+            NetworkManager.ClientManager.OnClientConnectionState += OnClientConnectionState;
+            NetworkManager.ServerManager.OnServerConnectionState += OnServerConnectionState;
+            NetworkManager.ClientManager.OnAuthenticated += ClientManagerOnOnAuthenticated;
         }
 
-        private void ClientManagerOnOnClientTimeOut()
+        private void ClientManagerOnOnAuthenticated()
         {
-            print(NetworkManager.ClientManager.Connection.Objects.Count + "daddyadaddy");
+            ConnectedToServer?.Invoke();
+        }
+
+        private void OnServerConnectionState(ServerConnectionStateArgs obj)
+        {
+            if (obj.ConnectionState == LocalConnectionState.Started)
+            {
+                SteamMatchmaking.SetLobbyGameServer(new CSteamID(SteamManager.Instance.CurrentLobbyID),0,0,new CSteamID(SteamManager.Instance.CurrentLobbyID));
+                ConnectedToServer?.Invoke();
+                print("Connected To Server");
+            }
+        }
+
+        private void OnClientConnectionState(ClientConnectionStateArgs obj)
+        {
+            if (obj.ConnectionState == LocalConnectionState.Started)
+            {
+                ConnectedToServer?.Invoke();
+                print("Connected To Client");
+            }
         }
 
         private void ObjectsOnOnPreDestroyClientObjects(NetworkConnection obj)
@@ -48,24 +67,15 @@ namespace NetworkRelated
 
         private void OnServerRemoteConnectionState(NetworkConnection arg1, RemoteConnectionStateArgs arg2)
         {
-            print("Client Left!!!");
+            if (arg2.ConnectionState == RemoteConnectionState.Started)
+            {
+                ConnectedToServer?.Invoke();
+                print("Connected To Master");
+            }
         }
 
         private void Transport_OnClientConnectionState(ClientConnectionStateArgs obj)
         {
-            if (obj.ConnectionState == LocalConnectionState.Started)
-            {
-                ConnectedToServer?.Invoke();
-            }
-            //if(obj.ConnectionState != LocalConnectionState.Stopped) return;
-            print("Client Left");
-            print(NetworkManager.ClientManager.Connection.Objects.Count);
-            foreach (NetworkObject networkObject in NetworkManager.ClientManager.Connection.Objects)
-            {
-                print(networkObject.gameObject.name + "Got Destroyed");
-                networkObject.RemoveOwnership();
-            }
-            
             SteamMatchmaking.RequestLobbyData(new CSteamID(SteamManager.Instance.CurrentLobbyID));
         }
         

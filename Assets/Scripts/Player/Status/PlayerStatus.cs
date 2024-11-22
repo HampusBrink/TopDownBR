@@ -1,6 +1,7 @@
 using System;
 using FishNet.Object;
 using MultiplayerBase.Scripts;
+using NetworkRelated;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,7 +10,7 @@ using TMPro;
 
 namespace Player
 {
-    public class PlayerStatus : NetworkBehaviour, IDamagable
+    public class PlayerStatus : AdvancedNetworkBehaviour, IDamagable
     {
         // Levels
         [Header("Experience / Levels")] [SerializeField]
@@ -102,12 +103,13 @@ namespace Player
         {
             base.OnStartClient();
 
-
+            
             CurrentHealth = vitalUpgrades.maxHealth;
             if (IsOwner)
             {
                 GameManager.Instance.SRPC_PlayerJoined(this);
                 healthBarFill.color = Color.green;
+                GameManager.Instance.localPlayer = this;
             }
         }
 

@@ -71,15 +71,13 @@ public class PlayerMovement : NetworkBehaviour
     {
         base.OnStartClient();
         
-        _rb = GetComponent<Rigidbody>();
-        _col = GetComponent<CapsuleCollider>();
-        _playerStatus = GetComponent<PlayerStatus>();
-        _camera = Camera.main;
+        
         _stamina = maxStamina;
 
         if (!IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
 
-        if (IsOwner && _camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
+        if(IsOwner) AssignComponents();
+        
 
         _desiredSpeed = _multipliedSpeed = walkSpeed;
     }
@@ -138,8 +136,6 @@ public class PlayerMovement : NetworkBehaviour
     private void Start()
     {
         if(!IsOffline) return;
-        
-        AssignComponents();
         
         _stamina = maxStamina;
         

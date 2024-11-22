@@ -9,3 +9,11 @@ MonoImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 207815
+  packageName: 'FishNet: Networking Evolved'
+  packageVersion: 4.5.2R
+  assetPath: Assets/MultiplayerBase/FishNet/Demos/ColliderRollback/Scripts/Rollback
+    Visualization/TextCanvas.cs
+  uploadId: 702413

@@ -245,7 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minIntensity: 0.5
-  maxIntensity: 8.12
+  maxIntensity: 7.01
   flickerSpeed: 8.34
 --- !u!1 &6411469760339305994
 GameObject:

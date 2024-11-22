@@ -1133,14 +1133,16 @@ MonoBehaviour:
   - {fileID: 2312113109336434810}
   - {fileID: 1503768175238242283}
   - {fileID: 6828795145749420725}
-  <InitializedParentNetworkBehaviour>k__BackingField: {fileID: 0}
-  <InitializedNestedNetworkObjects>k__BackingField:
+  InitializedParentNetworkBehaviour: {fileID: 0}
+  InitializedNestedNetworkObjects:
   - {fileID: 5580956202373544779}
+  RuntimeParentNetworkBehaviour: {fileID: 0}
+  RuntimeChildNetworkBehaviours: []
   _isNetworked: 1
   _isSpawnable: 1
   _isGlobal: 0
   _initializeOrder: 0
-  _defaultDespawnType: 0
+  _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
   _enablePrediction: 0
   _predictionType: 0
@@ -1155,7 +1157,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 4
+  <PrefabId>k__BackingField: 5
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 5532731245525678771
   <SceneId>k__BackingField: 0
@@ -1467,6 +1469,11 @@ PrefabInstance:
       propertyPath: <ComponentIndex>k__BackingField
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
+        type: 3}
+      propertyPath: InitializedParentNetworkBehaviour
+      value: 
+      objectReference: {fileID: 6828795145749420725}
     - target: {fileID: 7308016614472690296, guid: dc629888421f5a340a9cb24765a662eb,
         type: 3}
       propertyPath: <InitializedParentNetworkBehaviour>k__BackingField
