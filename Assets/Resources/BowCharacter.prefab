@@ -56,7 +56,22 @@ PrefabInstance:
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: _isNetworked
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: _predictionType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: _graphicalObject
+      value: 
+      objectReference: {fileID: 6110607818350151051}
+    - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: _enablePrediction
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
@@ -102,7 +117,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'InitializedNestedNetworkObjects.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 8071196346674486957}
     - target: {fileID: 3560203185535188127, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: <InitializedNestedNetworkObjects>k__BackingField.Array.size
@@ -253,6 +268,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5185330819682171644 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6828795145749420725, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1815302396449136713}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cac635f24954048aad3a6ff9110beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &6110607818350151051 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5619369209906095554, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1815302396449136713}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7286489483471542867 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8948635404500007450, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
@@ -338,6 +371,41 @@ PrefabInstance:
       propertyPath: damageToArrowSizeScale
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: <IsNested>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: <ComponentIndex>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: InitializedParentNetworkBehaviour
+      value: 
+      objectReference: {fileID: 5185330819682171644}
+    - target: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.y
+      value: -0.454
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Position.z
+      value: -0.083
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.w
+      value: 0.8433915
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+        type: 3}
+      propertyPath: SerializedTransformProperties.Rotation.x
+      value: 0.53729963
+      objectReference: {fileID: 0}
     - target: {fileID: 6843099930137547613, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -408,6 +476,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 51b49f51321ad4e4f87f6ce6f819f078, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8071196346674486957 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6595045094234479654, guid: ff58d5ed2d5bf234cb3ededf3e2eb450,
+    type: 3}
+  m_PrefabInstance: {fileID: 3135887161626313355}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &8463244340018844118 stripped

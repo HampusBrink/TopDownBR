@@ -36,7 +36,6 @@ namespace MultiplayerBase.Scripts
             }
             else
             {
-                
                 if (!RogueRoyaleNetworkManager.Instance.NetworkManager.IsServerStarted)
                 {
                     RogueRoyaleNetworkManager.Instance.NetworkManager.ServerManager.StartConnection();

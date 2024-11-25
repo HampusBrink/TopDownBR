@@ -83,8 +83,6 @@ public class Arrow : NetworkBehaviour
                     return;
                 if (no.TryGetComponent(out IDamagable damagable))
                 {
-                    
-
                     damagable.TakeDamage(_damage);
                 }
             }

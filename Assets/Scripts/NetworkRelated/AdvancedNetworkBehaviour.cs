@@ -28,6 +28,7 @@ namespace NetworkRelated
         {
             base.OnStartServer();
             
+            print(IsServerInitialized);
             print("SERVER IS STARTED");
         }
 
