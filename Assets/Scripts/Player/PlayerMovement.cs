@@ -53,7 +53,7 @@ public class PlayerMovement : NetworkBehaviour
     //private CharacterController _characterController;
     private Rigidbody _rb;
     private CapsuleCollider _col;
-    private PlayerInputHandler _inputHandler;
+    public InputActionReference move, sprint, dodge;
     
     public enum TurnDirection
     {
@@ -82,6 +82,57 @@ public class PlayerMovement : NetworkBehaviour
         _desiredSpeed = _multipliedSpeed = walkSpeed;
     }
 
+    private void OnEnable()
+    {
+        move.action.performed += InputMove;
+        move.action.canceled += InputMove;
+        
+        sprint.action.performed += InputSprint;
+        sprint.action.canceled += InputSprint;
+        
+        dodge.action.started += InputDodge;
+    }
+
+    private void OnDisable()
+    {
+        move.action.performed -= InputMove;
+        move.action.canceled -= InputMove;
+        
+        sprint.action.performed -= InputSprint;
+        sprint.action.canceled -= InputSprint;
+        
+        dodge.action.started -= InputDodge;
+    }
+
+    #region Inputs
+
+    public void InputMove(InputAction.CallbackContext context)
+    {
+        _moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void InputSprint(InputAction.CallbackContext context)
+    {
+        _isSprinting = context.ReadValueAsButton();
+    }
+
+    public void InputDodge(InputAction.CallbackContext context)
+    {
+        if (!context.ReadValueAsButton())
+            return;
+        if (_moveInput != Vector2.zero && _canRoll && !_isRolling)
+        {
+            StartRoll();
+        }
+    }
+    
+    public bool GetDodgeInput()
+    {
+        return dodge.action.ReadValue<float>() != 0f;
+    }
+
+    #endregion
+
     private void Start()
     {
         if(!IsOffline) return;
@@ -98,19 +149,14 @@ public class PlayerMovement : NetworkBehaviour
         _playerStatus = GetComponent<PlayerStatus>();
         _camera = Camera.main;
         if (_camera) _camera.GetComponent<CameraMovement>().FollowTarget = transform;
-        _inputHandler = PlayerInputHandler.Instance;
     }
 
     private void Update()
     {
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
-        GetInputs();
         
-        if (_inputHandler.DodgeTriggered && _moveInput != Vector2.zero && _canRoll && !_isRolling)
-        {
-            StartRoll();
-        }
+        
         
         if(!_isRolling)
             UpdateMoveDirection();
@@ -119,11 +165,7 @@ public class PlayerMovement : NetworkBehaviour
         
         Animate();
     }
-
-    private void GetInputs()
-    {
-        _moveInput = _inputHandler.MoveInput;
-    }
+    
 
     void FixedUpdate()
     {
@@ -133,7 +175,7 @@ public class PlayerMovement : NetworkBehaviour
         HandleRollMovement();
         UpdateStamina();
         
-        if (!GameManager.Instance.upgradePopup.gameObject.activeInHierarchy && !_isRolling)
+        if (/*!GameManager.Instance.upgradePopup.gameObject.activeInHierarchy &&*/ !_isRolling)
         {
             ApplyMovement();
         }
@@ -236,23 +278,11 @@ public class PlayerMovement : NetworkBehaviour
         legsAnim.SetFloat("LastMoveX", TurnDirectionToVector2(lastMovedirection).x);
         legsAnim.SetFloat("LastMoveY", TurnDirectionToVector2(lastMovedirection).y);
     }
-
-    private void CheckSprint()
-    {
-        if (_inputHandler.SprintValue > 0)
-        {
-            _isSprinting = true;
-        }
-        else
-        {
-            _isSprinting = false;
-        }
-    }
     
     private void UpdateMovementSpeed()
     {
         _desiredSpeed = _isSprinting && _stamina > 1 ? sprintSpeed : walkSpeed;
-        _multipliedSpeed = _playerStatus.movementUpgrades.movementSpeedMultiplier * _desiredSpeed;
+        _multipliedSpeed = _playerStatus.GetMovementSpeedMultiplier() * _desiredSpeed;
     }
 
     private Vector3 Gravity()
@@ -303,7 +333,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         RayCastGroundCheck();
         AdjustToGround();
-        CheckSprint();
         UpdateMovementSpeed();
         
         Vector3 input = new Vector3(_moveInput.x, 0, _moveInput.y);
@@ -324,7 +353,7 @@ public class PlayerMovement : NetworkBehaviour
     
     private void StartRoll()
     {
-        Debug.Log("StartRoll");
+        //Debug.Log("StartRoll");
         _isRolling = true;
         _canRoll = false;
         _rollTime = 0f;

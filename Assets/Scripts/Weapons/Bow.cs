@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
@@ -31,6 +32,8 @@ public class Bow : BaseWeapon
     private float _initialBowAngle;
     private float _maxWindUpTime = 1.0f;
     private ParticleSystem.MainModule _chargeParticleMain;
+    
+    public InputActionReference mousePos;
 
     protected override void Start()
     {
@@ -61,7 +64,6 @@ public class Bow : BaseWeapon
                 // Automatically fire the arrow when fully charged
                 float shootForce = maxShootForce;
                 SpawnArrow(_bonusArrows);
-                Debug.Log($"Arrow shot with max force: {shootForce}");
 
                 // Reset charging and particles after shooting
                 ResetBowAfterShot();
@@ -123,7 +125,7 @@ public class Bow : BaseWeapon
     private float GetBowToMouseAngle()
     {
         Vector2 characterScreenPos = _camera.WorldToScreenPoint(transform.position);
-        Vector2 mouseScreenPos = InputHandler.MousePos;
+        Vector2 mouseScreenPos = mousePos.action.ReadValue<Vector2>();
         Vector2 direction = (mouseScreenPos - characterScreenPos).normalized * -1;
         return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }

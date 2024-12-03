@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using NetworkRelated;
 using Player;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using TurnDirection = PlayerMovement.TurnDirection;
 
@@ -12,7 +13,6 @@ public abstract class BaseWeapon : AdvancedNetworkBehaviour
 
     // Components
     public Animator animator;
-    protected PlayerInputHandler InputHandler;
     //public SpriteRenderer weaponGFX;
     
     [Header("Weapon Stats")]
@@ -36,14 +36,13 @@ public abstract class BaseWeapon : AdvancedNetworkBehaviour
     private void BaseWeaponGetComponents()
     {
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
-        InputHandler = PlayerInputHandler.Instance;
     }
 
-    public void UpdateWeaponUpgrades(PlayerStatus.CombatUpgrades genericStats)
+    public void UpdateWeaponUpgrades(PlayerStatus playerStatus)
     {
-        UpdateAttackDamage(genericStats.attackDamageMultiplier);
-        UpdateAttackRange(genericStats.attackRangeMultiplier);
-        UpdateAttackSpeed(genericStats.attackSpeedMultiplier);
+        UpdateAttackDamage(playerStatus.GetAttackDamageMultiplier());
+        UpdateAttackRange(playerStatus.GetAttackRangeMultiplier());
+        UpdateAttackSpeed(playerStatus.GetAttackSpeedMultiplier());
     }
 
     public virtual void UpdateWeaponSpecificUpgrades(PlayerStatus playerStatus)

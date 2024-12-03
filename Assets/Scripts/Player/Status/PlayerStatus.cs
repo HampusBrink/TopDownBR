@@ -24,12 +24,16 @@ namespace Player
         int _currentLevel = 1, _totalExperience;
         int _previousLevelsExperience, _nextLevelsExperience;
 
-        [Header("Other")] [SerializeField] private Image healthBarFill;
+        [Header("Other")] 
+        [SerializeField] private Image healthBarFill;
         public CapsuleCollider hitBox;
         [SerializeField] private PlayerCombat playerCombat;
+        public ItemManager itemManager;
+        
 
-        [Header("Generic Upgrades")] public VitalUpgrades vitalUpgrades;
-        public MovementUpgrades movementUpgrades;
+        [Header("Generic Upgrades")] 
+        public VitalUpgrades vitalUpgrades;
+        [SerializeField] private MovementUpgrades movementUpgrades;
         public CombatUpgrades combatUpgrades;
 
         [System.Serializable]
@@ -52,6 +56,38 @@ namespace Player
             public float attackSpeedMultiplier = 1.0f;
         }
 
+        
+        // Parameters
+        public float GetFloatByString(string parameter)
+        {
+            return itemManager.GetFloat(parameter);
+        }
+
+        public float GetMaxHealth()
+        {
+            return Mathf.Max(vitalUpgrades.maxHealth + itemManager.GetFloat("MaxHealth"), 1f);
+        }
+
+        public float GetMovementSpeedMultiplier()
+        {
+            return Mathf.Clamp(movementUpgrades.movementSpeedMultiplier + itemManager.GetFloat("MovementSpeed"), 0.3f, 5f);
+        }
+        
+        public float GetAttackDamageMultiplier()
+        {
+            return Mathf.Max(combatUpgrades.attackDamageMultiplier + itemManager.GetFloat("AttackDamage"), 0.1f);
+        }
+        
+        public float GetAttackRangeMultiplier()
+        {
+            return Mathf.Max(combatUpgrades.attackRangeMultiplier + itemManager.GetFloat("AttackRange"), 0.1f);
+        }
+        
+        public float GetAttackSpeedMultiplier()
+        {
+            return Mathf.Max(combatUpgrades.attackSpeedMultiplier + itemManager.GetFloat("AttackSpeed"), 0.1f);
+        }
+
 
         private float _currentHealth;
 
@@ -59,7 +95,7 @@ namespace Player
 
         public float CurrentHealth
         {
-            get => _currentHealth > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : _currentHealth;
+            get => _currentHealth > GetMaxHealth() ? GetMaxHealth() : _currentHealth;
             set => _currentHealth = value > vitalUpgrades.maxHealth ? vitalUpgrades.maxHealth : value;
         }
 
@@ -68,18 +104,24 @@ namespace Player
             base.OnStartClient();
 
             
+            
             CurrentHealth = vitalUpgrades.maxHealth;
             if (IsOwner)
             {
                 GameManager.Instance.SRPC_PlayerJoined(this);
                 healthBarFill.color = Color.green;
                 GameManager.Instance.localPlayer = this;
+                GameManager.Instance.OnPlayerInit?.Invoke(this);
+                levelText = GameManager.Instance.levelText;
+                experienceText = GameManager.Instance.experienceText;
+                experienceBarFill = GameManager.Instance.experienceBarFill;
+                InitializeLevel();
             }
         }
 
         private void Start()
         {
-            InitializeLevel();
+            
         }
 
         private void Update()

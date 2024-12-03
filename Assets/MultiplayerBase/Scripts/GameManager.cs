@@ -9,6 +9,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using static System.String;
 
 namespace MultiplayerBase.Scripts
@@ -17,7 +18,9 @@ namespace MultiplayerBase.Scripts
     {
         [SerializeField] private UIScript _UI;
         [SerializeField] private TMP_Text _victoryRoyaleUI;
-        public UpgradePopup upgradePopup;
+        public TextMeshProUGUI levelText;
+        public TextMeshProUGUI experienceText;
+        public Image experienceBarFill;
 
         [SerializeField] private int _countDownTime = 20;
 
@@ -39,6 +42,7 @@ namespace MultiplayerBase.Scripts
         public float Timer => Mathf.Abs(_timer - _countDownTime);
         
         public PlayerStatus localPlayer;
+        public Action<PlayerStatus> OnPlayerInit;
 
         void Awake()
         {
@@ -63,7 +67,7 @@ namespace MultiplayerBase.Scripts
 
         private void OnEnable()
         {
-            RogueRoyaleNetworkManager.Instance.NetworkManager.TimeManager.OnTick += ServerTick;
+            //RogueRoyaleNetworkManager.Instance.NetworkManager.TimeManager.OnTick += ServerTick;
         }
 
         private void ServerTick()

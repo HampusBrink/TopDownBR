@@ -23,6 +23,11 @@ PrefabInstance:
       propertyPath: _networkObjectCache
       value: 
       objectReference: {fileID: 8230893771294328146}
+    - target: {fileID: 898091766491722878, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2312113109336434810, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: _addedNetworkObject
@@ -193,6 +198,7 @@ MonoBehaviour:
   healthBarFill: {fileID: 2680378323968615696}
   hitBox: {fileID: 5866418819617828939}
   playerCombat: {fileID: 5166256038087680591}
+  itemManager: {fileID: 0}
   vitalUpgrades:
     maxHealth: 100
   movementUpgrades:

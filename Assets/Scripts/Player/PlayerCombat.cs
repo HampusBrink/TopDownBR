@@ -27,12 +27,27 @@ namespace Player
         private Animator _swordAnimator;
         private PlayerMovement _playerMovement;
         
-        private PlayerInputHandler _inputHandler;
-        
         private float _attackDuration;
         private float _attackReturnDuration;
         private float _lastAttackTime;
         private Coroutine _currentAttackCoroutine;
+
+        public InputActionReference attack, mousePos;
+
+        private void OnEnable()
+        {
+            attack.action.started += InputAttack;
+        }
+
+        private void OnDisable()
+        {
+            attack.action.started -= InputAttack;
+        }
+
+        private void InputAttack(InputAction.CallbackContext context)
+        {
+            HandleAttack();
+        }
 
 
         public override void OnStartClient()
@@ -75,31 +90,28 @@ namespace Player
         {
             _playerStatus = GetComponent<PlayerStatus>();
             _playerMovement = GetComponent<PlayerMovement>();
-            _inputHandler = PlayerInputHandler.Instance;
         }
     
         private void Update()
         {
             if(!IsOwner && !IsOffline) return;
-            if (_inputHandler.AttackTriggered)
-                HandleAttack();
             UpdateTurnDirection();
             PlayAttackAnimation();
         }
     
         private void UpdateCombatUpgrades()
         {
-            equippedWeapon.UpdateWeaponUpgrades(_playerStatus.combatUpgrades);
+            equippedWeapon.UpdateWeaponUpgrades(_playerStatus);
             equippedWeapon.UpdateWeaponSpecificUpgrades(_playerStatus);
         }
     
         private TurnDirection GetTurnDirectionFromMouse()
         {
-            Vector2 mouseScreenPosition = _inputHandler.MousePos;
+            Vector2 mouseScreenPos = mousePos.action.ReadValue<Vector2>();
             Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
             Vector2 normalizedDirection = new Vector2(
-                (mouseScreenPosition.x - screenCenter.x) / Screen.width,
-                (mouseScreenPosition.y - screenCenter.y) / Screen.height
+                (mouseScreenPos.x - screenCenter.x) / Screen.width,
+                (mouseScreenPos.y - screenCenter.y) / Screen.height
             );
     
             var angle = Mathf.Atan2(normalizedDirection.y, normalizedDirection.x) * Mathf.Rad2Deg + 90;

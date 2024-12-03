@@ -137,6 +137,10 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   FollowTarget: {fileID: 0}
+  altAttack: {fileID: 6487690640208495454, guid: 934800b5f55d7354694ffdfa51421f64,
+    type: 3}
+  mousePos: {fileID: 9096501553951641872, guid: 934800b5f55d7354694ffdfa51421f64,
+    type: 3}
   forwardOffsetVector: {x: 0, y: -1, z: 0}
   upOffsetVector: {x: 0, y: 0, z: 1}
 --- !u!114 &3803255035599315248
@@ -225,6 +229,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: eeecb0b2-0e0e-4ca9-9992-07d8c54a0fd1
     m_ActionName: 'PlayerActions/AltSkill[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 81e9e1a8-a41d-41ab-b64b-9d30d8e6a761
+    m_ActionName: 'PlayerActions/MousePos[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1c3b40bb-d0b3-4ea6-84cc-0d31df2531b7
+    m_ActionName: 'PlayerActions/Interact[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -253,7 +265,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
