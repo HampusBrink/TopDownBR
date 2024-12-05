@@ -46,6 +46,7 @@ namespace Player
 
         private void InputAttack(InputAction.CallbackContext context)
         {
+            if(!IsOwner && !IsOffline) return;
             HandleAttack();
         }
 

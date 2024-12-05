@@ -744,7 +744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7443408887696560929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,7 +875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &7443408888223772048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,7 +919,7 @@ MonoBehaviour:
   evtSteamInitializationError:
     m_PersistentCalls:
       m_Calls: []
-  _networkManager: {fileID: 7443408887696560926}
+  _networkManager: {fileID: 7443408888223772046}
   _fishySteamworks: {fileID: 7443408887696560929}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

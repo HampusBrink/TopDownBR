@@ -28,7 +28,7 @@ namespace NetworkRelated
         {
             base.OnStartServer();
             
-            print(IsServerInitialized);
+            print(IsServerInitialized + gameObject.name);
             print("SERVER IS STARTED");
         }
 
