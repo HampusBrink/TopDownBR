@@ -23,6 +23,11 @@ PrefabInstance:
       propertyPath: _networkObjectCache
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 259182131925589822, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 898091766491722878, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: player
@@ -263,12 +268,6 @@ PrefabInstance:
       insertIndex: 4
       addedObject: {fileID: 480388597484941022}
   m_SourcePrefab: {fileID: 100100000, guid: 36391774a5f3b014e9f8bd9e1fb86abc, type: 3}
---- !u!136 &795704012799748559 stripped
-CapsuleCollider:
-  m_CorrespondingSourceObject: {fileID: 1313880644170549638, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
-    type: 3}
-  m_PrefabInstance: {fileID: 1815302396449136713}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2148610915373317067 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -8871992485847606398, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
@@ -361,7 +360,7 @@ MonoBehaviour:
   experienceBarFill: {fileID: 0}
   debugExpAddAmount: 27
   healthBarFill: {fileID: 9174326820218797204}
-  hitBox: {fileID: 795704012799748559}
+  hitBox: {fileID: 0}
   playerCombat: {fileID: 2148610915373317067}
   itemManager: {fileID: 3443432846572448442}
   vitalUpgrades:

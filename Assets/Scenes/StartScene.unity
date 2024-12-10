@@ -918,7 +918,19 @@ MonoBehaviour:
         m_CallState: 2
   evtSteamInitializationError:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8078096195044459117}
+        m_TargetAssemblyTypeName: NetworkRelated.Steam.SteamManager, Assembly-CSharp
+        m_MethodName: GoToMainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   _networkManager: {fileID: 7443408888223772046}
   _fishySteamworks: {fileID: 7443408887696560929}
 --- !u!1660057539 &9223372036854775807
