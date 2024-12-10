@@ -98,11 +98,9 @@ public class Arrow : NetworkBehaviour
     private void OnTriggerEnter(Collider col)
     {
         //if (!GameManager.Instance.GameStarted) return;
-        print("Collided With Something");
 
         if (col.gameObject.layer is 7) // Assuming PlayerHitbox is layer 7
         {
-            print("Collided With Player");
             if (col.transform.parent.TryGetComponent(out NetworkObject no))
             {
                 if(no.IsOwner && !IsOffline)
