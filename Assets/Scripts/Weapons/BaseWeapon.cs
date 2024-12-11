@@ -38,6 +38,7 @@ public abstract class BaseWeapon : AdvancedNetworkBehaviour
         animator = gameObject.GetComponent<Animator>(); // doesn't work?? might have to assign through unity
     }
 
+    //TODO: Getter of WeaponUpgrades
     public void UpdateWeaponUpgrades(PlayerStatus playerStatus)
     {
         UpdateAttackDamage(playerStatus.GetAttackDamageMultiplier());

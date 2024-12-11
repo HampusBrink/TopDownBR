@@ -97,6 +97,8 @@ public class Arrow : NetworkBehaviour
     
     private void OnTriggerEnter(Collider col)
     {
+        if(!GameManager.Instance.localPlayer.IsServerStarted) return;
+        
         //if (!GameManager.Instance.GameStarted) return;
 
         if (col.gameObject.layer is 7) // Assuming PlayerHitbox is layer 7
