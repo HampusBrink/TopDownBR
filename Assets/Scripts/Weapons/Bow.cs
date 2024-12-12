@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Connection;
 using FishNet.Object;
 using Player;
 using UnityEngine;
@@ -195,7 +196,7 @@ public class Bow : BaseWeapon
             Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
             //GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
 
-            SRPC_SpawnArrow(arrowRotation);
+            SRPC_SpawnArrow(arrowRotation,OwnerId);
             // arrow.transform.localScale = GetArrowSize();
             //
             // if (arrow.TryGetComponent(out Arrow arrowComponent))
@@ -206,14 +207,15 @@ public class Bow : BaseWeapon
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SRPC_SpawnArrow(Quaternion arrowRotation) => ORPC_SpawnArrow(arrowRotation);
+    private void SRPC_SpawnArrow(Quaternion arrowRotation,int owner) => ORPC_SpawnArrow(arrowRotation, owner);
     
 
     [ObserversRpc]
-    private void ORPC_SpawnArrow(Quaternion arrowRotation)
+    private void ORPC_SpawnArrow(Quaternion arrowRotation,int ownerId)
     {
         GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
-        //NetworkManager.ServerManager.Spawn(arrow);
+
+        arrow.GetComponent<Arrow>().OwnerID = ownerId;
         
          arrow.transform.localScale = GetArrowSize();
             
