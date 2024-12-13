@@ -13,12 +13,10 @@ public class GiftSpawning : NetworkBehaviour
     private List<Transform> availableSpawnPositions;
 
 
-    public override void OnStartClient()
+    public override void OnStartServer()
     {
-        base.OnStartClient();
+        base.OnStartServer();
         
-        if(!IsServerInitialized) return;
-
         availableSpawnPositions = new List<Transform>(allSpawnPositions);
         StartCoroutine(SpawnGiftRoutine());
     }
@@ -37,13 +35,12 @@ public class GiftSpawning : NetworkBehaviour
         if (!GameManager.Instance.GameStarted) return;
         if (availableSpawnPositions.Count > 0)
         {
+            print("Rafa har små bollar");
             int randomIndex = Random.Range(0, availableSpawnPositions.Count);
             Transform spawnPosition = availableSpawnPositions[randomIndex];
             
             GameObject gift = Instantiate(giftPrefab, spawnPosition.position, Quaternion.identity);
-            GameManager.Instance.ServerManager.Spawn(gift);
-            
-            gift.GetComponent<Gift>().SetSpawnPosition(spawnPosition);
+            NetworkManager.ServerManager.Spawn(gift);
             
             availableSpawnPositions.RemoveAt(randomIndex);
         }

@@ -153,6 +153,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
+        if(!GameManager.Instance.GameStarted) return;
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
         
@@ -169,6 +170,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if(!GameManager.Instance.GameStarted) return;
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
 

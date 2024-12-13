@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8934950597405352253, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 3884952717783554930
+      objectReference: {fileID: 0}
     - target: {fileID: 1053484915722385677, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
@@ -138,6 +143,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655244528626065194, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _addedNetworkObject
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655244528626065194, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _networkObjectCache
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2109340687795810040, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
@@ -326,7 +341,8 @@ PrefabInstance:
       propertyPath: 'parameters.Array.data[1]'
       value: 
       objectReference: {fileID: 1967412075709148360}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8934950597405352253, guid: 7130d8f01b0028b4bb68e0d357dd9a0f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -338,6 +354,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1967412075709148360}
+    - targetCorrespondingSourceObject: {fileID: 4864121964995596601, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 7130d8f01b0028b4bb68e0d357dd9a0f, type: 3}
 --- !u!114 &3650256258996409624 stripped
 MonoBehaviour:
