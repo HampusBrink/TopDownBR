@@ -13,6 +13,16 @@ PrefabInstance:
       propertyPath: <AssetPathHash>k__BackingField
       value: 3884952717783554930
       objectReference: {fileID: 0}
+    - target: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _addedNetworkObject
+      value: 
+      objectReference: {fileID: 434168072117607276}
+    - target: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _networkObjectCache
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1053484915722385677, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
@@ -328,6 +338,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
+      propertyPath: weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
       propertyPath: parameters.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -343,6 +358,7 @@ PrefabInstance:
       objectReference: {fileID: 1967412075709148360}
     m_RemovedComponents:
     - {fileID: -8934950597405352253, guid: 7130d8f01b0028b4bb68e0d357dd9a0f, type: 3}
+    - {fileID: 1655244528626065194, guid: 7130d8f01b0028b4bb68e0d357dd9a0f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -421,7 +437,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 0}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -445,14 +462,14 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 3
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 3884952717783554930
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Position: {x: 5.5472283, y: 0.6643404, z: -4}
+    Rotation: {x: 0.49882358, y: -0, z: -0, w: 0.86670357}
+    LocalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &4504074157697246817 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4677670701494469974, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,

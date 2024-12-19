@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5531427045197461039}
   - component: {fileID: 3117137273439092222}
   - component: {fileID: -8934950597405352253}
-  - component: {fileID: 1655244528626065194}
+  - component: {fileID: 305149417876423432}
   m_Layer: 11
   m_Name: Base Item
   m_TagString: Untagged
@@ -252,6 +252,7 @@ MonoBehaviour:
   parameters:
   - {fileID: 0}
   spriteRenderer: {fileID: 4000220935047099439}
+  weight: 1
 --- !u!73398921 &3117137273439092222
 VFXRenderer:
   serializedVersion: 1
@@ -312,7 +313,7 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
-  - {fileID: 1655244528626065194}
+  - {fileID: 305149417876423432}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -344,7 +345,7 @@ MonoBehaviour:
     Position: {x: 5.5472283, y: 0.6643404, z: -4}
     Rotation: {x: 0.49882358, y: -0, z: -0, w: 0.86670357}
     LocalScale: {x: 1, y: 1, z: 1}
---- !u!114 &1655244528626065194
+--- !u!114 &305149417876423432
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

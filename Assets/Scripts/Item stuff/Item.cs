@@ -9,6 +9,8 @@ public class Item : MonoBehaviour
     public List<ItemParameter<object>> parameters;
     public SpriteRenderer spriteRenderer;
 
+    public int weight;
+
     public Sprite GetBorderSprite()
     {
         return GetComponent<ItemVisuals>().borderSprite;
