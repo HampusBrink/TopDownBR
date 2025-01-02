@@ -70,20 +70,21 @@ public class PlayerMovement : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        
-        
+
+
+
+        if (!IsOwner)
+        {
+            staminaBarFill.transform.parent.gameObject.SetActive(false);
+            return;
+        }
+
         _stamina = maxStamina;
 
-        if (!IsOwner) staminaBarFill.transform.parent.gameObject.SetActive(false);
-
-        if(IsOwner) AssignComponents();
-        
+        AssignComponents();
 
         _desiredSpeed = _multipliedSpeed = walkSpeed;
-    }
-
-    private void OnEnable()
-    {
+        
         move.action.performed += InputMove;
         move.action.canceled += InputMove;
         
@@ -93,8 +94,10 @@ public class PlayerMovement : NetworkBehaviour
         dodge.action.started += InputDodge;
     }
 
-    private void OnDisable()
+    public override void OnStopClient()
     {
+        if(!IsOwner) return;
+        
         move.action.performed -= InputMove;
         move.action.canceled -= InputMove;
         
@@ -153,6 +156,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Update()
     {
+        if(!GameManager.Instance.GameStarted) return;
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
         
@@ -169,6 +173,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if(!GameManager.Instance.GameStarted) return;
         if(!IsOwner && !IsOffline) return;
         if(!_camera) return;
 
@@ -350,6 +355,16 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     #region Dodge Roll
+
+    private void SRPC_EnableHitbox(bool enabled)
+    {
+        ORPC_EnableHitbox(enabled);
+    }
+    
+    private void ORPC_EnableHitbox(bool enabled)
+    {
+        _playerStatus.hitBox.gameObject.SetActive(enabled);
+    }
     
     private void StartRoll()
     {
@@ -358,19 +373,18 @@ public class PlayerMovement : NetworkBehaviour
         _canRoll = false;
         _rollTime = 0f;
         _rollDirection = _moveInput.normalized;
-        _playerStatus.hitBox.gameObject.SetActive(false);
-    
+        SRPC_EnableHitbox(false);
     
         // Optionally play roll animation
         // bodyAnim.SetTrigger("Roll");
     
         Invoke(nameof(ResetRollCooldown), rollCooldown);
     }
-    
+
     private void EndRoll()
     {
         _isRolling = false;
-        _playerStatus.hitBox.gameObject.SetActive(true);
+        SRPC_EnableHitbox(true);
     }
     
     private void ResetRollCooldown()

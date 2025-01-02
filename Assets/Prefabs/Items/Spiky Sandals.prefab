@@ -8,6 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8934950597405352253, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: <AssetPathHash>k__BackingField
+      value: 3884952717783554930
+      objectReference: {fileID: 0}
+    - target: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _addedNetworkObject
+      value: 
+      objectReference: {fileID: 434168072117607276}
+    - target: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _networkObjectCache
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1053484915722385677, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
@@ -138,6 +153,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655244528626065194, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _addedNetworkObject
+      value: 
+      objectReference: {fileID: 434168072117607276}
+    - target: {fileID: 1655244528626065194, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _networkObjectCache
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2109340687795810040, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
@@ -313,6 +338,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
+      propertyPath: weight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
       propertyPath: parameters.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -326,7 +356,9 @@ PrefabInstance:
       propertyPath: 'parameters.Array.data[1]'
       value: 
       objectReference: {fileID: 1967412075709148360}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8934950597405352253, guid: 7130d8f01b0028b4bb68e0d357dd9a0f, type: 3}
+    - {fileID: 1655244528626065194, guid: 7130d8f01b0028b4bb68e0d357dd9a0f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -338,6 +370,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1967412075709148360}
+    - targetCorrespondingSourceObject: {fileID: 4864121964995596601, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 434168072117607276}
   m_SourcePrefab: {fileID: 100100000, guid: 7130d8f01b0028b4bb68e0d357dd9a0f, type: 3}
 --- !u!114 &3650256258996409624 stripped
 MonoBehaviour:
@@ -385,6 +421,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameterName: AttackDamage
   value: 0.1
+--- !u!114 &434168072117607276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461684091852943886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
+  <PredictedOwner>k__BackingField: {fileID: 0}
+  NetworkBehaviours:
+  - {fileID: 0}
+  InitializedParentNetworkBehaviour: {fileID: 0}
+  InitializedNestedNetworkObjects: []
+  RuntimeParentNetworkBehaviour: {fileID: 0}
+  RuntimeChildNetworkBehaviours: []
+  _isNetworked: 1
+  _isSpawnable: 1
+  _isGlobal: 0
+  _initializeOrder: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  _enablePrediction: 0
+  _predictionType: 0
+  _graphicalObject: {fileID: 0}
+  _detachGraphicalObject: 0
+  _enableStateForwarding: 1
+  _networkTransform: {fileID: 0}
+  _ownerInterpolation: 1
+  _ownerSmoothedProperties: 255
+  _adaptiveInterpolation: 3
+  _spectatorSmoothedProperties: 255
+  _spectatorInterpolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  <PrefabId>k__BackingField: 3
+  <SpawnableCollectionId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 3884952717783554930
+  <SceneId>k__BackingField: 0
+  SerializedTransformProperties:
+    Position: {x: 5.5472283, y: 0.6643404, z: -4}
+    Rotation: {x: 0.49882358, y: -0, z: -0, w: 0.86670357}
+    LocalScale: {x: 1, y: 1, z: 1}
 --- !u!114 &4504074157697246817 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4677670701494469974, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,

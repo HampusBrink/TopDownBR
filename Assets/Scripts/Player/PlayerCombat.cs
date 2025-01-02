@@ -46,6 +46,8 @@ namespace Player
 
         private void InputAttack(InputAction.CallbackContext context)
         {
+            UpdateCombatUpgrades();
+            if(!IsOwner && !IsOffline) return;
             HandleAttack();
         }
 
@@ -68,8 +70,6 @@ namespace Player
             }
         
             AssignComponents();
-            if (!IsOwner)
-                return;
             UpdateCombatUpgrades();
         }
 
@@ -144,7 +144,6 @@ namespace Player
     
         private void HandleAttack()
         {
-            UpdateCombatUpgrades();
             
             if (!equippedWeapon.isAttacking)
             {
@@ -157,6 +156,7 @@ namespace Player
         
         public void OnAttack(InputAction.CallbackContext context)
         {
+            UpdateCombatUpgrades();
             if (!IsOwner && !IsOffline)
                 return;
             if (context.performed)
@@ -178,7 +178,6 @@ namespace Player
                 equippedWeapon.WeaponReleaseAttack();
             }
             
-            UpdateCombatUpgrades();
             //UpdateAttackDurations();
         }
         

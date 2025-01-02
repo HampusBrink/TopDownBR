@@ -15,6 +15,8 @@ public class Arrow : NetworkBehaviour
     [Range(0f, 1f)] 
     [SerializeField] private float stuckRatio = 0.5f;
 
+    [HideInInspector] public int OwnerID;
+
     private float _damage;
     private float _range;
     
@@ -97,13 +99,15 @@ public class Arrow : NetworkBehaviour
     
     private void OnTriggerEnter(Collider col)
     {
-        //if (!GameManager.Instance.GameStarted) return;
+        if(!GameManager.Instance.localPlayer.IsServerStarted) return;
+        
+        //if (!GameManager.Instance.GameStarted) return; 
 
         if (col.gameObject.layer is 7) // Assuming PlayerHitbox is layer 7
         {
             if (col.transform.parent.TryGetComponent(out NetworkObject no))
             {
-                if(no.IsOwner || IsOffline)
+                if(no.OwnerId == OwnerID)
                     return;
                 if (no.TryGetComponent(out IDamagable damagable))
                 {

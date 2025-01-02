@@ -235,6 +235,8 @@ namespace Player
         [ObserversRpc]
         private void RPC_TakeDamage(float damage)
         {
+            print(gameObject.name + $"Took {damage} damage!");
+
             CurrentHealth -= damage;
             UpdateHealthBar();
 

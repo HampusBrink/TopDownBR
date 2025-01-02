@@ -18,6 +18,7 @@ namespace MultiplayerBase.Scripts
     {
         [SerializeField] private UIScript _UI;
         [SerializeField] private TMP_Text _victoryRoyaleUI;
+        [SerializeField] private GameObject _waitingPlayersText;
         public TextMeshProUGUI levelText;
         public TextMeshProUGUI experienceText;
         public Image experienceBarFill;
@@ -67,7 +68,7 @@ namespace MultiplayerBase.Scripts
 
         private void OnEnable()
         {
-            //RogueRoyaleNetworkManager.Instance.NetworkManager.TimeManager.OnTick += ServerTick;
+            RogueRoyaleNetworkManager.Instance.NetworkManager.TimeManager.OnTick += ServerTick;
         }
 
         private void ServerTick()
@@ -134,10 +135,8 @@ namespace MultiplayerBase.Scripts
         
 
         [ServerRpc(RequireOwnership = false)]
-        private void SRPC_StartGame()
-        {
-            ORPC_StartGame();
-        }
+        private void SRPC_StartGame() => ORPC_StartGame();
+        
 
         [ObserversRpc]
         private void ORPC_DisplayVictor(string victorName)
@@ -156,6 +155,7 @@ namespace MultiplayerBase.Scripts
         {
             _timerStarted = true;
             _UI.timerDisplay.gameObject.SetActive(true);
+            _waitingPlayersText.SetActive(false);
         }
     }
 }

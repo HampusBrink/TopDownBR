@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FishNet.Connection;
+using FishNet.Object;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -192,14 +194,35 @@ public class Bow : BaseWeapon
         for (int i = -Mathf.FloorToInt(bonusArrows); i <= Mathf.FloorToInt(bonusArrows); i++)
         {
             Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
-            GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
-            arrow.transform.localScale = GetArrowSize();
-            
-            if (arrow.TryGetComponent(out Arrow arrowComponent))
-                arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
-            
-            PropellArrow(arrowComponent.rb, arrowRotation);
+            //GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
+
+            SRPC_SpawnArrow(arrowRotation,OwnerId);
+            // arrow.transform.localScale = GetArrowSize();
+            //
+            // if (arrow.TryGetComponent(out Arrow arrowComponent))
+            //     arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
+            //
+            // PropellArrow(arrowComponent.rb, arrowRotation);
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SRPC_SpawnArrow(Quaternion arrowRotation,int owner) => ORPC_SpawnArrow(arrowRotation, owner);
+    
+
+    [ObserversRpc]
+    private void ORPC_SpawnArrow(Quaternion arrowRotation,int ownerId)
+    {
+        GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
+
+        arrow.GetComponent<Arrow>().OwnerID = ownerId;
+        
+         arrow.transform.localScale = GetArrowSize();
+            
+        if (arrow.TryGetComponent(out Arrow arrowComponent))
+            arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
+            
+        PropellArrow(arrowComponent.rb, arrowRotation);
     }
 
 
