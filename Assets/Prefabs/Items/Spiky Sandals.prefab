@@ -22,7 +22,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _networkObjectCache
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 434168072117607276}
     - target: {fileID: 1053484915722385677, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
@@ -438,7 +438,7 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
-  - {fileID: 0}
+  - {fileID: 8815753296588972095}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -480,5 +480,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a4fb4eecfbdb7b499d00a1c056de539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8815753296588972095 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+    type: 3}
+  m_PrefabInstance: {fileID: 9109589269484872503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461684091852943886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
