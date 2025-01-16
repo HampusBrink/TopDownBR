@@ -27,7 +27,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _networkObjectCache
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -266449256221329061}
     - target: {fileID: 1395657025365427832, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -267,7 +267,8 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours: []
+  NetworkBehaviours:
+  - {fileID: 6499380450634156329}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -291,11 +292,23 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 65535
+  <PrefabId>k__BackingField: 11
   <SpawnableCollectionId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 9813676041061450506
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Position: {x: 1.38, y: 0.6643404, z: -4}
+    Rotation: {x: 0.49882358, y: -0, z: -0, w: 0.86670357}
+    LocalScale: {x: 1, y: 1, z: 1}
+--- !u!114 &6499380450634156329 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6777473043017746977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2129849633678498584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6a39c46bf52104ba8efe3100bce3f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

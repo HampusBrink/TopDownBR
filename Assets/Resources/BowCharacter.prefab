@@ -208,6 +208,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6157119973750638869, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6157119973750638869, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6157119973750638869, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6828795145749420725, guid: 36391774a5f3b014e9f8bd9e1fb86abc,
         type: 3}
       propertyPath: _addedNetworkObject

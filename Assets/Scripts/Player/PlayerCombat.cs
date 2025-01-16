@@ -75,6 +75,7 @@ namespace Player
 
         private void Start()
         {
+            if(!IsOffline) return;
             if (_swordAnimator == null)
             {
                 //Debug.LogError("Sword Animator not found!");
@@ -95,6 +96,7 @@ namespace Player
         private void Update()
         {
             if(!IsOwner && !IsOffline) return;
+            
             UpdateTurnDirection();
             PlayAttackAnimation();
         }

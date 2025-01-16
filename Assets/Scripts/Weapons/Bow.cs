@@ -51,6 +51,7 @@ public class Bow : BaseWeapon
 
     private void Update()
     {
+        if(!IsOwner) return;
         if (_isCharging)
         {
             _windUpTimeElapsed += Time.deltaTime;
