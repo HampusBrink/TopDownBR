@@ -110,10 +110,12 @@ namespace Player
         private TurnDirection GetTurnDirectionFromMouse()
         {
             Vector2 mouseScreenPos = mousePos.action.ReadValue<Vector2>();
-            Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+
+            Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(transform.position);
+
             Vector2 normalizedDirection = new Vector2(
-                (mouseScreenPos.x - screenCenter.x) / Screen.width,
-                (mouseScreenPos.y - screenCenter.y) / Screen.height
+                (mouseScreenPos.x - playerScreenPos.x) / Screen.width,
+                (mouseScreenPos.y - playerScreenPos.y) / Screen.height
             );
     
             var angle = Mathf.Atan2(normalizedDirection.y, normalizedDirection.x) * Mathf.Rad2Deg + 90;
