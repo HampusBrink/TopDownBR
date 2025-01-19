@@ -11,4 +11,9 @@ public class BowPlayerStatus : PlayerStatus
     {
         public int bonusArrows = 0;
     }
+    
+    public float GetBonusArrows()
+    {
+        return Mathf.Max(bowSpecificUpgrades.bonusArrows + itemManager.GetFloat("BonusArrows"), 0f);
+    }
 }

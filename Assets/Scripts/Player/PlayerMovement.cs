@@ -73,6 +73,7 @@ public class PlayerMovement : NetworkBehaviour
         if (!IsOwner)
         {
             staminaBarFill.transform.parent.gameObject.SetActive(false);
+            GetComponent<Rigidbody>().interpolation = RigidbodyInterpolation.None;
         }
 
         if (!IsOwner && !IsOffline)
