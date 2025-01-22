@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using FishNet.Object;
 using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInteract : MonoBehaviour
+public class PlayerInteract : NetworkBehaviour
 {
     [SerializeField] private PlayerStatus player;
     private IInteractable _currentInteractable = null;
@@ -15,6 +16,7 @@ public class PlayerInteract : MonoBehaviour
     private bool _wasHolding = false;
     private void Update()
     {
+        if(!IsOwner) return;
         bool isSame = false;
         bool isHolding = interact.action.ReadValue<float>() != 0f;
         
@@ -52,7 +54,6 @@ public class PlayerInteract : MonoBehaviour
         else
         {
             _currentInteractTime = 0;
-            
         }
         
         _wasHolding = isHolding;
@@ -92,12 +93,14 @@ public class PlayerInteract : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!IsOwner) return;
         if (!_objectsWithinRange.Contains(other.gameObject))
             _objectsWithinRange.Add(other.gameObject);
     }
 
     private void OnTriggerExit(Collider other)
     {
+        if (!IsOwner) return;
         if (_objectsWithinRange.Contains(other.gameObject))
             _objectsWithinRange.Remove(other.gameObject);
     }

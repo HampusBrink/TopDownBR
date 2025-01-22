@@ -16,7 +16,8 @@ namespace NetworkRelated.Steam
 
         [SerializeField] private NetworkManager _networkManager;
         [SerializeField] private FishySteamworks.FishySteamworks _fishySteamworks;
-
+        public FishySteamworks.FishySteamworks FishySteamworks => _fishySteamworks;
+        
         protected Callback<LobbyCreated_t> LobbyCreated;
         protected Callback<GameLobbyJoinRequested_t> JoinRequested;
         protected Callback<LobbyEnter_t> LobbyEnter;
@@ -62,7 +63,7 @@ namespace NetworkRelated.Steam
 
         private void OnLobbyDataUpdate(LobbyDataUpdate_t callback)
         {
-            InitHostMigration();
+            //InitHostMigration();
         }
 
         public void InitHostMigration()

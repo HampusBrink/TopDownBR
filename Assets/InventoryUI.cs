@@ -19,6 +19,10 @@ public class InventoryUI : MonoBehaviour
         
         showInventory.action.performed += InputShow;
         showInventory.action.canceled += InputShow;
+    }
+
+    private void Start()
+    {
         GameManager.Instance.OnPlayerInit += Init;
     }
 

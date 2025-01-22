@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using FishNet.Object;
 using NetworkRelated;
+using NetworkRelated.Steam;
 using Player;
 using Source.Scripts.UI;
+using Steamworks;
 using TMPro;
 using UI;
 using UnityEngine;
@@ -88,6 +90,8 @@ namespace MultiplayerBase.Scripts
 
         public void OnStartGameClicked()
         {
+            SteamMatchmaking.SetLobbyJoinable(new CSteamID(SteamManager.Instance.CurrentLobbyID),false);
+            
             SRPC_StartGame();
             _UI.startGameObject.SetActive(false);
         }

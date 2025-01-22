@@ -76,7 +76,6 @@ public class CameraMovement : MonoBehaviour
         if(GameManager.Instance is not null && GameManager.Instance.isDead)
         {
             SpectateCamera();
-            return;
         }
         if(!FollowTarget) return;
 
@@ -151,6 +150,6 @@ public class CameraMovement : MonoBehaviour
         }
         
         if(!spectatedPlayer) return;
-        _mainCamera.transform.position = new Vector3(spectatedPlayer.transform.position.x,spectatedPlayer.transform.position.y,_mainCamera.transform.position.z);
+        FollowTarget = spectatedPlayer.transform;
     }
 }

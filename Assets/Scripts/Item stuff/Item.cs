@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using FishNet.Object;
 using Player;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Item : MonoBehaviour
+public class Item : NetworkBehaviour
 {
     public List<ItemParameter<object>> parameters;
     public SpriteRenderer spriteRenderer;
+
+    private bool isPendingKill;
 
     public int weight;
 
@@ -23,13 +26,16 @@ public class Item : MonoBehaviour
 
     public void TakeItem(PlayerStatus player)
     {
+        if(isPendingKill) return;
         player.itemManager.TakeItem(this);
+        isPendingKill = true;
         PickupEffectAndDestroy();
     }
-
+    
+    [ServerRpc(RequireOwnership = false)]
     private void PickupEffectAndDestroy()
     {
         //todo: cool effect here
-        Destroy(gameObject);
+        NetworkManager.ServerManager.Despawn(gameObject);
     }
 }

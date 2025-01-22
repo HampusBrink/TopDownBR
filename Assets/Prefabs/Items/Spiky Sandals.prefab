@@ -22,6 +22,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _networkObjectCache
       value: 
+      objectReference: {fileID: 434168072117607276}
+    - target: {fileID: -4701577384984026219, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _componentIndexCache
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
@@ -353,6 +358,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
         type: 3}
+      propertyPath: _addedNetworkObject
+      value: 
+      objectReference: {fileID: 434168072117607276}
+    - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _networkObjectCache
+      value: 
+      objectReference: {fileID: 434168072117607276}
+    - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
+      propertyPath: _componentIndexCache
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531427045197461039, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+        type: 3}
       propertyPath: parameters.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -448,7 +468,8 @@ MonoBehaviour:
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
   NetworkBehaviours:
-  - {fileID: 8815753296588972095}
+  - {fileID: 3650256258996409624}
+  - {fileID: 4659931945707192482}
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -472,7 +493,7 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 3
+  <PrefabId>k__BackingField: 4
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 3884952717783554930
   <SceneId>k__BackingField: 0
@@ -492,9 +513,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4fb4eecfbdb7b499d00a1c056de539, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8815753296588972095 stripped
+--- !u!114 &4659931945707192482 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 305149417876423432, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
+  m_CorrespondingSourceObject: {fileID: -4701577384984026219, guid: 7130d8f01b0028b4bb68e0d357dd9a0f,
     type: 3}
   m_PrefabInstance: {fileID: 9109589269484872503}
   m_PrefabAsset: {fileID: 0}

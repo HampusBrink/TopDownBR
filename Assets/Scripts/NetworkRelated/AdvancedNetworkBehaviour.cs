@@ -32,13 +32,13 @@ namespace NetworkRelated
             print("SERVER IS STARTED");
         }
 
-        // public override void OnStopClient()
-        // {
-        //     base.OnStopClient();
-        //     
-        //     print("Stop Client");
-        //     NetworkManager.ClientManager.OnAuthenticated -= OnClientAuth;
-        // }
+        public override void OnStopClient()
+        {
+            base.OnStopClient();
+            
+            print("Stop Client");
+            NetworkManager.ClientManager.OnAuthenticated -= OnClientAuth;
+        }
 
         private void OnClientAuth()
         {
