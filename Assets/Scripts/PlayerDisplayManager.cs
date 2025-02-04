@@ -13,21 +13,29 @@ public class PlayerDisplayManager : NetworkBehaviour
     [SerializeField] private PlayerDisplay _playerDisplayItem;
     [SerializeField] private Transform _playerDisplayParent;
 
+    protected Callback<AvatarImageLoaded_t> avatarImageLoaded;
+
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-        NetworkManager.ServerManager.OnRemoteConnectionState += RemoteConnectionStarted;
+        NetworkManager.ClientManager.OnRemoteConnectionState += RemoteConnectionStarted;
+        avatarImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnAvatarImageLoaded);
+        UpdatePlayersInLobby();
+    }
+
+    private void OnAvatarImageLoaded(AvatarImageLoaded_t param)
+    {
         UpdatePlayersInLobby();
     }
 
     public override void OnStopClient()
     {
         base.OnStopClient();
-        NetworkManager.ServerManager.OnRemoteConnectionState -= RemoteConnectionStarted;
+        NetworkManager.ClientManager.OnRemoteConnectionState -= RemoteConnectionStarted;
     }
 
-    private void RemoteConnectionStarted(NetworkConnection arg1, RemoteConnectionStateArgs state)
+    private void RemoteConnectionStarted(RemoteConnectionStateArgs state)
     {
         if (state.ConnectionState == RemoteConnectionState.Started)
         {
