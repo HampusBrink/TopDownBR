@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 214b14a1f15643e4c8af23a4a6baf0ac
+guid: b1728f18d8ab374449c9ef6e12313b07
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 14
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,12 +67,12 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Samurai Idle Backwards_0
+      name: Idle U L Body_0
       rect:
         serializedVersion: 2
         x: 0
@@ -120,18 +120,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6e83ee47c900d6e4d9fee6172c53a126
-      internalID: -731491223
+      spriteID: 8f0a72c5be0eb71428485f15276685d4
+      internalID: -1170788829
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_1
+      name: Idle U L Body_1
       rect:
         serializedVersion: 2
         x: 64
@@ -141,18 +142,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b94e3756fde2e44daa23bd626083d40
-      internalID: 1999733433
+      spriteID: c63248b6e06ae884d830375bebdd0302
+      internalID: 984109221
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_2
+      name: Idle U L Body_2
       rect:
         serializedVersion: 2
         x: 128
@@ -162,18 +164,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 44961f4c93ad9f44e9746cd365eb7b64
-      internalID: 2102650205
+      spriteID: c1e3f71a0cfa3dc479bc75300c4798f3
+      internalID: 639481199
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_3
+      name: Idle U L Body_3
       rect:
         serializedVersion: 2
         x: 192
@@ -183,18 +186,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e30ecd04ae781474f9afdc71ef455423
-      internalID: 515384217
+      spriteID: 28482dbdf98ed374290f1b132b4519f2
+      internalID: 1026628613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_4
+      name: Idle U L Body_4
       rect:
         serializedVersion: 2
         x: 256
@@ -204,18 +208,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74be75e88c996e74eb99a03bcd0cb09a
-      internalID: -1967829335
+      spriteID: 912603d6fe524364d84ca870704718d9
+      internalID: -1413781148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_5
+      name: Idle U L Body_5
       rect:
         serializedVersion: 2
         x: 320
@@ -225,18 +230,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 838c3122d6c40b847b092425ea486b51
-      internalID: -21489696
+      spriteID: abe3c1a3c2348c644bc4a4ed68fab265
+      internalID: 897423692
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_6
+      name: Idle U L Body_6
       rect:
         serializedVersion: 2
         x: 384
@@ -246,18 +252,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 697e5a01e8de6f947b31fd34ac5e33c2
-      internalID: 1792408945
+      spriteID: b5f1f228e8bc05f4ba971ac943e14afc
+      internalID: 1391651530
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_7
+      name: Idle U L Body_7
       rect:
         serializedVersion: 2
         x: 448
@@ -267,18 +274,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a553a83e941c79459b8226f7acad7a1
-      internalID: 1407625420
+      spriteID: 0a0aee29d6e8df145853ce688e3551ee
+      internalID: 185818644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_8
+      name: Idle U L Body_8
       rect:
         serializedVersion: 2
         x: 512
@@ -288,18 +296,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 342d0253a1f2b6148b318ac1d38ca52f
-      internalID: -2093302320
+      spriteID: 101bcb3d982d6d24782d9d838bb493dc
+      internalID: 36810287
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_9
+      name: Idle U L Body_9
       rect:
         serializedVersion: 2
         x: 576
@@ -309,18 +318,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9bf3fec6509569a4bb3c97f75bddd717
-      internalID: -139719126
+      spriteID: 397590a95edb692459e55f6f014c5d6a
+      internalID: -345520925
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Backwards_10
+      name: Idle U L Body_10
       rect:
         serializedVersion: 2
         x: 640
@@ -330,80 +340,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d524bd9794f71c3438d93186290e4b6c
-      internalID: -1091930491
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Samurai Idle Backwards_11
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f11ea08679f574643a1a2cbc5e7b71f8
-      internalID: -1281504946
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Samurai Idle Backwards_12
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d731b5fa231be544be14d062e23ede2
-      internalID: -707127994
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Samurai Idle Backwards_13
-      rect:
-        serializedVersion: 2
-        x: 832
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f3e5200e7cd0fd4388157329938894b
-      internalID: -2019153944
+      spriteID: ff537f46273363a489974fefa7e18e67
+      internalID: -1129699349
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -412,22 +361,23 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 5f4c2f97ac68f6e4fad8b83a9001b870, type: 3}
+      name: _NormalMap
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      Samurai Idle Backwards_0: -731491223
-      Samurai Idle Backwards_1: 1999733433
-      Samurai Idle Backwards_10: -1091930491
-      Samurai Idle Backwards_11: -1281504946
-      Samurai Idle Backwards_12: -707127994
-      Samurai Idle Backwards_13: -2019153944
-      Samurai Idle Backwards_2: 2102650205
-      Samurai Idle Backwards_3: 515384217
-      Samurai Idle Backwards_4: -1967829335
-      Samurai Idle Backwards_5: -21489696
-      Samurai Idle Backwards_6: 1792408945
-      Samurai Idle Backwards_7: 1407625420
-      Samurai Idle Backwards_8: -2093302320
-      Samurai Idle Backwards_9: -139719126
+      Idle U L Body_0: -1170788829
+      Idle U L Body_1: 984109221
+      Idle U L Body_10: -1129699349
+      Idle U L Body_2: 639481199
+      Idle U L Body_3: 1026628613
+      Idle U L Body_4: -1413781148
+      Idle U L Body_5: 897423692
+      Idle U L Body_6: 1391651530
+      Idle U L Body_7: 185818644
+      Idle U L Body_8: 36810287
+      Idle U L Body_9: -345520925
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

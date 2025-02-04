@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 51b1e3ffa14f66a42b874976b4058854
+guid: 2bf3408f69a177749826c20b1c963617
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 14
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -67,7 +67,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -80,7 +80,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -93,7 +93,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_0
+      name: Idle D Body_0
       rect:
         serializedVersion: 2
         x: 0
@@ -120,18 +120,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c25f64a4d039cb4ab2451e5f7ddef50
-      internalID: -893728624
+      spriteID: 4d70a33388867154389a1e0cf4e91726
+      internalID: -1296039396
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_1
+      name: Idle D Body_1
       rect:
         serializedVersion: 2
         x: 64
@@ -141,18 +142,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ddd6af6fdec4c364591e87b413265ff5
-      internalID: -359522772
+      spriteID: c2462b507539281429e2c0d4d1cb5336
+      internalID: 1607200708
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_2
+      name: Idle D Body_2
       rect:
         serializedVersion: 2
         x: 128
@@ -162,18 +164,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a6eeeccefe34b9f45b714d4d5698b630
-      internalID: -2033026551
+      spriteID: 229375d85bf3f954780a5531b10c71dd
+      internalID: -1555738385
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_3
+      name: Idle D Body_3
       rect:
         serializedVersion: 2
         x: 192
@@ -183,18 +186,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0262e628342b5cb4f90447bc103fed31
-      internalID: 903197625
+      spriteID: 29a593fe6f9a21c42917a2026e97265a
+      internalID: -195421312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_4
+      name: Idle D Body_4
       rect:
         serializedVersion: 2
         x: 256
@@ -204,18 +208,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ae617f07cb4fed4eaac9a8befbeaaf2
-      internalID: 57828597
+      spriteID: 7e153c0ab7489b04a89cd21edd90c2b3
+      internalID: 109235615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_5
+      name: Idle D Body_5
       rect:
         serializedVersion: 2
         x: 320
@@ -225,18 +230,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4aa589dc455010b4aa63f46f785b24a6
-      internalID: 880424741
+      spriteID: c3a820ebf9e92fc4a887ce4a4310c33b
+      internalID: -1506907923
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_6
+      name: Idle D Body_6
       rect:
         serializedVersion: 2
         x: 384
@@ -246,18 +252,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c566b8cdecb2bd54781cd9805387f4bb
-      internalID: -642182932
+      spriteID: fae06fc43d547c64d9cb86861ca2bd4d
+      internalID: 985255880
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_7
+      name: Idle D Body_7
       rect:
         serializedVersion: 2
         x: 448
@@ -267,18 +274,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ed45f21c00a6b864ab4b18db63001dca
-      internalID: -247720302
+      spriteID: 4787b62fe14fb344b9182ffdc8fbbab6
+      internalID: -1939557095
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_8
+      name: Idle D Body_8
       rect:
         serializedVersion: 2
         x: 512
@@ -288,18 +296,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d507b210b4e696c4dbaba7d9643e52d2
-      internalID: -1142446131
+      spriteID: 46d4a0a864d29c849a6eeef3d63ebc5b
+      internalID: -1164511670
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_9
+      name: Idle D Body_9
       rect:
         serializedVersion: 2
         x: 576
@@ -309,18 +318,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ee581887d050574db6fe47cb241dbbb
-      internalID: 883815398
+      spriteID: 840b3f7d8f3281345959c8ca8f895a88
+      internalID: -1351049287
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_10
+      name: Idle D Body_10
       rect:
         serializedVersion: 2
         x: 640
@@ -330,80 +340,19 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c6169692d1921d344bf43e1177fabc24
-      internalID: -1556176910
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_11
-      rect:
-        serializedVersion: 2
-        x: 704
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7d5656d80b8383c46b044f3dbe334e52
-      internalID: -633974914
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_12
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 37847d707583f3747b7cf2f7064e04c5
-      internalID: -455913301
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Samurai Idle Forward-Sheet_13
-      rect:
-        serializedVersion: 2
-        x: 832
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2a1fa8b5ffecf1646bd42688a30c1048
-      internalID: -688615567
+      spriteID: ad05753ab7237504fa464e1ffb430161
+      internalID: -2029277299
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
@@ -412,22 +361,23 @@ TextureImporter:
     indices: 
     edges: []
     weights: []
-    secondaryTextures: []
+    secondaryTextures:
+    - texture: {fileID: 2800000, guid: 5f4c2f97ac68f6e4fad8b83a9001b870, type: 3}
+      name: _NormalMap
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      Samurai Idle Forward-Sheet_0: -893728624
-      Samurai Idle Forward-Sheet_1: -359522772
-      Samurai Idle Forward-Sheet_10: -1556176910
-      Samurai Idle Forward-Sheet_11: -633974914
-      Samurai Idle Forward-Sheet_12: -455913301
-      Samurai Idle Forward-Sheet_13: -688615567
-      Samurai Idle Forward-Sheet_2: -2033026551
-      Samurai Idle Forward-Sheet_3: 903197625
-      Samurai Idle Forward-Sheet_4: 57828597
-      Samurai Idle Forward-Sheet_5: 880424741
-      Samurai Idle Forward-Sheet_6: -642182932
-      Samurai Idle Forward-Sheet_7: -247720302
-      Samurai Idle Forward-Sheet_8: -1142446131
-      Samurai Idle Forward-Sheet_9: 883815398
+      Idle D Body_0: -1296039396
+      Idle D Body_1: 1607200708
+      Idle D Body_10: -2029277299
+      Idle D Body_2: -1555738385
+      Idle D Body_3: -195421312
+      Idle D Body_4: 109235615
+      Idle D Body_5: -1506907923
+      Idle D Body_6: 985255880
+      Idle D Body_7: -1939557095
+      Idle D Body_8: -1164511670
+      Idle D Body_9: -1351049287
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
