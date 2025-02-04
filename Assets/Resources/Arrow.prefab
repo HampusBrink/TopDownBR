@@ -61,7 +61,10 @@ MonoBehaviour:
   stuckRatio: 0.592
   OwnerID: 0
   initialGroundDistance: 1
-  groundDistanceReductionRate: 1
+  groundDistanceReductionRate: 1.62
+  adjustGroundDistanceHeight: 5
+  forwardRayLength: 1
+  rayCastOrigin: {fileID: 2120883991686931950}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1025
