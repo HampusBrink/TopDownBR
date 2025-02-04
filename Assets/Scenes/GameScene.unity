@@ -2781,6 +2781,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192138255415613763, guid: 210e30c8cea16ad478bf5e94303b8302,
         type: 3}
+      propertyPath: reSpawnInterval
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9192138255415613763, guid: 210e30c8cea16ad478bf5e94303b8302,
+        type: 3}
       propertyPath: spawnPoints.Array.size
       value: 101
       objectReference: {fileID: 0}

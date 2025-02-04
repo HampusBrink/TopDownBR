@@ -17,6 +17,7 @@ public class ItemContainer : NetworkBehaviour
     public GameObject itemView;
     
     private List<ContainerItem> _savedItems = new List<ContainerItem>();
+    public List<Item> _tempItems;
     private bool _isCurrentlyOpen = false;
    
     
@@ -40,6 +41,7 @@ public class ItemContainer : NetworkBehaviour
     private void GiveItem(Item i)
     {
         _giveTo.TakeItem(i);
+        itemView.SetActive(false);
         SRPC_SetChestOpened(true);
     }
 
@@ -61,6 +63,8 @@ public class ItemContainer : NetworkBehaviour
             return _savedItems;
         
         List<ContainerItem> items = new List<ContainerItem>();
+        _tempItems = new List<Item>(this.items);
+        
         for (int i = 0; i < 3; i++)
         {
             items.Add(CreateContainerItem());
@@ -73,7 +77,7 @@ public class ItemContainer : NetworkBehaviour
     {
         ContainerItem containerItem = Instantiate(containerItemPrefab, displayParent);
         containerItem.transform.SetParent(displayParent);
-        containerItem.Init(PullRandomItem(items));
+        containerItem.Init(PullRandomItem(_tempItems));
         containerItem.OnPick += GiveItem;
         
         return containerItem;
@@ -107,6 +111,7 @@ public class ItemContainer : NetworkBehaviour
     {
         //TODO: add chest open and closed sprite
         gameObject.SetActive(!isOpen);
+        _isCurrentlyOpen = isOpen;
     }
 
     private void DisplayItems()

@@ -9,8 +9,8 @@ public class ChestSpawner : NetworkBehaviour
 {
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private ItemContainer chestPrefab;
-    [SerializeField] private float spawnInterval = 1f;
-
+    [SerializeField] private float reSpawnInterval = 1f;
+    
     private List<Transform> _availableSpawnPositions;
     private List<ItemContainer> _spawnedChests = new ();
 
@@ -19,9 +19,19 @@ public class ChestSpawner : NetworkBehaviour
         base.OnStartServer();
         
         _availableSpawnPositions = new List<Transform>(spawnPoints);
-        SpawnChests(spawnPoints.Length / 2);
+        StartCoroutine(CO_ChestSpawner());
     }
 
+    private IEnumerator CO_ChestSpawner()
+    {
+        yield return new WaitUntil(() => GameManager.Instance.GameStarted);
+        SpawnChests(spawnPoints.Length / 2);
+        while (true)
+        {
+            yield return new WaitForSeconds(reSpawnInterval);
+            RespawnChests();
+        }
+    }
     private void SpawnChests(int spawnAmount)
     {
         for (int i = 0; i < spawnAmount; i++)
