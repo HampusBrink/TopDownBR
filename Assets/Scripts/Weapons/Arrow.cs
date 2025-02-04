@@ -21,10 +21,24 @@ public class Arrow : NetworkBehaviour
     private float _range;
     
     private float _elapsedLifeTime;
+    
+    [Header("Ground Distance Settings")]
+    [SerializeField] private float initialGroundDistance = 5f; // Set in Inspector
+    [SerializeField] private float groundDistanceReductionRate = 1f; // Rate at which ground distance decreases
+    //[SerializeField] private float attackRangeMultiplier = 1f; // Multiplies ground distance reduction and speed
+    [SerializeField] private LayerMask groundLayerMask;
+    
+    private float currentGroundDistance;
+    private bool isGroundDistanceZero = false;
 
     private void Start()
     {
-        //Destroy(gameObject, _range);
+        currentGroundDistance = initialGroundDistance;
+        
+        if (rb != null)
+        {
+            rb.useGravity = false;
+        }
     }
     
     private void Update()
@@ -37,6 +51,57 @@ public class Arrow : NetworkBehaviour
         //spriteRenderer.color = Color.Lerp(_startColor, _endColor, t * t);
         
         AdjustArrowRot();
+        
+        
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isGroundDistanceZero)
+        {
+            AdjustGroundDistance();
+        }
+    }
+
+    private void AdjustGroundDistance()
+    {
+        // Raycast to detect ground
+        Ray ray = new Ray(transform.position, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, groundLayerMask))
+        {
+            // Calculate target height based on ground distance
+            float targetHeight = hitInfo.point.y + currentGroundDistance;
+
+            // Adjust position smoothly or directly
+            if (rb != null)
+            {
+                Vector3 targetPosition = new Vector3(transform.position.x, targetHeight, transform.position.z);
+                rb.MovePosition(new Vector3(rb.position.x, Mathf.Lerp(rb.position.y, targetHeight, 0.5f), rb.position.z));
+            }
+            else
+            {
+                transform.position = new Vector3(transform.position.x, targetHeight, transform.position.z);
+            }
+        }
+
+        // Reduce ground distance over time
+        currentGroundDistance -= groundDistanceReductionRate * Time.deltaTime * _range;
+
+        // Handle when ground distance reaches 0
+        if (currentGroundDistance <= 0f)
+        {
+            currentGroundDistance = 0f;
+            isGroundDistanceZero = true;
+            EnableGravity();
+        }
+    }
+
+    private void EnableGravity()
+    {
+        if (rb != null)
+        {
+            rb.useGravity = true; // Re-enable gravity
+        }
     }
     
     public void SetArrowStats(float damage, float range)
@@ -125,4 +190,5 @@ public class Arrow : NetworkBehaviour
             StickToObject(col);
         }
     }
+
 }
