@@ -60,6 +60,7 @@ public class Arrow : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        _adjustedHeightThisStep = false;
         Debug.DrawLine(rayCastOrigin.position, rayCastOrigin.position + rayCastOrigin.forward * forwardRayLength, Color.red, 1f);
         Debug.DrawLine(rayCastOrigin.position + new Vector3(0f,adjustGroundDistanceHeight,0f), rayCastOrigin.position, Color.cyan, 1f);
 
@@ -69,6 +70,43 @@ public class Arrow : NetworkBehaviour
         }
     }
 
+    private RaycastHit[] hits = new RaycastHit[128];
+    private void AlignTrajectory()
+    {
+        float climbDistance = 1f;
+
+        Vector3 from = transform.position + Vector3.up * climbDistance;
+        float distance = climbDistance * 2f;
+
+        Ray ray = new Ray(from, Vector3.down);
+
+        int count = Physics.RaycastNonAlloc(ray, hits, distance, groundLayerMask);
+
+        RaycastHit lowest = FindLowestHit(hits, count);
+    }
+
+    private RaycastHit FindLowestHit(RaycastHit[] hits, int count)
+    {
+        if (hits.Length == 0)
+            return new RaycastHit(); // Make it empty somehow.
+
+        RaycastHit compareHit = hits[0];
+
+        for (int i = 1; i < count; i++)
+        {
+            if (hits[i].point.y < compareHit.point.y)
+                compareHit = hits[i];
+        }
+
+        return compareHit;
+    }
+    
+    Vector3 GetMoveOnNormal(Vector3 move, Vector3 worldNormal)
+    {
+        Vector3 cross = Vector3.Cross(move, Vector3.up); // Cross product magic to get the vector we want to move on the normal.
+        return Vector3.Cross(worldNormal, cross); // The move-input vector we'll use for moving on surfaces.
+    }
+    
     private void AdjustGroundDistance()
     {
         
@@ -81,13 +119,13 @@ public class Arrow : NetworkBehaviour
             if (Physics.Raycast(elevatedDownRay, out RaycastHit elevatedDownRayHitInfo, adjustGroundDistanceHeight, groundLayerMask))
             {
                 // Debug.DrawLine(rayCastOrigin.position + new Vector3(0f,adjustGroundDistanceHeight,0f), rayCastOrigin.position, Color.cyan, 1f);
-                SetArrowToGroundHeight(elevatedDownRayHitInfo.point.y);
+                SetArrowToGroundHeight(elevatedDownRayHitInfo);
             }
         }
         // Ray to check for ground under the arrow
         else if (Physics.Raycast(downRay, out RaycastHit downHitInfo, adjustGroundDistanceHeight, groundLayerMask))
         {
-            SetArrowToGroundHeight(downHitInfo.point.y);
+            SetArrowToGroundHeight(downHitInfo);
         }
 
         // Reduce ground distance over time
@@ -99,23 +137,39 @@ public class Arrow : NetworkBehaviour
             _currentGroundDistance = 0f;
             _isGroundDistanceZero = true;
             EnableGravity();
+            Debug.Log("Enables gravity for " + this.gameObject.name);
         }
     }
 
-    private void SetArrowToGroundHeight(float pointY)
+    private void SetArrowToGroundHeight(RaycastHit hit)
     {
         // Calculate target height based on ground distance
-        float targetHeight = pointY + _currentGroundDistance;
+        float targetHeight = hit.point.y + _currentGroundDistance;
 
         // Adjust position smoothly or directly
         if (rb)
         {
-            rb.MovePosition(new Vector3(rb.position.x, Mathf.Lerp(rb.position.y, targetHeight, 0.5f), rb.position.z));
+            // rb.MovePosition(new Vector3(rb.position.x, Mathf.Lerp(rb.position.y, targetHeight, 0.5f), rb.position.z));
+            //rb.MovePosition(new Vector3(rb.position.x, rb.position.y + _currentGroundDistance, rb.position.z));
+            Vector3 height = hit.point + _currentGroundDistance * Vector3.up; 
+            Vector3 diff = rayCastOrigin.position - height;
+            transform.position = new Vector3(transform.position.x, targetHeight, transform.position.z);
+            AlignVelocity(hit);
+            _adjustedHeightThisStep = true;
         }
         else
         {
             transform.position = new Vector3(transform.position.x, targetHeight, transform.position.z);
         }
+    }
+
+    private void AlignVelocity(RaycastHit hit)
+    {
+        Vector3 normal = hit.normal;
+        
+        Vector3 newVel = GetMoveOnNormal(rb.linearVelocity.normalized, normal) * 10f;
+        Debug.DrawRay(transform.position, newVel, Color.yellow, 1f);
+        rb.linearVelocity = newVel;
     }
 
     private void EnableGravity()
@@ -184,6 +238,8 @@ public class Arrow : NetworkBehaviour
         transform.position = to;
     }
     
+    private bool _adjustedHeightThisStep = false;
+    
     private void OnTriggerEnter(Collider col)
     {
         if(!GameManager.Instance.localPlayer.IsServerStarted) return;
@@ -207,10 +263,11 @@ public class Arrow : NetworkBehaviour
         {
             return;
         }
-        else if (!_hasStuckToObject)
+        else if (!_hasStuckToObject && !_adjustedHeightThisStep)
         {
             StickToObject(col);
         }
+        
     }
 
 }

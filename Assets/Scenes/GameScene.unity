@@ -3795,6 +3795,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 20 Player Map
       objectReference: {fileID: 0}
+    - target: {fileID: 2037975069576255193, guid: 97489267c99abfb4fbbd9e3c2c7a5ac8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3228896759604136833, guid: 97489267c99abfb4fbbd9e3c2c7a5ac8,
         type: 3}
       propertyPath: m_Layer
