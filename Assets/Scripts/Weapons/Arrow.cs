@@ -21,10 +21,27 @@ public class Arrow : NetworkBehaviour
     private float _range;
     
     private float _elapsedLifeTime;
+    
+    [Header("Ground Distance Settings")]
+    [SerializeField] private float initialGroundDistance = 5f; // Set in Inspector
+    [SerializeField] private float groundDistanceReductionRate = 1f; // Rate at which ground distance decreases
+    [SerializeField] private float adjustGroundDistanceHeight = 5f;
+    [SerializeField] private float forwardRayLength = 1f;
+    //[SerializeField] private float attackRangeMultiplier = 1f; // Multiplies ground distance reduction and speed
+    [SerializeField] private Transform rayCastOrigin;
+    [SerializeField] private LayerMask groundLayerMask;
+    
+    private float _currentGroundDistance;
+    private bool _isGroundDistanceZero = false;
 
     private void Start()
     {
-        //Destroy(gameObject, _range);
+        _currentGroundDistance = initialGroundDistance;
+        
+        if (rb != null)
+        {
+            rb.useGravity = false;
+        }
     }
     
     private void Update()
@@ -37,6 +54,76 @@ public class Arrow : NetworkBehaviour
         //spriteRenderer.color = Color.Lerp(_startColor, _endColor, t * t);
         
         AdjustArrowRot();
+        
+        
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.DrawLine(rayCastOrigin.position, rayCastOrigin.position + rayCastOrigin.forward * forwardRayLength, Color.red, 1f);
+        Debug.DrawLine(rayCastOrigin.position + new Vector3(0f,adjustGroundDistanceHeight,0f), rayCastOrigin.position, Color.cyan, 1f);
+
+        if (!_isGroundDistanceZero)
+        {
+            AdjustGroundDistance();
+        }
+    }
+
+    private void AdjustGroundDistance()
+    {
+        
+        Ray downRay = new Ray(rayCastOrigin.position, Vector3.down);
+        Ray forwardRay = new Ray(rayCastOrigin.position, Vector3.forward);
+        if (Physics.Raycast(forwardRay, out RaycastHit forwardHitInfo, forwardRayLength, groundLayerMask))
+        {
+            // Debug.DrawLine(rayCastOrigin.position, rayCastOrigin.position + rayCastOrigin.forward * forwardRayLength, Color.red, 1f);
+            Ray elevatedDownRay = new Ray(rayCastOrigin.position + new Vector3(0f,adjustGroundDistanceHeight,0f), Vector3.down);
+            if (Physics.Raycast(elevatedDownRay, out RaycastHit elevatedDownRayHitInfo, adjustGroundDistanceHeight, groundLayerMask))
+            {
+                // Debug.DrawLine(rayCastOrigin.position + new Vector3(0f,adjustGroundDistanceHeight,0f), rayCastOrigin.position, Color.cyan, 1f);
+                SetArrowToGroundHeight(elevatedDownRayHitInfo.point.y);
+            }
+        }
+        // Ray to check for ground under the arrow
+        else if (Physics.Raycast(downRay, out RaycastHit downHitInfo, adjustGroundDistanceHeight, groundLayerMask))
+        {
+            SetArrowToGroundHeight(downHitInfo.point.y);
+        }
+
+        // Reduce ground distance over time
+        _currentGroundDistance -= groundDistanceReductionRate * Time.deltaTime * _range;
+
+        // Handle when ground distance reaches 0
+        if (_currentGroundDistance <= 0f)
+        {
+            _currentGroundDistance = 0f;
+            _isGroundDistanceZero = true;
+            EnableGravity();
+        }
+    }
+
+    private void SetArrowToGroundHeight(float pointY)
+    {
+        // Calculate target height based on ground distance
+        float targetHeight = pointY + _currentGroundDistance;
+
+        // Adjust position smoothly or directly
+        if (rb)
+        {
+            rb.MovePosition(new Vector3(rb.position.x, Mathf.Lerp(rb.position.y, targetHeight, 0.5f), rb.position.z));
+        }
+        else
+        {
+            transform.position = new Vector3(transform.position.x, targetHeight, transform.position.z);
+        }
+    }
+
+    private void EnableGravity()
+    {
+        if (rb != null)
+        {
+            rb.useGravity = true; // Re-enable gravity
+        }
     }
     
     public void SetArrowStats(float damage, float range)
@@ -125,4 +212,5 @@ public class Arrow : NetworkBehaviour
             StickToObject(col);
         }
     }
+
 }
