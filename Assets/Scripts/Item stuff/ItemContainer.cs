@@ -1,15 +1,17 @@
 using System.Collections.Generic;
+using FishNet.Object;
 using Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class ItemContainer : MonoBehaviour
+public class ItemContainer : NetworkBehaviour
 {
     // Server side loot table/same for everyone
     // On open client asks server for loot table, if it doesn't exist, server creates one.
 
     private ItemManager _giveTo = null;
 
-    public Item item;
+    public List<Item> items;
     public ContainerItem containerItemPrefab;
     public Transform displayParent;
     public GameObject itemView;
@@ -38,7 +40,13 @@ public class ItemContainer : MonoBehaviour
     private void GiveItem(Item i)
     {
         _giveTo.TakeItem(i);
-        Destroy(gameObject);
+        SRPC_DestroyItem();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SRPC_DestroyItem()
+    {
+        NetworkManager.ServerManager.Despawn(gameObject);
     }
 
     private List<ContainerItem> GetItems() // switch to other class
@@ -59,10 +67,34 @@ public class ItemContainer : MonoBehaviour
     {
         ContainerItem containerItem = Instantiate(containerItemPrefab, displayParent);
         containerItem.transform.SetParent(displayParent);
-        containerItem.Init(item);
+        containerItem.Init(PullRandomItem(items));
         containerItem.OnPick += GiveItem;
         
         return containerItem;
+    }
+
+    private Item PullRandomItem(List<Item> items)
+    {
+        var totalWeight = 0;
+        foreach (var item in items)
+        {
+            totalWeight += item.weight;
+        }
+
+        var randomWeight = Random.Range(0f, totalWeight);
+        
+        var cumulativeWeight = 0;
+        foreach (var item in items)
+        {
+            cumulativeWeight += item.weight;
+            if (randomWeight <= cumulativeWeight)
+            {
+                items.Remove(item);
+                return item;
+            }
+        }
+
+        return null;
     }
 
     private void DisplayItems()
