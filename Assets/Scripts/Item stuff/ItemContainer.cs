@@ -40,13 +40,19 @@ public class ItemContainer : NetworkBehaviour
     private void GiveItem(Item i)
     {
         _giveTo.TakeItem(i);
-        SRPC_DestroyItem();
+        SRPC_SetChestOpened(true);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SRPC_DestroyItem()
+    public void SRPC_SetChestOpened(bool isOpen)
     {
-        NetworkManager.ServerManager.Despawn(gameObject);
+        ORPC_SetChestOpened(isOpen);
+    }
+
+    [ObserversRpc]
+    private void ORPC_SetChestOpened(bool isOpen)
+    {
+        SetChestOpened(isOpen);
     }
 
     private List<ContainerItem> GetItems() // switch to other class
@@ -95,6 +101,12 @@ public class ItemContainer : NetworkBehaviour
         }
 
         return null;
+    }
+
+    private void SetChestOpened(bool isOpen)
+    {
+        //TODO: add chest open and closed sprite
+        gameObject.SetActive(!isOpen);
     }
 
     private void DisplayItems()

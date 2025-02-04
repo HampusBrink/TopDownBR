@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 2939353330854854697}
   - component: {fileID: 1878171012679943013}
   - component: {fileID: 4322458883198082157}
-  - component: {fileID: 8391349696339798194}
+  - component: {fileID: 968038650590930687}
   m_Layer: 11
   m_Name: Item Container
   m_TagString: Untagged
@@ -344,8 +344,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 8391349696339798194}
-  _networkObjectCache: {fileID: 8391349696339798194}
+  _addedNetworkObject: {fileID: 968038650590930687}
+  _networkObjectCache: {fileID: 0}
   items:
   - {fileID: 3491043316064210372, guid: 6d8a1535a6fd61742935a62a57e365e8, type: 3}
   - {fileID: 1355012041133292558, guid: fd86a134d5350a740b277d91460ef380, type: 3}
@@ -388,7 +388,7 @@ MonoBehaviour:
   onCancelHighlight:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8391349696339798194
+--- !u!114 &968038650590930687
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -404,8 +404,7 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
   <PredictedOwner>k__BackingField: {fileID: 0}
-  NetworkBehaviours:
-  - {fileID: 1878171012679943013}
+  NetworkBehaviours: []
   InitializedParentNetworkBehaviour: {fileID: 0}
   InitializedNestedNetworkObjects: []
   RuntimeParentNetworkBehaviour: {fileID: 0}
@@ -429,11 +428,11 @@ MonoBehaviour:
   _spectatorInterpolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  <PrefabId>k__BackingField: 16
+  <PrefabId>k__BackingField: 65535
   <SpawnableCollectionId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 12982182817002560354
   <SceneId>k__BackingField: 0
   SerializedTransformProperties:
-    Position: {x: -1.0261079, y: -10.26, z: -5.1261377}
-    Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    LocalScale: {x: 0, y: 0, z: 0}

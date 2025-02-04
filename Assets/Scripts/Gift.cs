@@ -6,13 +6,13 @@ using UnityEngine;
 public class Gift : NetworkBehaviour
 {
     private Transform spawnPosition;
-    private GiftSpawning spawner;
+    private ChestSpawner spawner;
 
     public override void OnStartClient()
     {
         base.OnStartClient();
         
-        spawner = FindObjectOfType<GiftSpawning>();
+        spawner = FindObjectOfType<ChestSpawner>();
     }
 
     public void SetSpawnPosition(Transform position)
