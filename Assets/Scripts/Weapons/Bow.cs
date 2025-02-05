@@ -219,11 +219,12 @@ public class Bow : BaseWeapon
         arrow.GetComponent<Arrow>().OwnerID = ownerId;
         
          arrow.transform.localScale = GetArrowSize();
-            
-        if (arrow.TryGetComponent(out Arrow arrowComponent))
-            arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
-            
-        PropellArrow(arrowComponent.rb, arrowRotation);
+
+         if (arrow.TryGetComponent(out Arrow arrowComponent))
+         {
+             arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
+             arrowComponent.Shoot(arrowRotation * Vector3.down * GetShootForce()); // Assuming down is forward
+         }
     }
 
 
