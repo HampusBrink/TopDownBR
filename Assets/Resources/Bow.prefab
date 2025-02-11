@@ -9865,7 +9865,7 @@ MonoBehaviour:
   chargeParticle: {fileID: 8555686488128973472}
   fullChargeParticle: {fileID: 2263637853440891806}
   maxBowPivotAngle: 30
-  maxShootForce: 20
+  defaultShootForce: 9
   damageToArrowSizeScale: 1.2
   baseBonusArrows: 0
   angleBetweenBonusArrows: 15

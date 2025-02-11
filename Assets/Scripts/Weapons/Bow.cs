@@ -17,7 +17,7 @@ public class Bow : BaseWeapon
     [SerializeField] private ParticleSystem chargeParticle;
     [SerializeField] private ParticleSystem fullChargeParticle;
     [SerializeField] private float maxBowPivotAngle = 30f;
-    [SerializeField] private float maxShootForce = 20f;
+    [SerializeField] private float defaultShootForce = 20f;
     [SerializeField] private float damageToArrowSizeScale = 1.1f;
     
     [FormerlySerializedAs("bonusArrows")]
@@ -65,7 +65,7 @@ public class Bow : BaseWeapon
                 _fullChargeParticlePlayed = true;
 
                 // Automatically fire the arrow when fully charged
-                float shootForce = maxShootForce;
+                float shootForce = defaultShootForce;
                 SpawnArrow(_bonusArrows);
 
                 // Reset charging and particles after shooting
@@ -174,12 +174,7 @@ public class Bow : BaseWeapon
 
     private float GetShootForce()
     {
-        return (MultipliedRange * maxShootForce) / 3f;
-    }
-
-    private void PropellArrow(Rigidbody rb, Quaternion arrowRotation)
-    {
-        rb.AddForce(arrowRotation * Vector3.up * (-1 * GetShootForce()), ForceMode.Impulse);
+        return MultipliedRange * defaultShootForce;
     }
 
     private Vector3 GetArrowSize()
@@ -188,13 +183,16 @@ public class Bow : BaseWeapon
         return new Vector3(multipliedSize, multipliedSize, multipliedSize);
     }
     
+    // Unscrupulous: Being unrestrained by scruples
+    
     private void SpawnArrow(int bonusArrows)
     {
         float angleIncrement = 15f; // Angle between arrows, can be adjusted
 
         for (int i = -Mathf.FloorToInt(bonusArrows); i <= Mathf.FloorToInt(bonusArrows); i++)
         {
-            Quaternion arrowRotation = transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
+            Quaternion arrowRotation = Quaternion.LookRotation(-transform.up, Vector3.up);
+                //transform.rotation * Quaternion.Euler(0, 0, i * angleBetweenBonusArrows);
             //GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position, arrowRotation);
 
             SRPC_SpawnArrow(arrowRotation,OwnerId);
@@ -223,7 +221,7 @@ public class Bow : BaseWeapon
          if (arrow.TryGetComponent(out Arrow arrowComponent))
          {
              arrowComponent.SetArrowStats(MultipliedDamage, MultipliedRange);
-             arrowComponent.Shoot(arrowRotation * Vector3.down * GetShootForce()); // Assuming down is forward
+             arrowComponent.Shoot(arrowRotation * Vector3.forward * GetShootForce()); // Assuming down is forward :D
          }
     }
 

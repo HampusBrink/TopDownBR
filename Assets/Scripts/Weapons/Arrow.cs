@@ -15,20 +15,28 @@ public class Arrow : NetworkBehaviour
     private float _range;
     
     [Header("Height Adjust Things")]
-    [SerializeField] private float hoverHeight = 1f;
     [SerializeField] private float surfaceSnapDistance = 5f;
     [SerializeField] private LayerMask adjustToLayers;
+    [SerializeField] private AnimationCurve heightOverTime;
+    [SerializeField] private float defaultArrowSpeed = 2f;
+    private float _currentFlyTime = 0f;
+    
     
     
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        
+    }
+
+    private void Start()
+    {
     }
 
 
     public void Shoot(Vector3 shootVec)
     {
-        rb.linearVelocity = shootVec;
+        rb.linearVelocity = shootVec * defaultArrowSpeed;
     }
     
     public void SetArrowStats(float damage, float range)
@@ -39,7 +47,26 @@ public class Arrow : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        if (CheckForEndFly())
+            return;
+        
         CollideCheck();
+        _currentFlyTime += Time.fixedDeltaTime;
+        AlignVerticalVelocity();
+    }
+
+    public Vector3 GetVelocity() => rb.linearVelocity;
+
+    private bool CheckForEndFly()
+    {
+        // Assuming the curve ends at x = 1
+        if (_currentFlyTime * defaultArrowSpeed >= 1f)
+        {
+            rb.useGravity = true;
+            return true;
+        }
+
+        return false;
     }
 
     private Vector3 PredictPos()
@@ -68,7 +95,7 @@ public class Arrow : NetworkBehaviour
             }
             if (!TryAdjustHeightUp(maxClimbDistance))
             {
-                Destroy(gameObject);
+                Destroy(gameObject); // stick instead
             }
         }
         else
@@ -92,7 +119,7 @@ public class Arrow : NetworkBehaviour
         {
             return false;
         }
-        transform.position = new Vector3(transform.position.x, lowest.point.y + hoverHeight, transform.position.z);
+        transform.position = new Vector3(transform.position.x, lowest.point.y + GetHoverHeight(), transform.position.z);
         
         return true;
     }
@@ -108,11 +135,26 @@ public class Arrow : NetworkBehaviour
             return false;
         
         RaycastHit highest = GetExtremeHit(heightHits, count, true);
-        transform.position = new Vector3(transform.position.x, highest.point.y + hoverHeight, transform.position.z);
+        transform.position = new Vector3(transform.position.x, highest.point.y + GetHoverHeight(), transform.position.z);
         
         return true;
     }
-
+    
+    private void AlignVerticalVelocity()
+    {
+        float diff = GetHoverHeight() - GetHoverHeight(-Time.fixedDeltaTime);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, diff / Time.fixedDeltaTime, rb.linearVelocity.z);
+    }
+    
+    private float GetHoverHeight()
+    {
+        return heightOverTime.Evaluate(_currentFlyTime * defaultArrowSpeed);
+    }
+    
+    private float GetHoverHeight(float offset)
+    {
+        return heightOverTime.Evaluate((Mathf.Clamp01(_currentFlyTime*defaultArrowSpeed) + offset));
+    }
     
     private RaycastHit GetExtremeHit(RaycastHit[] hits, int count, bool highest)
     {

@@ -246,7 +246,7 @@ public class OldArrow : NetworkBehaviour
         
         //if (!GameManager.Instance.GameStarted) return; 
 
-        if (col.gameObject.layer is 7) // Assuming PlayerHitbox is layer 7
+        if (col.gameObject.layer is 7) // Assuming PlayerHitbox is layer 7 :D
         {
             if (col.transform.parent.TryGetComponent(out NetworkObject no))
             {
